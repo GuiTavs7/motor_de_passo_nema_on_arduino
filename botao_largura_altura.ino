@@ -60,7 +60,7 @@ void loop() {
       digitalWrite(pino_direcao, HIGH); // Atribui HIGH ao pino de direção -> HIGH = HORÁRIO
       delayMicroseconds(1000); //Atraso de 1 segundo
       Serial.println("Girando o motor no sentido horário"); // Printa no monitor serial em qual sentido o motor está girando
-      segundo_ciclo = 0; // REINICIA O ESTADO DO BOTÃO
+      segundo_ciclo = 0; // REINICIA O ESTADO DO BOTÃO PARA 0 - IMPORTANTE PARA COMEÇAR O SEGUNDO LOOP (ALTURA)
 
       for(int x = 0; x < qtd_voltas * 800; x++){ // Loop For para girar o motor no sentido horário
 
@@ -121,7 +121,7 @@ void loop() {
     
   }
 
-segundo_ciclo = 1; //ATRIBUI 1 AO SEGUNDO CICLO PRA NÃO FICAR PRESO NO BOTÃO
+segundo_ciclo = 1; //ATRIBUI 1 AO SEGUNDO CICLO PRA NÃO FICAR PRESO NO BOTÃO - VOLTAR AO PRIMEIRO CICLO (LARGURA)
 
 }  // FIM FA FUNÇÃO VOID LOOP
 
