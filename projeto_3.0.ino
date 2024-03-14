@@ -23,7 +23,7 @@ float larguras[] = {4.0, 8.0, 16.0}; //Vetor de larguras correspondentes às pe�
 float alturas[] = {3.0, 5.0, 15.0}; //Vetor de alturas correspondentes às peças conforme os códigos de barras
 int num_pedidos = sizeof(codigos) / sizeof(codigos[0]); // Variável para ser utilizada no limite do loop "for", para fazer o programa iterar até a quantidade necessária de códigos de barras
 int qtd_voltas; // Variável para armazenar o número de voltas, que será de acordo com o valor do float larguras ou do float alturas
-int segundo_ciclo = 0;
+int segundo_ciclo = 0; // Inicializa segundo ciclo com 0
 int contador = 0; // Inicializa contador com 0
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -37,7 +37,7 @@ void setup() {
   pinMode(botao_altura, INPUT_PULLUP); // DEFINE O PINO DO BOTÃO COMO ENTRADA E COM UM RESISTOR INTERNO PARA EVITAR LEITURAS ALEATÓRIAS
   pinMode(botao_fim_de_curso, INPUT_PULLUP); // DEFINE O BOTÃO FIM DE CURSO COMO ENTRADA E COM RESISTOR INTERNO
   pinMode(botao_parada_total, INPUT_PULLUP); // DEFINE O BOTÃO PARADA TOTAL COMO ENTRADA E COM RESISTOR INTERNO
-  Serial.begin(9600);            // Inicializa a comunicação serial com a velocidade de 9600 baud
+  Serial.begin(9600);                        // Inicializa a comunicação serial com a velocidade de 9600 baud
 }
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -55,7 +55,7 @@ void loop() {
 
   if(estado_botao_parada_total == LOW){ // SE O BOTÃO DE PARADA TOTAL FOR PRESSIONADO:
 
-    Serial.println("BOTÃO PARADA TOTAL PRESSIONADO!!!");
+    Serial.println("\n BOTÃO PARADA TOTAL PRESSIONADO!!! \n");
 
     digitalWrite(enable_pin, HIGH);
 
@@ -75,7 +75,7 @@ void loop() {
 
     if(estado_botao_parada_total == LOW){ // SE O BOTÃO DE PARADA TOTAL FOR PRESSIONADO:
 
-      Serial.println("BOTÃO PARADA TOTAL PRESSIONADO!!!");
+      Serial.println("\n BOTÃO PARADA TOTAL PRESSIONADO!!! \n");
 
       digitalWrite(enable_pin, HIGH);
 
@@ -83,10 +83,12 @@ void loop() {
 
     // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+    Serial.println("CONTAGEM ATUAL DO NÚMERO DE PEDIDOS ATÉ A POSIÇÃO INICIAL: \n");
+
     Serial.println(contador); // EXIBE O VALOR DE CONTADOR NO SERIAL PRINT 
 
     // Espera até que o usuário insira o número do código de barras
-    Serial.println("Insira o número do código de barras: ");
+    Serial.println("\n Insira o número do código de barras: ");
 
     // O programa não continua até que o usuário digite o número de voltas
     while (!Serial.available()); 
@@ -103,7 +105,7 @@ void loop() {
 
       if(estado_botao_parada_total == LOW){ // SE O BOTÃO DE PARADA TOTAL FOR PRESSIONADO:
 
-        Serial.println("BOTÃO PARADA TOTAL PRESSIONADO!!!");
+        Serial.println("\n BOTÃO PARADA TOTAL PRESSIONADO!!! \n");
 
         digitalWrite(enable_pin, HIGH);
 
@@ -119,7 +121,7 @@ void loop() {
 
         if(estado_botao_parada_total == LOW){ // SE O BOTÃO DE PARADA TOTAL FOR PRESSIONADO:
 
-            Serial.println("BOTÃO PARADA TOTAL PRESSIONADO!!!");
+            Serial.println("\n BOTÃO PARADA TOTAL PRESSIONADO!!! \n");
 
             digitalWrite(enable_pin, HIGH);
 
@@ -127,13 +129,15 @@ void loop() {
 
         // Atribui a quantidade de voltas correspondente ao que foi lido no vetor de largura
         // 1 volta = 1 * 800 = 800 no Loop For -> 2 voltas = 2 * 800 = 1600 no Loop For 
+
         qtd_voltas = larguras[i];
+
         Serial.println(larguras[i]); // Printamos a medida que o motor irá movimentar para não nos perdermos
 
         // GIRANDO O MOTOR NO SENTIDO HORÁRIO
         digitalWrite(pino_direcao, HIGH); // Atribui HIGH ao pino de direção -> HIGH = HORÁRIO
         delayMicroseconds(1000); //Atraso de 1 segundo
-        Serial.println("Girando o motor no sentido horário"); // Printa no monitor serial em qual sentido o motor está girando
+        Serial.println("Girando o motor no sentido horário \n"); // Printa no monitor serial em qual sentido o motor está girando
         segundo_ciclo = 0; // REINICIA O ESTADO DO BOTÃO PARA 0 - IMPORTANTE PARA COMEÇAR O SEGUNDO LOOP (ALTURA)
 
         for(int x = 0; x < qtd_voltas * 800; x++){ // Loop For para girar o motor no sentido horário
@@ -144,7 +148,7 @@ void loop() {
 
           if(estado_botao_parada_total == LOW){ // SE O BOTÃO DE PARADA TOTAL FOR PRESSIONADO:
 
-            Serial.println("BOTÃO PARADA TOTAL PRESSIONADO!!!");
+            Serial.println("\n BOTÃO PARADA TOTAL PRESSIONADO!!! \n");
 
             digitalWrite(enable_pin, HIGH);
 
@@ -171,7 +175,7 @@ void loop() {
 
     if(estado_botao_parada_total == LOW){ // SE O BOTÃO DE PARADA TOTAL FOR PRESSIONADO:
 
-      Serial.println("BOTÃO PARADA TOTAL PRESSIONADO!!!");
+      Serial.println("\n BOTÃO PARADA TOTAL PRESSIONADO!!! \n");
 
       digitalWrite(enable_pin, HIGH);
 
@@ -194,7 +198,7 @@ void loop() {
 
         if(estado_botao_parada_total == LOW){ // SE O BOTÃO DE PARADA TOTAL FOR PRESSIONADO:
 
-          Serial.println("BOTÃO PARADA TOTAL PRESSIONADO!!!");
+          Serial.println("\n BOTÃO PARADA TOTAL PRESSIONADO!!! \n");
 
           digitalWrite(enable_pin, HIGH);
 
@@ -204,7 +208,7 @@ void loop() {
 
 
 
-        Serial.println("BOTÃO PRESSIONADO: Iniciando segundo ciclo!");
+        Serial.println("BOTÃO DO SEGUNDO CICLO PRESSIONADO!!! - Iniciando segundo ciclo - ALTURA! \n");
 
         // LOOP FOR PARA ITERAR ATÉ O NÚMERO DE PEDIDOS
 
@@ -216,7 +220,7 @@ void loop() {
 
           if(estado_botao_parada_total == LOW){ // SE O BOTÃO DE PARADA TOTAL FOR PRESSIONADO:
 
-            Serial.println("BOTÃO PARADA TOTAL PRESSIONADO!!!");
+            Serial.println("\n BOTÃO PARADA TOTAL PRESSIONADO!!! \n");
 
             digitalWrite(enable_pin, HIGH);
 
@@ -227,12 +231,13 @@ void loop() {
           if (codigos[i] == codigo) { 
 
             qtd_voltas = alturas[i]; // Na segunda volta armazenamos na quantidade de voltas o valor do vetor ALTURAS
+
             Serial.println(alturas[i]); // Printa o valor correspondente ao índice altura = quantidade de voltas do motor
 
             // GIRANDO O MOTOR NO SENTIDO ANTI-HORÁRIO
             digitalWrite(pino_direcao, LOW); // Atribui LOW ao pino de direção -> LOW = ANTI-HORÁRIO
             delayMicroseconds(1000); //Atraso de 1 segundo
-            Serial.println("Girando o motor no sentido anti-horário"); // Printa no monitor serial em qual sentido o motor está girando
+            Serial.println("Girando o motor no sentido anti-horário \n"); // Printa no monitor serial em qual sentido o motor está girando
 
             for(int x = 0; x < qtd_voltas * 800; x++){ // Loop For para girar o motor no sentido horário
 
@@ -242,7 +247,7 @@ void loop() {
 
               if(estado_botao_parada_total == LOW){ // SE O BOTÃO DE PARADA TOTAL FOR PRESSIONADO:
 
-                Serial.println("BOTÃO PARADA TOTAL PRESSIONADO!!!");
+                Serial.println("\n BOTÃO PARADA TOTAL PRESSIONADO!!! \n");
 
                 digitalWrite(enable_pin, HIGH);
 
@@ -284,7 +289,7 @@ void loop() {
     // GIRANDO O MOTOR NO SENTIDO ANTI-HORÁRIO
     digitalWrite(pino_direcao, LOW); // Atribui LOW ao pino de direção -> LOW = ANTI-HORÁRIO
     delayMicroseconds(1000); //Atraso de 1 segundo
-    Serial.println("GIRANDO O MOTOR NO SENTIDO ANTI-HORÁRIO ATÉ POSIÇÃO INICIAL"); // Printa no monitor serial em qual sentido o motor está girando
+    Serial.println("GIRANDO O MOTOR NO SENTIDO ANTI-HORÁRIO ATÉ POSIÇÃO INICIAL \n"); // Printa no monitor serial em qual sentido o motor está girando
 
     for(int x = 0; x < num_pedidos * 800; x++){ // Loop For para girar o motor no sentido anti-horário
 
@@ -294,7 +299,7 @@ void loop() {
 
       if(estado_botao_parada_total == LOW){ // SE O BOTÃO DE PARADA TOTAL FOR PRESSIONADO:
 
-        Serial.println("BOTÃO PARADA TOTAL PRESSIONADO!!!");
+        Serial.println("\n BOTÃO PARADA TOTAL PRESSIONADO!!! \n");
 
         digitalWrite(enable_pin, HIGH);
 
@@ -316,7 +321,7 @@ void loop() {
 
         if(estado_botao_parada_total == LOW){ // SE O BOTÃO DE PARADA TOTAL FOR PRESSIONADO:
 
-          Serial.println("BOTÃO PARADA TOTAL PRESSIONADO!!!");
+          Serial.println("\n BOTÃO PARADA TOTAL PRESSIONADO!!! \n");
 
           digitalWrite(enable_pin, HIGH);
 
@@ -324,11 +329,11 @@ void loop() {
 
         // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-        Serial.println("O BOTÃO FIM DE CURSO FOI PRESSIONADO!!!");
+        Serial.println("O BOTÃO FIM DE CURSO FOI PRESSIONADO!!! \n");
 
         digitalWrite(pino_direcao, LOW); // Atribui LOW ao pino de direção -> LOW = ANTI-HORÁRIO
         delayMicroseconds(1000); //Atraso de 1 segundo
-        Serial.println("SE APROXIMANDO DO FIM DE CURSO LENTAMENTE!"); // Printa no monitor serial em qual sentido o motor está girando
+        Serial.println("SE APROXIMANDO DO FIM DE CURSO LENTAMENTE! \n"); // Printa no monitor serial em qual sentido o motor está girando
 
         for(int x = 0; x < 800; x++){ // Loop For para girar o motor no sentido anti-horário
 
@@ -338,7 +343,7 @@ void loop() {
 
           if(estado_botao_parada_total == LOW){ // SE O BOTÃO DE PARADA TOTAL FOR PRESSIONADO:
 
-            Serial.println("BOTÃO PARADA TOTAL PRESSIONADO!!!");
+            Serial.println("\n BOTÃO PARADA TOTAL PRESSIONADO!!! \n");
 
             digitalWrite(enable_pin, HIGH);
 
