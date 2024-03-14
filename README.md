@@ -17,7 +17,7 @@ Após fazer essas conexões, você pode escrever o código no Arduino para contr
 
 ## Exemplo Projeto Persol
 
-![exemplo_real.jpg](https://prod-files-secure.s3.us-west-2.amazonaws.com/9a1cbd13-2c98-4dfe-8fbc-60098ccdc9b9/0ebdc758-26ac-479d-8b3b-218feec7d6d3/exemplo_real.jpg)
+<img src="/imagens/exemplo_real.jpg">
 
 # Código / Programação
 
