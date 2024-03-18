@@ -1,6 +1,6 @@
 // PROJETO: PERSOL INC
 // AUTOR: GUILHERME TAVARES PINHEIRO
-// DATA: 15/03/2024
+// DATA: 18/03/2024
 // OBJETIVO: MOVIMENTAR MOTOR DE PASSO NEMA COM DUAS MEDIDAS - LARGURA E ALTURA 
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -19,8 +19,8 @@ const int botao_parada_total = 4;   // CONFIGURA O PINO DO BOTÃO DE PARADA TOTA
 // CRIAÇÃO DAS VARIÁVEIS - VETORES E ITERÁVEIS
 
 long codigos[] = {15756719, 15756540, 15755617, 15755656, 15755512};          // Vetor de longs para os códigos de barras
-float larguras[] = {4.0, 8.0, 16.0, 3.0, 1.0};                                // Vetor de larguras correspondentes às peças conforme os códigos de barras
-float alturas[] = {3.0, 5.0, 15.0, 3.0, 1.0};                                 // Vetor de alturas correspondentes às peças conforme os códigos de barras
+float larguras[] = {2.368, 1.273, 2.029, 1.573, 1.573};                       // Vetor de larguras correspondentes às peças conforme os códigos de barras
+float alturas[] = {1.51, 1.68, 1.74, 1.51, 1.51};                             // Vetor de alturas correspondentes às peças conforme os códigos de barras
 
 int num_pedidos = sizeof(codigos) / sizeof(codigos[0]);   // Variável para ser utilizada no limite do loop "for", para fazer o programa iterar até a quantidade necessária de códigos de barras                                        // Variável para armazenar o número de voltas, que será de acordo com o valor do float larguras ou do float alturas
 int segundo_ciclo = 0;                                    // Inicializa segundo ciclo com 0
@@ -104,7 +104,7 @@ void parada_total() {
 
     digitalWrite(enable_pin, HIGH); // Ativa o pino ENA - Desabilita o movimento do motor
 
-    delay(10000); // Atraso de 10 segundos por segurança
+    delay(5000); // Atraso de 5 segundos por segurança
 
   }
   
@@ -116,7 +116,7 @@ void parada_total() {
 
 // 3) FUNÇÃO ESCOLHE SENTIDO HORÁRIO OU ANTI-HORÁRIO DE ACORDO COM A COMPARAÇÃO ENTRE A POSIÇÃO ATUAL (MEDIDA ANTERIOR) E A NOVA ETIQUETA !!! 
 
-void sentido_rotacao(int posicao_atual, int medida) { // Função recebe a posição atual e a medida bipada como parâmetros
+void sentido_rotacao(float posicao_atual, float medida) { // Função recebe a posição atual e a medida bipada como parâmetros
 
   if (posicao_atual < medida){ // Se a medida for maior do que a posição atual do motor:
 
@@ -139,15 +139,15 @@ void sentido_rotacao(int posicao_atual, int medida) { // Função recebe a posi�
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// 4) FUNÇÃO DE GIRO DO MOTOR - MOVIMENTA O MOTOR 1 CICLO (1 CICLO = 800 PULSOS = 172,7mm = 17,27cm)
+// 4) FUNÇÃO DE GIRO DO MOTOR - MOVIMENTA O MOTOR 1 CICLO (1 CICLO = 800 PULSOS = 172,7mm = 17,27cm) -> (4632,3 Pulsos = 1000mm = 1m)
 
-void gira_motor(int pino_pulso, int medida, int posicao_atual){ // Função recebe o pino de pulso, medida bipada e a posição atual como parâmetros
+void gira_motor(int pino_pulso, float medida, float posicao_atual){ // Função recebe o pino de pulso, medida bipada e a posição atual como parâmetros
 
-  int qtd_passos; // Variável que define quantas vezes o motor irá girar. POSIÇÃO ATUAL - MEDIDA DE DESTINO (CÓDIGO DE BARRAS)
+  float qtd_passos; // Variável que define quantas vezes o motor irá girar. POSIÇÃO ATUAL - MEDIDA DE DESTINO (CÓDIGO DE BARRAS)
 
   qtd_passos = abs((posicao_atual - medida)); // Usamos a função abs() para a subtração sempre retornar um valor positivo, isto é, para não correr o risco de termos um valor negativo e o motor travar!
 
-  for (int i = 0; i < qtd_passos * 800; i++){ // O motor gira x vezes de acordo com a expressão anterior. Altere essa condição de acordo com seu referencial de medidas
+  for (int i = 0; i < (qtd_passos * 4632.3); i++){ // O motor gira x vezes de acordo com a expressão anterior. Altere essa condição de acordo com seu referencial de medidas
 
     if(estado_botao_parada_total == HIGH){ // Verificação de parada total durante as voltas do motor
       parada_total(); 
@@ -400,5 +400,7 @@ void loop() {
 
 
 }  // FIM DA FUNÇÃO VOID LOOP
+
+// -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
