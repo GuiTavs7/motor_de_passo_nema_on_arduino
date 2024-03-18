@@ -104,7 +104,7 @@ void parada_total() {
 
     digitalWrite(enable_pin, HIGH); // Ativa o pino ENA - Desabilita o movimento do motor
 
-    delay(1000); // Atraso de 1 segundo por segurança
+    delay(10000); // Atraso de 10 segundos por segurança
 
   }
   
