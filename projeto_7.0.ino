@@ -22,7 +22,7 @@ long codigos[] = {15756719, 15756540, 15755617, 15755656, 15755512};          //
 float larguras[] = {2.368, 1.273, 2.029, 1.573, 1.573};                       // Vetor de larguras correspondentes às peças conforme os códigos de barras
 float alturas[] = {1.51, 1.68, 1.74, 1.51, 1.51};                             // Vetor de alturas correspondentes às peças conforme os códigos de barras
 
-int num_pedidos = sizeof(codigos) / sizeof(codigos[0]);   // Variável para ser utilizada no limite do loop "for", para fazer o programa iterar até a quantidade necessária de códigos de barras                                        // Variável para armazenar o número de voltas, que será de acordo com o valor do float larguras ou do float alturas
+int num_pedidos = sizeof(codigos) / sizeof(codigos[0]);   // Variável para ser utilizada no limite do loop "for", para fazer o programa iterar até a quantidade necessária de códigos de barras                                        
 int segundo_ciclo = 0;                                    // Inicializa segundo ciclo com 0
 int contador = 0;                                         // Inicializa contador com 0
 int estado_botao_parada_total = HIGH;                     // Estado do botão de parada total
