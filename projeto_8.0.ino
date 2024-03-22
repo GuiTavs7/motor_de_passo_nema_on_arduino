@@ -146,7 +146,7 @@ void gira_motor(int pino_pulso, float medida, float posicao_atual){ // Função 
 
   qtd_passos = abs((posicao_atual - medida)); // Usamos a função abs() para a subtração sempre retornar um valor positivo, isto é, para não correr o risco de termos um valor negativo e o motor travar!
 
-  for (int i = 0; i < (qtd_passos * 4671.43); i++){ // O motor gira x vezes de acordo com a expressão anterior. Altere essa condição de acordo com seu referencial de medidas
+  for (int i = 0; i < (qtd_passos * 4553.215); i++){ // O motor gira x vezes de acordo com a expressão anterior. Altere essa condição de acordo com seu referencial de medidas
 
     if(estado_botao_parada_total == HIGH){ // Verificação de parada total durante as voltas do motor
       parada_total(); 
