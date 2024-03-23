@@ -83,6 +83,59 @@ void loop() {
   delay(1000); // ATRASO
 }
 ```
+# Requisitos do Projeto
+
+**Movimentar motor de acordo com medida da etiqueta;**
+
+**3 botões (ler medida da altura; fim de curso e parada total);**
+
+**Calibração do motor (movimenta constantemente até apertar o botão parada total;**
+
+**Motor ao iniciar saí do botão de calibração para evitar que fique pressionado;**
+
+**Ler primeiro medida da largura e movimentar de acordo com ela;**
+
+**Partir para a medida da altura SÓ depois de apertar o botão de altura;**
+
+**Após x códigos de barras (no final serão 10) o motor volta sozinho para a posição inicial;**
+
+**Durante a volta p/ posição inicial podemos reduzir a velocidade c/ o botão de fim de curso;**
+
+**Possibilidade de apertar o botão de parada total a qualquer momento;**
+
+## Checklist Projeto
+
+- [x]  Corrigir o bug de leitura da medida da altura (independentemente da etiqueta a medida da altura sempre é a do primeiro índice do vetor - índice 0);
+
+Solução era usar a mesma variável para receber o código de barras e fazer a comparação no Loop da largura e no Loop da altura!
+
+### Lógica de Voltas - Conversão de Pulsos
+
+- [x]  Configurar quantidade de voltas de acordo com medidas corretamente (1 CICLO = 800 PULSOS = 175,7mm = 17,57cm);
+
+```cpp
+(1 CICLO = 800 PULSOS = 175,7mm = 17,57cm) -> (4553,215 Pulsos = 1000mm = 1m)
+```
+
+# Montagem na Caixa de Automação
+
+Lista de materiais utilizados na montagem:
+
+- Cabos de rede (para tornar os cabos de conexão longos o suficiente);
+- Alicates (para descascar cabos e para cortar);
+- Arduino Uno + Cabo USB;
+- Raspberry Pi 4 (plugado via USB nele o leitor de códigos de barras e o Arduino);
+- Cooler de 12V para resfriamento interno dos componentes e da caixa;
+- 3 botões  (fim de curso, parada total e leitor_larguras);
+- 2 fontes externas (1 de 12V para o cooler e outra para o Raspberry;
+- Motor de Passo Nema + Driver/Dissipador + Fonte Externa;
+- Caixa de automação (onde as peças foram inseridas).
+
+<img src="/imagens/caixa-1.jpg">
+
+## Visão Interna da Caixa de Automação
+
+<img src="/imagens/caixa-2.jpg">
 
 # Links Importantes
 
