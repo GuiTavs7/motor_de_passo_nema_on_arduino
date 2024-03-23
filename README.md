@@ -140,3 +140,4 @@ Lista de materiais utilizados na montagem:
 # Links Importantes
 
 ***Vídeo sobre o driver:  https://www.youtube.com/watch?v=_8yUdaW47DQ***
+***Vídeo sobre automação do boot Raspbian:  https://www.youtube.com/watch?v=lT8XNpfo950***
