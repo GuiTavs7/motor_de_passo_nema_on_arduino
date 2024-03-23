@@ -1,7 +1,7 @@
 // PROJETO: PERSOL INC
 // AUTOR: GUILHERME TAVARES PINHEIRO
-// DATA: 18/03/2024
-// OBJETIVO: MOVIMENTAR MOTOR DE PASSO NEMA COM DUAS MEDIDAS - LARGURA E ALTURA 
+// DATA: 22/03/2024
+// OBJETIVO: AUTOMAÇÃO DA MESA DE CORTE DE TECIDO - MOVIMENTAR MOTOR DE PASSO NEMA COM DUAS MEDIDAS - LARGURA E ALTURA 
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -18,19 +18,18 @@ const int botao_parada_total = 4;   // CONFIGURA O PINO DO BOTÃO DE PARADA TOTA
 
 // CRIAÇÃO DAS VARIÁVEIS - VETORES E ITERÁVEIS
 
-long codigos[] = {15756719, 15756540, 15755617, 15755656, 15755512};          // Vetor de longs para os códigos de barras
-float larguras[] = {4.5, 4.2, 4.3, 4.2, 4.1};                            // Vetor de larguras correspondentes às peças conforme os códigos de barras
-float alturas[] = {4.6, 4.3, 4.3, 4.3, 4.4};                             // Vetor de alturas correspondentes às peças conforme os códigos de barras
+long codigos[] = {15756719, 15756540, 15755617, 15755656, 15755512};     // Vetor de longs para os códigos de barras
+float larguras[] = {4.5, 4.2, 4.3, 4.2, 4.1};                            // Vetor de larguras correspondentes às peças conforme os códigos de barras (em metros)
+float alturas[] = {4.6, 4.3, 4.3, 4.3, 4.4};                             // Vetor de alturas correspondentes às peças conforme os códigos de barras (em metros)
 
 int num_pedidos = sizeof(codigos) / sizeof(codigos[0]);   // Variável para ser utilizada no limite do loop "for", para fazer o programa iterar até a quantidade necessária de códigos de barras                                        // Variável para armazenar o número de voltas, que será de acordo com o valor do float larguras ou do float alturas
 int segundo_ciclo = 0;                                    // Inicializa segundo ciclo com 0
 int contador = 0;                                         // Inicializa contador com 0
 int estado_botao_parada_total = HIGH;                     // Estado do botão de parada total
 
-float posicao_atual;                                       // Variável para armazenar a posição atual do motor                         // Variável para armazenar a posição atual do motor - ALTURA
-float medida;                                               // Variável para armazenar a posição de destino 
+float posicao_atual;                                      // Variável para armazenar a posição atual do motor                       
+float medida_lida;                                        // Variável para armazenar a posição de destino 
                                
-
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 // FUNÇÃO SETUP - CONFIGURAÇÕES INICIAIS - ENTRADA, SAÍDA E COMUNICAÇÃO SERIAL
@@ -56,7 +55,7 @@ void setup() {
     delayMicroseconds(1000); //Atraso de 1 segundo
     Serial.println("\n GIRANDO O MOTOR NO SENTIDO HORÁRIO ATÉ POSIÇÃO INICIAL \n"); // Mensagem inicial de calibração do motor
 
-    for(int x = 0; x < 9000; x++){ // Loop For para girar o motor no sentido de calibração
+    for(int x = 0; x < 80000; x++){ // Loop For para girar o motor no sentido de calibração
 
       while (estado_botao_parada_total == HIGH){ // Permanece calibrando até que o botão de parada total seja acionado
 
@@ -66,14 +65,14 @@ void setup() {
         delayMicroseconds(3000); // VELOCIDADE DE CALIBRAÇÃO
         digitalWrite(pino_pulso,LOW); // PINO DE PULSO ENCERRA
 
-        int estado_botao_fim_de_curso = digitalRead(botao_fim_de_curso);
+        int estado_botao_fim_de_curso = digitalRead(botao_fim_de_curso); // Lê o estado do botão de fim de curso
 
         if (estado_botao_fim_de_curso == LOW){ // Reduz a velocidade de calibração se o botão de fim de curso for pressionado!
  
           Serial.println("BOTÃO FIM DE CURSO PRESSIONADO - VELOCIDADE REDUZIDA!!!");
 
           digitalWrite(pino_pulso, HIGH);
-          delayMicroseconds(4000); // Velocidade de calibração reduzida 10 vezes (400 -> 4000); 
+          delayMicroseconds(4000); // Velocidade de calibração reduzida (3000 -> 4000); 
           digitalWrite(pino_pulso, LOW);
         }
 
@@ -115,16 +114,16 @@ void parada_total() {
 
 // 3) FUNÇÃO ESCOLHE SENTIDO HORÁRIO OU ANTI-HORÁRIO DE ACORDO COM A COMPARAÇÃO ENTRE A POSIÇÃO ATUAL (MEDIDA ANTERIOR) E A NOVA ETIQUETA !!! 
 
-void sentido_rotacao(float posicao_atual, float medida) { // Função recebe a posição atual e a medida bipada como parâmetros
+void sentido_rotacao(float posicao_atual, float medida_lida) { // Função recebe a posição atual e a medida bipada como parâmetros
 
-  if (posicao_atual > medida){ // Se a medida for maior do que a posição atual do motor:
+  if (posicao_atual > medida_lida){ // Se a medida for menor do que a posição atual do motor:
 
     digitalWrite(pino_direcao, HIGH); // Atribui HIGH ao pino de direção -> HIGH = HORÁRIO
     delayMicroseconds(1000); //Atraso de 1 segundo
     Serial.println("\n MOTOR GIRANDO NO SENTIDO HORÁRIO \n"); // Printa no monitor serial em qual sentido o motor está girando
 
   }
-  else{ // Se a medida for menor que a posição atual do motor
+  else{ // Se a medida for maior que a posição atual do motor
 
     digitalWrite(pino_direcao, LOW); // Atribui LOW ao pino de direção -> LOW = ANTI-HORÁRIO
     delayMicroseconds(1000); //Atraso de 1 segundo
@@ -138,13 +137,13 @@ void sentido_rotacao(float posicao_atual, float medida) { // Função recebe a p
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// 4) FUNÇÃO DE GIRO DO MOTOR - MOVIMENTA O MOTOR 1 CICLO (1 CICLO = 800 PULSOS = 175mm = 17,5cm) -> (4632,3 Pulsos = 1000mm = 1m)
+// 4) FUNÇÃO DE GIRO DO MOTOR - MOVIMENTA O MOTOR 1 CICLO (1 CICLO = 800 PULSOS = 175,7mm = 17,57cm) -> (4553,215 Pulsos = 1000mm = 1m)
 
-void gira_motor(int pino_pulso, float medida, float posicao_atual){ // Função recebe o pino de pulso, medida bipada e a posição atual como parâmetros
+void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){ // Função recebe o pino de pulso, medida bipada e a posição atual como parâmetros
 
   float qtd_passos; // Variável que define quantas vezes o motor irá girar. POSIÇÃO ATUAL - MEDIDA DE DESTINO (CÓDIGO DE BARRAS)
 
-  qtd_passos = abs((posicao_atual - medida)); // Usamos a função abs() para a subtração sempre retornar um valor positivo, isto é, para não correr o risco de termos um valor negativo e o motor travar!
+  qtd_passos = abs((posicao_atual - medida_lida)); // Usamos a função abs() para a subtração sempre retornar um valor positivo, isto é, para não correr o risco de termos um valor negativo e o motor travar!
 
   for (int i = 0; i < (qtd_passos * 4553.215); i++){ // O motor gira x vezes de acordo com a expressão anterior. Altere essa condição de acordo com seu referencial de medidas
 
@@ -153,7 +152,7 @@ void gira_motor(int pino_pulso, float medida, float posicao_atual){ // Função 
     }
 
     digitalWrite(pino_pulso, HIGH);
-    delayMicroseconds(1500);           // Velocidade de giro do motor durante as leituras de largura e altura (400 = Valor mais adequado para o motor girar razoavelmente rápido e sem ruídos)
+    delayMicroseconds(800);           // Velocidade de giro do motor durante as leituras de largura e altura (400 = Valor mais adequado para o motor girar razoavelmente rápido e sem ruídos)
     digitalWrite(pino_pulso, LOW);
   }
 }
@@ -182,7 +181,7 @@ void loop() {
 
   } // FIM DO IF
 
-  posicao_atual = 4.741;
+  posicao_atual = 4.741; // POSIÇÃO DA MESA DE CORTE ONDE O MOTOR FICA APÓS SAIR DO BOTÃO!
 
   // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -198,7 +197,7 @@ void loop() {
 
   for(contador = 0; contador < num_pedidos * 2; contador++){ // REPETE A LEITURA DE ETIQUETAS ATÉ A QUANTIDADE DE PEDIDOS (*2 PARA BATER O CÁLCULO)
 
-    // SEGUNDA VERIFICAÇÃO DE PARADA TOTAL - DURANTE AS TRÊS PRIMEIRAS LEITURAS
+    // SEGUNDA VERIFICAÇÃO DE PARADA TOTAL 
 
     parada_total();
 
@@ -217,7 +216,6 @@ void loop() {
 
     long codigo = Serial.parseInt(); // Variável código recebe o que o usuário inseriu na porta serial
 
-
     // LOOP FOR PARA ITERAR ATÉ O NÚMERO DE PEDIDOS
 
     for (int i = 0; i < num_pedidos; i++) {
@@ -234,19 +232,19 @@ void loop() {
 
         parada_total(); 
 
-        medida = larguras[i]; // Aqui vamos armazenar o valor correspondente a largura do respectivo índice
+        medida_lida = larguras[i]; // Aqui vamos armazenar o valor correspondente a largura do respectivo índice
 
         Serial.println(larguras[i]); // Printamos a medida que o motor irá movimentar para não nos perdermos
 
         // GIRANDO O MOTOR NO PRIMEIRO SENTIDO
 
-        sentido_rotacao(posicao_atual, medida); // Define o sentido de rotação do motor de acordo com os parâmetros da medida da largura
+        sentido_rotacao(posicao_atual, medida_lida); // Define o sentido de rotação do motor de acordo com os parâmetros da medida da largura
         
         segundo_ciclo = 0; // REINICIA O ESTADO DO BOTÃO PARA 0 - IMPORTANTE PARA COMEÇAR O SEGUNDO LOOP (ALTURA)
 
-        gira_motor(pino_pulso, posicao_atual, medida); // Define a velocidade e quantidade de voltas do motor de acordo com os parâmetros atuais
+        gira_motor(pino_pulso, posicao_atual, medida_lida); // Define a velocidade e quantidade de voltas do motor de acordo com os parâmetros atuais
 
-        posicao_atual = medida;  // POSICAO ATUAL RECEBE O VALOR DA MEDIDA LIDA PARA PRÓXIMAS COMPARAÇÕES
+        posicao_atual = medida_lida;  // POSICAO ATUAL RECEBE O VALOR DA MEDIDA LIDA PARA PRÓXIMAS COMPARAÇÕES
       
       }    // FIM DO IF
     
@@ -290,17 +288,17 @@ void loop() {
 
           if (codigos[i] == codigo) {  // Verifica se o código de barras digitado ou bipado corresponde à alguns dos códigos no vetor códigos[]
 
-            medida = alturas[i]; // Aqui vamos armazenar o valor correspondente a altura do respectivo índice
+            medida_lida = alturas[i]; // Aqui vamos armazenar o valor correspondente a altura do respectivo índice
 
             Serial.println(alturas[i]); // Printa o valor correspondente ao índice altura = quantidade de voltas do motor
 
             // GIRANDO O MOTOR NO SEGUNDO SENTIDO
          
-            sentido_rotacao(posicao_atual, medida);  // Define o sentido de rotação do motor de acordo com os parâmetros da medida da altura
+            sentido_rotacao(posicao_atual, medida_lida);  // Define o sentido de rotação do motor de acordo com os parâmetros da medida da altura
 
-            gira_motor(pino_pulso, posicao_atual, medida);  // Define a velocidade e quantidade de voltas do motor de acordo com os parâmetros atuais
+            gira_motor(pino_pulso, posicao_atual, medida_lida);  // Define a velocidade e quantidade de voltas do motor de acordo com os parâmetros atuais
 
-            posicao_atual = medida;  // POSICAO ATUAL RECEBE O VALOR DA MEDIDA LIDA PARA PRÓXIMAS COMPARAÇÕES
+            posicao_atual = medida_lida;  // POSICAO ATUAL RECEBE O VALOR DA MEDIDA LIDA PARA PRÓXIMAS COMPARAÇÕES
           
           } // FIM DO IF
         
@@ -320,10 +318,9 @@ void loop() {
 
   
 
-
   // ------------------------ INÍCIO DA PARTE DO CONTADOR ---------------------------- //
 
-  // 6) MOTOR VOLTA LENTAMENTE PARA A POSIÇÃO INICIAL 
+  // 6) MOTOR VOLTA LENTAMENTE PARA A POSIÇÃO INICIAL APÓS "X" LEITURAS - RECALIBRAÇÃO!
 
   // QUANDO CONTADOR CHEGAR AO NÚMERO DE PEDIDOS, O MOTOR IRÁ PARA A POSIÇÃO INICIAL AUTOMATICAMENTE E LENTAMENTE
 
@@ -334,19 +331,19 @@ void loop() {
     delayMicroseconds(1000); //Atraso de 1 segundo
     Serial.println("GIRANDO O MOTOR NO SENTIDO ANTI-HORÁRIO ATÉ POSIÇÃO INICIAL \n"); // Printa no monitor serial em qual sentido o motor está girando
 
-    for(int x = 0; x < num_pedidos * 800; x++){ // Loop For para girar o motor no sentido anti-horário
+    for(int x = 0; x < 80000; x++){ // Loop For para girar o motor no sentido anti-horário continuamente
 
       // !!! VERIFICAÇÃO DE PARADA TOTAL - DURANTE A VOLTA PARA POSIÇÃO INICIAL !!!
 
-      estado_botao_parada_total = digitalRead(botao_parada_total); // LÊ O ESTADO DO BOTÃO DE FIM DE CURSO
+      estado_botao_parada_total = digitalRead(botao_parada_total); // LÊ O ESTADO DO BOTÃO DE PARADA TOTAL
 
       if(estado_botao_parada_total == LOW){ // SE O BOTÃO DE PARADA TOTAL FOR PRESSIONADO:
 
         Serial.println("\n BOTÃO PARADA TOTAL PRESSIONADO!!! \n");
 
-        digitalWrite(enable_pin, HIGH);
+        digitalWrite(enable_pin, HIGH); // Ativa o pino ENA - Trava o motor!
 
-        x = num_pedidos * 800; // x recebe 800 vezes o número de pedidos para que seja satisfeita a condição de saída do Loop For e garanta a parada total
+        x = 80000; // x recebe 80000 para que seja satisfeita a condição de saída do Loop For e garanta a parada total
 
       }
 
@@ -370,7 +367,7 @@ void loop() {
         delayMicroseconds(1000); //Atraso de 1 segundo
         Serial.println("SE APROXIMANDO DO FIM DE CURSO LENTAMENTE! \n"); // Printa no monitor serial em qual sentido o motor está girando
 
-        for(int x = 0; x < 800; x++){ // Loop For para girar o motor no sentido anti-horário
+        for(int x = 0; x < 80000; x++){ // Loop For para girar o motor no sentido anti-horário
 
           // !!! VERIFICAÇÃO DE PARADA TOTAL !!! 
 
@@ -379,14 +376,14 @@ void loop() {
             parada_total();
 
             digitalWrite(pino_pulso, HIGH); // PINO DE PULSO INICIA
-            delayMicroseconds(6200); // GIRA MUITO LENTAMENTE ATÉ O FIM DE CURSO
-            digitalWrite(pino_pulso,LOW); // PINO DE PULSO ENCERRA
+            delayMicroseconds(4000);        // VELOCIDADE DE FIM DE CURSO
+            digitalWrite(pino_pulso,LOW);   // PINO DE PULSO ENCERRA
 
           }
 
         } //FIM DO LOOP 
 
-        x = num_pedidos * 800; // SE O BOTÃO FOR PRESSIONADO, X JÁ RECEBE O VALOR DA CONDIÇÃO DO FOR PARA JÁ SAIR FORA DO LOOP E VOLTAR AO INÍCIO DO CÓDIGO!!!!
+        x = 80000; // SE O BOTÃO FOR PRESSIONADO, X JÁ RECEBE O VALOR DA CONDIÇÃO DO FOR PARA JÁ SAIR FORA DO LOOP E VOLTAR AO INÍCIO DO CÓDIGO!!!!
 
       } // FIM DO BOTÃO DE FIM DE CURSO
 
@@ -401,7 +398,6 @@ void loop() {
   }
 
   // ------------------------------------------------------ // ---------------------------------------------------------------------------------------
-
 
 }  // FIM DA FUNÇÃO VOID LOOP
 
