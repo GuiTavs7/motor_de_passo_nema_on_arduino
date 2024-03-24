@@ -17,7 +17,7 @@ Após fazer essas conexões, você pode escrever o código no Arduino para contr
 
 ## Exemplo Projeto Persol
 
-<img width = 800 height = 600 align="center" src="/imagens/exemplo_real.jpg">
+<img width = 600 height = 400 align="center" src="/imagens/exemplo_real.jpg">
 
 # Código / Programação
 
@@ -131,11 +131,11 @@ Lista de materiais utilizados na montagem:
 - Motor de Passo Nema + Driver/Dissipador + Fonte Externa;
 - Caixa de automação (onde as peças foram inseridas).
 
-<img width = 800 height = 600 align="center" src="/imagens/caixa-1.jpeg">
+<img width = 600 height = 400 align="center" src="/imagens/caixa-1.jpeg">
 
 ## Visão Interna da Caixa de Automação
 
-<img width = 800 height = 800 align="center" src="/imagens/caixa-2.jpeg">
+<img width = 600 height = 400 align="center" src="/imagens/caixa-2.jpeg">
 
 # Links Importantes
 
