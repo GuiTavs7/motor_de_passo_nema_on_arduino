@@ -399,7 +399,7 @@ void loop() {
 
         digitalWrite(enable_pin, HIGH); // Ativa o pino ENA - Trava o motor!
 
-        x = 80000; // x recebe 9000 para que seja satisfeita a condição de saída do Loop For e garanta a parada total
+        x = 9000; // x recebe 9000 para que seja satisfeita a condição de saída do Loop For e garanta a parada total
 
       }
 
