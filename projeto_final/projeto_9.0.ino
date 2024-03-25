@@ -62,7 +62,7 @@ void setup() {
     delayMicroseconds(1000); //Atraso de 1 segundo
     Serial.println("\n GIRANDO O MOTOR NO SENTIDO HORÁRIO ATÉ POSIÇÃO INICIAL \n"); // Mensagem inicial de calibração do motor
 
-    for(int x = 0; x < 80000; x++){ // Loop For para girar o motor no sentido de calibração
+    for(int x = 0; x < 9000; x++){ // Loop For para girar o motor no sentido de calibração
 
       while (estado_botao_parada_total == HIGH){ // Permanece calibrando até que o botão de parada total seja acionado
 
@@ -380,7 +380,7 @@ void loop() {
     delayMicroseconds(1000); //Atraso de 1 segundo
     Serial.println("GIRANDO O MOTOR NO SENTIDO ANTI-HORÁRIO ATÉ POSIÇÃO INICIAL \n"); // Printa no monitor serial em qual sentido o motor está girando
 
-    for(int x = 0; x < 80000; x++){ // Loop For para girar o motor no sentido anti-horário continuamente
+    for(int x = 0; x < 9000; x++){ // Loop For para girar o motor no sentido anti-horário continuamente
 
       // !!! VERIFICAÇÃO DE PARADA TOTAL - DURANTE A VOLTA PARA POSIÇÃO INICIAL !!!
 
@@ -392,7 +392,7 @@ void loop() {
 
         digitalWrite(enable_pin, HIGH); // Ativa o pino ENA - Trava o motor!
 
-        x = 80000; // x recebe 80000 para que seja satisfeita a condição de saída do Loop For e garanta a parada total
+        x = 9000; // x recebe 9000 para que seja satisfeita a condição de saída do Loop For e garanta a parada total
 
       }
 
@@ -416,7 +416,7 @@ void loop() {
         delayMicroseconds(1000); //Atraso de 1 segundo
         Serial.println("SE APROXIMANDO DO FIM DE CURSO LENTAMENTE! \n"); // Printa no monitor serial em qual sentido o motor está girando
 
-        for(int x = 0; x < 80000; x++){ // Loop For para girar o motor no sentido anti-horário
+        for(int x = 0; x < 9000; x++){ // Loop For para girar o motor no sentido anti-horário
 
           // !!! VERIFICAÇÃO DE PARADA TOTAL !!! 
 
@@ -432,7 +432,7 @@ void loop() {
 
         } //FIM DO LOOP 
 
-        x = 80000; // SE O BOTÃO FOR PRESSIONADO, X JÁ RECEBE O VALOR DA CONDIÇÃO DO FOR PARA JÁ SAIR FORA DO LOOP E VOLTAR AO INÍCIO DO CÓDIGO!!!!
+        x = 9000; // SE O BOTÃO FOR PRESSIONADO, X JÁ RECEBE O VALOR DA CONDIÇÃO DO FOR PARA JÁ SAIR FORA DO LOOP E VOLTAR AO INÍCIO DO CÓDIGO!!!!
 
       } // FIM DO BOTÃO DE FIM DE CURSO
 
