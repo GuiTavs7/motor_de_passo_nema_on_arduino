@@ -312,8 +312,6 @@ void loop() {
         delay(1000); // ATRASO PARA NÃO DESCER A PRENSA ANTES DE TERMINAR O MOVIMENTO DO MOTOR
 
         digitalWrite(pino_rele, HIGH); // PINO DO RELÉ HIGH = PRENSA DESCE!
-
-        subir_prensa();               // CHAMA A FUNÇÃO DE SUBIR A PRENSA!
       
       }    // FIM DO IF
     
@@ -376,8 +374,6 @@ void loop() {
             delay(1000); // ATRASO PARA NÃO DESCER A PRENSA ANTES DE TERMINAR O MOVIMENTO DO MOTOR
 
             digitalWrite(pino_rele, HIGH); // PINO DO RELÉ HIGH = PRENSA DESCE!
-
-            subir_prensa();               // CHAMA A FUNÇÃO DE SUBIR A PRENSA!
           
           } // FIM DO IF
         
