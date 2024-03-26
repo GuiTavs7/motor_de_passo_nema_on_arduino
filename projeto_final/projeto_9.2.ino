@@ -223,8 +223,6 @@ void loop() {
 
   digitalWrite(enable_pin, LOW); // HABILITA O MOTOR APÓS UMA POSSÍVEL PARADA TOTAL
 
-  digitalWrite(pino_rele, LOW); // PINO DO RELÉ LOW = PRENSA SOBE!
-
   // 6.1) MOTOR GIRA UMA VOLTA LENTAMENTE PARA NÃO MANTER O BOTÃO DE PARADA TOTAL DA CALIBRAÇÃO PRESSIONADO!!!
 
   digitalWrite(pino_direcao, HIGH); // Atribui HIGH ao pino de direção -> HIGH = HORÁRIO
@@ -334,6 +332,8 @@ void loop() {
       if (digitalRead(botao_altura) == LOW) { 
 
         digitalWrite(pino_rele, LOW); // PINO DO RELÉ LOW = PRENSA SOBE!
+
+        delay(500); //PEQUENO ATRASO PARA NÃO MOVIMENTAR PRENSA E MOTOR SIMULTANEAMENTE
 
         // !!! VERIFICAÇÃO DE PARADA TOTAL DURANTE SEGUNDO CICLO - ALTURA !!!
 
