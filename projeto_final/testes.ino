@@ -200,10 +200,14 @@ void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){ // Fun�
       parada_total(); 
     }
 
+    // IF PARA ACELERAR O MOTOR
+
     if (i < passos_aceleracao) {
       // Ajustar a velocidade gradualmente até a velocidade final
       velocidade_atual -= (velocidade_inicial - velocidade_final) / passos_aceleracao;
     }
+
+    // IF PARA DESACELERAR O MOTOR
 
     if (i > (0.90 * (qtd_passos * 4553.215))) {
       // Ajustar a velocidade gradualmente até a velocidade final
