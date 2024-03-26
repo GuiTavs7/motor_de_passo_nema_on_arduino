@@ -207,11 +207,11 @@ void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){ // Fun√
       velocidade_atual -= (velocidade_inicial - velocidade_final) / passos_aceleracao;
     }
 
-    // IF PARA DESACELERAR O MOTOR
+    // IF PARA DESACELERAR O MOTOR - QUANDO FALTA 10% PRA CHEGAR NA MEDIDA DE DESTINO (1m = desacelera no 0,90)!
 
     if (i > (0.90 * (qtd_passos * 4553.215))) {
       // Ajustar a velocidade gradualmente at√© a velocidade final
-      velocidade_atual -= 1200;
+      velocidade_atual -= 800;
     }
 
     digitalWrite(pino_pulso, HIGH);
