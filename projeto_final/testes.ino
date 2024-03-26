@@ -64,7 +64,7 @@ void calibra_motor(){
 
     digitalWrite(pino_rele, LOW); // PINO DO RELÉ LOW = PRENSA SOBE!
 
-    delay(100); // Pequeno atraso para prensa não subir simultaneamente com o movimento do motor
+    delay(500); // Pequeno atraso para prensa não subir simultaneamente com o movimento do motor
 
     digitalWrite(pino_direcao, LOW); // Atribui LOW ao pino de direção -> LOW = ANTI-HORÁRIO - Sentido de calibração
     delayMicroseconds(1000); //Atraso de 1 segundo
@@ -216,10 +216,6 @@ void loop() {
 
   digitalWrite(enable_pin, LOW); // HABILITA O MOTOR APÓS UMA POSSÍVEL PARADA TOTAL
 
-  digitalWrite(pino_rele, LOW); // PINO DO RELÉ LOW = PRENSA SOBE!
-
-  delay(100); // Pequeno atraso para prensa não subir simultaneamente com o movimento do motor
-
   // 6.1) MOTOR GIRA UMA VOLTA LENTAMENTE PARA NÃO MANTER O BOTÃO DE PARADA TOTAL DA CALIBRAÇÃO PRESSIONADO!!!
 
   digitalWrite(pino_direcao, HIGH); // Atribui HIGH ao pino de direção -> HIGH = HORÁRIO
@@ -249,8 +245,12 @@ void loop() {
 
   // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  for(contador = 0; contador < num_pedidos * 2; contador++){ // REPETE A LEITURA DE ETIQUETAS ATÉ A QUANTIDADE DE PEDIDOS (*2 PARA BATER O CÁLCULO)
+  for(contador = 0; contador < num_pedidos * 2; contador++){ // REPETE A LEITURA DE ETIQUETAS ATÉ A QUANTIDADE DE PEDIDOS (*2 PARA BATER O CÁLCULO){
 
+    digitalWrite(pino_rele, LOW); // PINO DO RELÉ LOW = PRENSA SOBE!
+
+    delay(500); // Pequeno atraso para prensa não subir simultaneamente com o movimento do motor
+    
     // SEGUNDA VERIFICAÇÃO DE PARADA TOTAL 
 
     parada_total();
@@ -330,7 +330,7 @@ void loop() {
 
         digitalWrite(pino_rele, LOW); // PINO DO RELÉ LOW = PRENSA SOBE!
 
-        delay(100); // Pequeno atraso para prensa não subir simultaneamente com o movimento do motor
+        delay(500); // Pequeno atraso para prensa não subir simultaneamente com o movimento do motor
 
         // !!! VERIFICAÇÃO DE PARADA TOTAL DURANTE SEGUNDO CICLO - ALTURA !!!
 
