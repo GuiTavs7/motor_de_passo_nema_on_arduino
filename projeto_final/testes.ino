@@ -182,15 +182,15 @@ void sentido_rotacao(float posicao_atual, float medida_lida) { // Função receb
 
 void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){ // Função recebe o pino de pulso, medida bipada e a posição atual como parâmetros
 
-  const int velocidade_inicial = 1000; // Velocidade inicial (em microssegundos)
-  const int velocidade_final = 400; // Velocidade final (em microssegundos)
-  const int passos_aceleracao = 100; // Número de passos para alcançar a velocidade final
+  const int velocidade_inicial = 2800; // Velocidade inicial - Um pouco maior que a velocidade de calibração
+  const int velocidade_final = 400;    // Velocidade final - Mais rápida e adequada para o motor
+  const int passos_aceleracao = 400;   // Número de passos para alcançar a velocidade final - de 400 em 400 - (400 - 2800 = 7 passos de aceleração = 7 marchas)
 
   float qtd_passos; // Variável que define quantas vezes o motor irá girar. POSIÇÃO ATUAL - MEDIDA DE DESTINO (CÓDIGO DE BARRAS)
 
   qtd_passos = abs((posicao_atual - medida_lida)); // Usamos a função abs() para a subtração sempre retornar um valor positivo, isto é, para não correr o risco de termos um valor negativo e o motor travar!
 
-  int velocidade_atual = velocidade_inicial;
+  int velocidade_atual = velocidade_inicial; // Velocidade inicial recebe a velocidade inicial (2800)
 
   for (int i = 0; i < (qtd_passos * 4553.215); i++){ // O motor gira x vezes de acordo com a expressão anterior. Altere essa condição de acordo com seu referencial de medidas
 
