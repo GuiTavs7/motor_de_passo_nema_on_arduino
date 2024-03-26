@@ -64,9 +64,11 @@ void calibra_motor(){
 
     digitalWrite(pino_rele, LOW); // PINO DO RELÉ LOW = PRENSA SOBE!
 
+    delay(500); //PEQUENO ATRASO PARA NÃO MOVIMENTAR PRENSA E MOTOR SIMULTANEAMENTE
+
     digitalWrite(pino_direcao, LOW); // Atribui LOW ao pino de direção -> LOW = ANTI-HORÁRIO - Sentido de calibração
     delayMicroseconds(1000); //Atraso de 1 segundo
-    Serial.println("\n GIRANDO O MOTOR NO SENTIDO HORÁRIO ATÉ POSIÇÃO INICIAL \n"); // Mensagem inicial de calibração do motor
+    Serial.println("\n CALIBRANDO O MOTOR ATÉ POSIÇÃO INICIAL \n"); // Mensagem inicial de calibração do motor
 
     for(int x = 0; x < 9000; x++){ // Loop For para girar o motor no sentido de calibração
 
