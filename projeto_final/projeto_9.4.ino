@@ -76,7 +76,7 @@ void calibra_motor(){
         parada_total(); // Chama a função parada total
 
         digitalWrite(pino_pulso, HIGH); // PINO DE PULSO INICIA
-        delayMicroseconds(3000); // VELOCIDADE DE CALIBRAÇÃO
+        delayMicroseconds(2000); // VELOCIDADE DE CALIBRAÇÃO
         digitalWrite(pino_pulso,LOW); // PINO DE PULSO ENCERRA
 
         int estado_botao_fim_de_curso = digitalRead(botao_fim_de_curso); // Lê o estado do botão de fim de curso
@@ -86,7 +86,7 @@ void calibra_motor(){
           Serial.println("BOTÃO FIM DE CURSO PRESSIONADO - VELOCIDADE REDUZIDA!!!");
 
           digitalWrite(pino_pulso, HIGH);
-          delayMicroseconds(4000); // Velocidade de calibração reduzida (3000 -> 4000); 
+          delayMicroseconds(4000); // Velocidade de calibração reduzida (2000 -> 4000); 
           digitalWrite(pino_pulso, LOW);
         }
 
@@ -176,9 +176,9 @@ void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){ // Fun�
 
     // IF PARA DESACELERAR O MOTOR - QUANDO FALTA 10% PRA CHEGAR NA MEDIDA DE DESTINO (1m = desacelera no 0,90)!
 
-    if (i > (0.90 * (qtd_passos * 4553.215))) {
+    if (i > (0.98 * (qtd_passos * 4553.215))) {
       // Ajustar a velocidade gradualmente até a velocidade final
-      velocidade_atual -= 800;
+      velocidade_atual -= 750;
     }
 
     digitalWrite(pino_pulso, HIGH);
