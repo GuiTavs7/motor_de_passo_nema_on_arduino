@@ -182,20 +182,15 @@ void sentido_rotacao(float posicao_atual, float medida_lida) { // Função receb
 
 void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){ // Função recebe o pino de pulso, medida bipada e a posição atual como parâmetros
 
+  const int velocidade_inicial = 1000; // Velocidade inicial (em microssegundos)
+  const int velocidade_final = 400; // Velocidade final (em microssegundos)
+  const int passos_aceleracao = 100; // Número de passos para alcançar a velocidade final
+
   float qtd_passos; // Variável que define quantas vezes o motor irá girar. POSIÇÃO ATUAL - MEDIDA DE DESTINO (CÓDIGO DE BARRAS)
 
   qtd_passos = abs((posicao_atual - medida_lida)); // Usamos a função abs() para a subtração sempre retornar um valor positivo, isto é, para não correr o risco de termos um valor negativo e o motor travar!
 
-  int velocidade; // Declara variável de velocidade do motor;
-
-  int contador = 0; // Declara contador inicialmente como 0 - fora do loop for pra receber esse valor apenas uma vez
-
-  if (contador == 0){ // Se o contador for 0, isto é, inicialmente nessa função:
-
-    velocidade = 1600; // Velocidade inicial = 2 vezes mais lenta para o motor não dar tranco
-    delay(700); // Delay de 700 mili-segundos
-    contador = 1; // Contador recebe 1 para que o motor não fique com essa velocidade lenta após o início do movimento
-  }
+  int velocidade_atual = velocidade_inicial;
 
   for (int i = 0; i < (qtd_passos * 4553.215); i++){ // O motor gira x vezes de acordo com a expressão anterior. Altere essa condição de acordo com seu referencial de medidas
 
@@ -203,11 +198,15 @@ void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){ // Fun�
       parada_total(); 
     }
 
-    digitalWrite(pino_pulso, HIGH);
-    delayMicroseconds(velocidade);           // Velocidade de giro do motor durante as leituras de largura e altura (400 = Valor mais adequado para o motor girar razoavelmente rápido e sem ruídos)
-    digitalWrite(pino_pulso, LOW);
+    if (i < passos_aceleracao) {
+      // Ajustar a velocidade gradualmente até a velocidade final
+      velocidade_atual -= (velocidade_inicial - velocidade_final) / passos_aceleracao;
+    }
 
-    velocidade = 800;
+    digitalWrite(pino_pulso, HIGH);
+    delayMicroseconds(velocidade_atual);           // Velocidade de giro do motor durante as leituras de largura e altura (400 = Valor mais adequado para o motor girar razoavelmente rápido e sem ruídos)
+    digitalWrite(pino_pulso, LOW);
+    
   }
 
 }
