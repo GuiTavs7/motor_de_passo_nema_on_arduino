@@ -25,7 +25,7 @@ long codigos[] = {15756719, 15756540, 15755617, 15755656, 15755512};     // Veto
 float larguras[] = {4.5, 4.2, 4.3, 4.2, 4.1};                            // Vetor de larguras correspondentes às peças conforme os códigos de barras (em metros)
 float alturas[] = {4.6, 4.3, 4.3, 4.3, 4.4};                             // Vetor de alturas correspondentes às peças conforme os códigos de barras (em metros)
 
-int num_pedidos = sizeof(codigos) / sizeof(codigos[0]);   // Variável para ser utilizada no limite do loop "for", para fazer o programa iterar até a quantidade necessária de códigos de barras                                        // Variável para armazenar o número de voltas, que será de acordo com o valor do float larguras ou do float alturas
+int num_pedidos = 10;                                     // Variável para ser utilizada no limite do loop "for", para fazer o programa iterar até a quantidade necessária de códigos de barras                                 
 int segundo_ciclo = 0;                                    // Inicializa segundo ciclo com 0
 int contador = 0;                                         // Inicializa contador com 0
 int estado_botao_parada_total = HIGH;                     // Estado do botão de parada total
@@ -188,15 +188,15 @@ void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){ // Fun�
 
   qtd_passos = abs((posicao_atual - medida_lida)); // Usamos a função abs() para a subtração sempre retornar um valor positivo, isto é, para não correr o risco de termos um valor negativo e o motor travar!
 
-  int velocidade;
+  int velocidade; // Declara variável de velocidade do motor;
 
-  int contador = 0;
+  int contador = 0; // Declara contador inicialmente como 0 - fora do loop for pra receber esse valor apenas uma vez
 
-  if (contador == 0){
+  if (contador == 0){ // Se o contador for 0, isto é, inicialmente nessa função:
 
-    velocidade = 1600;
-    delay(700);
-    contador = 1;
+    velocidade = 1600; // Velocidade inicial = 2 vezes mais lenta para o motor não dar tranco
+    delay(700); // Delay de 700 mili-segundos
+    contador = 1; // Contador recebe 1 para que o motor não fique com essa velocidade lenta após o início do movimento
   }
 
   for (int i = 0; i < (qtd_passos * 4553.215); i++){ // O motor gira x vezes de acordo com a expressão anterior. Altere essa condição de acordo com seu referencial de medidas
