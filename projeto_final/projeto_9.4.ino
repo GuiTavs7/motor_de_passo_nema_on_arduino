@@ -62,6 +62,8 @@ void calibra_motor(){
 
   if (estado_botao_parada_total == HIGH){ // Continua a calibração enquanto o botão de parada total não for pressionado
 
+    delay(2000); // Aguarda 2 segundos antes de subir a prensa
+
     digitalWrite(pino_rele, LOW); // PINO DO RELÉ LOW = PRENSA SOBE!
 
     delay(500); //PEQUENO ATRASO PARA NÃO MOVIMENTAR PRENSA E MOTOR SIMULTANEAMENTE
@@ -99,8 +101,7 @@ void calibra_motor(){
 
 }
 
-  // FIM DA CALIBRAÇÃO DO MOTOR!!!
-
+// FIM DA CALIBRAÇÃO DO MOTOR!!!
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -124,31 +125,7 @@ void parada_total() {
 
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// 3) FUNÇÃO SUBIR PRENSA !!! 
-
-void subir_prensa() {
-
-  estado_botao_corte = digitalRead(botao_corte); // LÊ O ESTADO DO BOTÃO DE CORTE
-
-  // Loop para esperar o usuário pressionar o botão de subir a prensa
-
-  if (estado_botao_corte == LOW) {
-
-    delay(2000); // Espera 2 segundos antes de subir a prensa
-
-    Serial.println("\n PRENSA SUBINDO!!! \n");
-
-    digitalWrite(pino_rele, LOW); // PINO DO RELÉ LOW = PRENSA SOBE!
-  
-    delay(1000); // Atraso de 1 segundo por segurança
-
-  }
-
-}
-
-// ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-// 4) FUNÇÃO ESCOLHE SENTIDO HORÁRIO OU ANTI-HORÁRIO DE ACORDO COM A COMPARAÇÃO ENTRE A POSIÇÃO ATUAL (MEDIDA ANTERIOR) E A NOVA ETIQUETA !!! 
+// 3) FUNÇÃO ESCOLHE SENTIDO HORÁRIO OU ANTI-HORÁRIO DE ACORDO COM A COMPARAÇÃO ENTRE A POSIÇÃO ATUAL (MEDIDA ANTERIOR) E A NOVA ETIQUETA !!! 
 
 void sentido_rotacao(float posicao_atual, float medida_lida) { // Função recebe a posição atual e a medida bipada como parâmetros
 
@@ -173,7 +150,7 @@ void sentido_rotacao(float posicao_atual, float medida_lida) { // Função receb
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// 5) FUNÇÃO DE GIRO DO MOTOR - MOVIMENTA O MOTOR 1 CICLO (1 CICLO = 800 PULSOS = 175,7mm = 17,57cm) -> (4553,215 Pulsos = 1000mm = 1m)
+// 4) FUNÇÃO DE GIRO DO MOTOR - MOVIMENTA O MOTOR 1 CICLO (1 CICLO = 800 PULSOS = 175,7mm = 17,57cm) -> (4553,215 Pulsos = 1000mm = 1m)
 
 void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){ // Função recebe o pino de pulso, medida bipada e a posição atual como parâmetros
 
@@ -217,7 +194,7 @@ void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){ // Fun�
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// 6) FUNCÃO LOOP - LOOP PRINCIPAL DO PROGRAMA
+// 5) FUNCÃO LOOP - LOOP PRINCIPAL DO PROGRAMA
 
 void loop() { 
 
@@ -225,7 +202,7 @@ void loop() {
 
   digitalWrite(enable_pin, LOW); // HABILITA O MOTOR APÓS UMA POSSÍVEL PARADA TOTAL
 
-  // 6.1) MOTOR GIRA UMA VOLTA LENTAMENTE PARA NÃO MANTER O BOTÃO DE PARADA TOTAL DA CALIBRAÇÃO PRESSIONADO!!!
+  // 5.1) MOTOR GIRA UMA VOLTA LENTAMENTE PARA NÃO MANTER O BOTÃO DE PARADA TOTAL DA CALIBRAÇÃO PRESSIONADO!!!
 
   digitalWrite(pino_direcao, HIGH); // Atribui HIGH ao pino de direção -> HIGH = HORÁRIO
   delayMicroseconds(500); //Atraso de meio segundo
@@ -250,7 +227,7 @@ void loop() {
 
   // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  // 6.2) PRIMEIRO CICLO DO VOID LOOP - LARGURAS
+  // 5.2) PRIMEIRO CICLO DO VOID LOOP - LARGURAS
 
   // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -327,7 +304,7 @@ void loop() {
     // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-    // 6.3) SEGUNDO CICLO - ALTURAS - SÓ PROSSEGUE SE O BOTÃO PARA LER A MEDIDA DA ALTURA FOR PRESSIONADO
+    // 5.3) SEGUNDO CICLO - ALTURAS - SÓ PROSSEGUE SE O BOTÃO PARA LER A MEDIDA DA ALTURA FOR PRESSIONADO
 
 
     while(segundo_ciclo == 0){
