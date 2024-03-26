@@ -266,13 +266,13 @@ void loop() {
 
     long codigo = Serial.parseInt(); // Variável código recebe o que o usuário inseriu na porta serial
 
-    digitalWrite(pino_rele, LOW); // PINO DO RELÉ LOW = PRENSA SOBE!
-
-    delay(500); // Pequeno atraso para prensa não subir simultaneamente com o movimento do motor
-
     // LOOP FOR PARA ITERAR ATÉ O NÚMERO DE PEDIDOS
 
     for (int i = 0; i < num_pedidos; i++) {
+
+      digitalWrite(pino_rele, LOW); // PINO DO RELÉ LOW = PRENSA SOBE!
+
+      delay(500); // Pequeno atraso para prensa não subir simultaneamente com o movimento do motor
 
       // !!! VERIFICAÇÃO DE PARADA TOTAL !!!
 
