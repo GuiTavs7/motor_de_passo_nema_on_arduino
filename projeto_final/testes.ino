@@ -25,7 +25,7 @@ long codigos[] = {15756719, 15756540, 15755617, 15755656, 15755512};     // Veto
 float larguras[] = {4.5, 4.2, 4.3, 4.2, 4.1};                            // Vetor de larguras correspondentes às peças conforme os códigos de barras (em metros)
 float alturas[] = {4.6, 4.3, 4.3, 4.3, 4.4};                             // Vetor de alturas correspondentes às peças conforme os códigos de barras (em metros)
 
-int num_pedidos = 10;                                     // Variável para ser utilizada no limite do loop "for", para fazer o programa iterar até a quantidade necessária de códigos de barras                                 
+int num_pedidos = 5;                                      // Número de pedidos (etiquetas) - altere conforme necessário                            
 int segundo_ciclo = 0;                                    // Inicializa segundo ciclo com 0
 int contador = 0;                                         // Inicializa contador com 0
 int estado_botao_parada_total = HIGH;                     // Estado do botão de parada total
@@ -182,9 +182,9 @@ void sentido_rotacao(float posicao_atual, float medida_lida) { // Função receb
 
 void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){ // Função recebe o pino de pulso, medida bipada e a posição atual como parâmetros
 
-  const int velocidade_inicial = 2800; // Velocidade inicial - Um pouco maior que a velocidade de calibração
-  const int velocidade_final = 400;    // Velocidade final - Mais rápida e adequada para o motor
-  const int passos_aceleracao = 400;   // Número de passos para alcançar a velocidade final - de 400 em 400 - (400 - 2800 = 7 passos de aceleração = 7 marchas)
+  const int velocidade_inicial = 2400;   // Velocidade inicial - Um pouco maior que a velocidade de calibração
+  const int velocidade_final = 600;      // Velocidade final - Mais rápida e adequada para o motor
+  const int passos_aceleracao = 600;     // Número de passos para alcançar a velocidade final - de 600 em 600 - (600 -> 2400 = 4 passos de aceleração = 4 marchas)
 
   float qtd_passos; // Variável que define quantas vezes o motor irá girar. POSIÇÃO ATUAL - MEDIDA DE DESTINO (CÓDIGO DE BARRAS)
 
