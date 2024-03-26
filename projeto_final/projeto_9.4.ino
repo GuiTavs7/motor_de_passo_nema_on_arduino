@@ -15,7 +15,6 @@ const int pino_rele = 7;            // CONFIGURA O PINO DO RELE
 const int botao_altura = 3;         // CONFIGURA O PINO DO BOTÃO
 const int botao_fim_de_curso = 2;   // CONFIGURA O PINO DO BOTÃO DE FIM DE CURSO
 const int botao_parada_total = 4;   // CONFIGURA O PINO DO BOTÃO DE PARADA TOTAL
-const int botao_corte = 1;          // CONFIGURA O PINO DO BOTÃO DE CORTE
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -29,7 +28,6 @@ int num_pedidos = 5;                                      // Número de pedidos 
 int segundo_ciclo = 0;                                    // Inicializa segundo ciclo com 0
 int contador = 0;                                         // Inicializa contador com 0
 int estado_botao_parada_total = HIGH;                     // Estado do botão de parada total
-int estado_botao_corte;                                   // Estado do botão de corte
 
 float posicao_atual;                                      // Variável para armazenar a posição atual do motor                       
 float medida_lida;                                        // Variável para armazenar a posição de destino 
@@ -48,7 +46,6 @@ void setup() {
   pinMode(botao_altura, INPUT_PULLUP);       // DEFINE O PINO DO BOTÃO COMO ENTRADA E COM UM RESISTOR INTERNO PARA EVITAR LEITURAS ALEATÓRIAS
   pinMode(botao_fim_de_curso, INPUT_PULLUP); // DEFINE O BOTÃO FIM DE CURSO COMO ENTRADA E COM RESISTOR INTERNO
   pinMode(botao_parada_total, INPUT_PULLUP); // DEFINE O BOTÃO PARADA TOTAL COMO ENTRADA E COM RESISTOR INTERNO
-  pinMode(botao_corte, INPUT_PULLUP);        // DEFINE O BOTÃO DE CORTE COMO ENTRADA E COM RESISTOR INTERNO
 
   Serial.begin(9600);                        // INICIALIZA A COMUNICAÇÃO SERIAL COM UMA TAXA DE 9600 BAUD
 
