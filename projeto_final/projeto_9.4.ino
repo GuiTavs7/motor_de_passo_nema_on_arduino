@@ -69,7 +69,7 @@ void calibra_motor(){
     delayMicroseconds(1000); //Atraso de 1 segundo
     Serial.println("\n CALIBRANDO O MOTOR ATÉ POSIÇÃO INICIAL \n"); // Mensagem inicial de calibração do motor
 
-    for(int x = 0; x < 9000; x++){ // Loop For para girar o motor no sentido de calibração
+    for(int x = 0; x < 24000; x++){ // Loop For para girar o motor no sentido de calibração
 
       while (estado_botao_parada_total == HIGH){ // Permanece calibrando até que o botão de parada total seja acionado
 
@@ -214,7 +214,7 @@ void loop() {
 
   } // FIM DO IF
 
-  posicao_atual = 4.741; // POSIÇÃO DA MESA DE CORTE ONDE O MOTOR FICA APÓS SAIR DO BOTÃO!
+  posicao_atual = 4.743; // POSIÇÃO DA MESA DE CORTE ONDE O MOTOR FICA APÓS SAIR DO BOTÃO!
 
   // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
