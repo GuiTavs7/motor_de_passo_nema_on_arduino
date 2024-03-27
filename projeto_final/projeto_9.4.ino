@@ -69,7 +69,7 @@ void calibra_motor(){
     delayMicroseconds(1000); //Atraso de 1 segundo
     Serial.println("\n CALIBRANDO O MOTOR ATÉ POSIÇÃO INICIAL \n"); // Mensagem inicial de calibração do motor
 
-    for(int x = 0; x < 24000; x++){ // Loop For para girar o motor no sentido de calibração
+    for(int x = 0; x < 24000; x++){ // Loop For para girar o motor no sentido de calibração - 24000 = 30 Voltas em torno de si ~= 17,5cm * 30 = 5.25m - Calibra em qualquer posição da mesa
 
       while (estado_botao_parada_total == HIGH){ // Permanece calibrando até que o botão de parada total seja acionado
 
