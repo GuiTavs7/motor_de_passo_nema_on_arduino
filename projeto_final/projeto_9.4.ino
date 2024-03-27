@@ -147,7 +147,7 @@ void sentido_rotacao(float posicao_atual, float medida_lida) { // Função receb
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// 4) FUNÇÃO DE GIRO DO MOTOR - MOVIMENTA O MOTOR 1 CICLO (1 CICLO = 800 PULSOS = 175,9mm = 17,59cm) -> (4548.038658328596 Pulsos = 1000mm = 1m)
+// 4) FUNÇÃO DE GIRO DO MOTOR - MOVIMENTA O MOTOR 1 CICLO (1 CICLO = 800 PULSOS = 175,9mm = 17,59cm) -> (4548.038658328596 Pulsos = 1000mm = 1m) - USANDO TODAS CASAS DECIMAIS PARA AUMENTAR A PRECISÃO!
 
 void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){ // Função recebe o pino de pulso, medida bipada e a posição atual como parâmetros
 
