@@ -24,7 +24,7 @@ long codigos[] = {15756719, 15756540, 15755617, 15755656, 15755512};     // Veto
 float larguras[] = {4.5, 4.2, 4.3, 4.2, 4.1};                            // Vetor de larguras correspondentes às peças conforme os códigos de barras (em metros)
 float alturas[] = {4.6, 4.3, 4.3, 4.3, 4.4};                             // Vetor de alturas correspondentes às peças conforme os códigos de barras (em metros)
 
-int num_pedidos = 5;                                      // Número de pedidos (etiquetas) - altere conforme necessário                            
+int num_pedidos = 10;                                     // Número de pedidos (etiquetas) - altere conforme necessário                            
 int segundo_ciclo = 0;                                    // Inicializa segundo ciclo com 0
 int contador = 0;                                         // Inicializa contador com 0
 int estado_botao_parada_total = HIGH;                     // Estado do botão de parada total
