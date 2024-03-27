@@ -214,7 +214,7 @@ void loop() {
 
   } // FIM DO IF
 
-  posicao_atual = 4.743; // POSIÇÃO DA MESA DE CORTE ONDE O MOTOR FICA APÓS SAIR DO BOTÃO!
+  posicao_atual = 4.7425; // POSIÇÃO DA MESA DE CORTE ONDE O MOTOR FICA APÓS SAIR DO BOTÃO!
 
   // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
