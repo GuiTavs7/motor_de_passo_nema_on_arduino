@@ -22,7 +22,7 @@ const int botao_parada_total = 4;   // CONFIGURA O PINO DO BOTÃO DE PARADA TOTA
 long codigos[] = {15756719, 15756540, 15755617, 15755656, 15755512};     // Vetor de longs para os códigos de barras
 float larguras[] = {4.5, 3.5, 3.68, 3.624, 2.15};                            // Vetor de larguras correspondentes às peças conforme os códigos de barras (em metros)
 
-int num_pedidos = 5;                                     // Número de pedidos (etiquetas) - altere conforme necessário                                                        
+int num_pedidos = 5;                                      // Número de pedidos (etiquetas) - altere conforme necessário                                                        
 int contador = 0;                                         // Inicializa contador com 0
 int estado_botao_parada_total = HIGH;                     // Estado do botão de parada total
 
@@ -277,7 +277,7 @@ void loop() {
 
         posicao_atual = medida_lida;  // POSICAO ATUAL RECEBE O VALOR DA MEDIDA LIDA PARA PRÓXIMAS COMPARAÇÕES
 
-        delay(1000); // ATRASO PARA NÃO DESCER A PRENSA ANTES DE TERMINAR O MOVIMENTO DO MOTOR
+        delay(600); // ATRASO PARA NÃO DESCER A PRENSA ANTES DE TERMINAR O MOVIMENTO DO MOTOR
 
         digitalWrite(pino_rele, HIGH); // PINO DO RELÉ HIGH = PRENSA DESCE!
       
