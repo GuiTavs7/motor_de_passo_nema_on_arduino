@@ -143,7 +143,7 @@ void sentido_rotacao(float posicao_atual, float medida_lida) { // Função receb
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// 4) FUNÇÃO DE GIRO DO MOTOR - MOVIMENTA O MOTOR 1 CICLO (1 CICLO = 800 PULSOS = 176mm = 17,60cm) -> (4545.454545454545 Pulsos = 1000mm = 1m) - USANDO TODAS CASAS DECIMAIS PARA AUMENTAR A PRECISÃO!
+// 4) FUNÇÃO DE GIRO DO MOTOR - MOVIMENTA O MOTOR 1 CICLO (1 CICLO = 800 PULSOS = 175,9mm = 17,59cm) -> (4548.038658328596 Pulsos = 1000mm = 1m) - USANDO TODAS CASAS DECIMAIS PARA AUMENTAR A PRECISÃO!
 
 void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){ // Função recebe o pino de pulso, medida bipada e a posição atual como parâmetros
 
@@ -157,7 +157,7 @@ void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){ // Fun�
 
   int velocidade_atual = velocidade_inicial; // Velocidade inicial recebe a velocidade inicial (2800)
 
-  for (int i = 0; i < (qtd_passos * 4545.454545454545); i++){ // O motor gira x vezes de acordo com a expressão anterior. Altere essa condição de acordo com seu referencial de medidas
+  for (int i = 0; i < (qtd_passos * 4548.038658328596); i++){ // O motor gira x vezes de acordo com a expressão anterior. Altere essa condição de acordo com seu referencial de medidas
 
     if(estado_botao_parada_total == HIGH){ // Verificação de parada total durante as voltas do motor
       parada_total(); 
@@ -172,7 +172,7 @@ void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){ // Fun�
 
     // IF PARA DESACELERAR O MOTOR - QUANDO FALTA 10% PRA CHEGAR NA MEDIDA DE DESTINO (1m = desacelera no 0,90)!
 
-    if (i > (0.98 * (qtd_passos * 4545.454545454545))) {
+    if (i > (0.98 * (qtd_passos * 4548.038658328596))) {
       // Ajustar a velocidade gradualmente até a velocidade final
       velocidade_atual -= 750;
     }
@@ -210,7 +210,7 @@ void loop() {
 
   } // FIM DO IF
 
-  posicao_atual = 4.7428; // POSIÇÃO DA MESA DE CORTE ONDE O MOTOR FICA APÓS SAIR DO BOTÃO!
+  posicao_atual = 4.744; // POSIÇÃO DA MESA DE CORTE ONDE O MOTOR FICA APÓS SAIR DO BOTÃO!
 
   // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
