@@ -197,6 +197,7 @@ void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){ // Fun√
 
       digitalWrite(pino_pulso, HIGH);
       delayMicroseconds(1200);           // Velocidade menor para pe√ßas com menos de 0.5m
+      digitalWrite(pino_pulso, LOW);
     
     } 
 
