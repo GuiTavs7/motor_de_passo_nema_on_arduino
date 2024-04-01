@@ -176,7 +176,7 @@ void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){ // Fun√
 
       if (i > (0.95 * (qtd_passos * 4548.038658328596))) {
         // Ajustar a velocidade gradualmente at√© a velocidade final
-        velocidade_atual -= 750;
+        velocidade_atual = 750;
       }
 
       digitalWrite(pino_pulso, HIGH);
