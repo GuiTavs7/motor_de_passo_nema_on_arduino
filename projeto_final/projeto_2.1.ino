@@ -1,7 +1,7 @@
 // PROJETO: PERSOL INC
 // AUTOR: GUILHERME TAVARES PINHEIRO
-// DATA: 28/03/2024
-// OBJETIVO: AUTOMAÇÃO DA MESA DE CORTE DE TECIDO - MOVIMENTAR MOTOR DE PASSO NEMA - LARGURA
+// DATA: 01/04/2024
+// OBJETIVO: AUTOMAÇÃO DA MESA DE CORTE DE TECIDO - MOTOR DE PASSO NEMA CONTROLANDO A MESA
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -20,9 +20,9 @@ const int botao_parada_total = 4;   // CONFIGURA O PINO DO BOTÃO DE PARADA TOTA
 // CRIAÇÃO DAS VARIÁVEIS - VETORES E ITERÁVEIS
 
 long codigos[] = {15756719, 15756540, 15755617, 15755656, 15755512};     // Vetor de longs para os códigos de barras
-float larguras[] = {4.5, 3.5, 3.68, 3.624, 2.15};                            // Vetor de larguras correspondentes às peças conforme os códigos de barras (em metros)
+float larguras[] = {4.285, 3.548, 4.549, 3.5, 4.70};                     // Vetor de larguras correspondentes às peças conforme os códigos de barras (em metros)
 
-int num_pedidos = 5;                                     // Número de pedidos (etiquetas) - altere conforme necessário                                                        
+int num_pedidos = 5;                                      // Número de pedidos (etiquetas) - altere conforme necessário                                                        
 int contador = 0;                                         // Inicializa contador com 0
 int estado_botao_parada_total = HIGH;                     // Estado do botão de parada total
 
@@ -35,15 +35,15 @@ float medida_lida;                                        // Variável para arma
 
 void setup() {
 
-  pinMode(pino_pulso, OUTPUT);               // DEFINE PINO PULSO COMO SAÍDA
-  pinMode(pino_direcao, OUTPUT);             // DEFINE PINO DIRECAO COMO SAÍDA
-  pinMode(enable_pin, OUTPUT);               // DEFINE PINO ENABLE COMO SAÍDA
-  pinMode(pino_rele, OUTPUT);                // DEFINE PINO DO RELÉ COMO SAÍDA
+  pinMode(pino_pulso, OUTPUT);                 // DEFINE PINO PULSO COMO SAÍDA
+  pinMode(pino_direcao, OUTPUT);               // DEFINE PINO DIRECAO COMO SAÍDA
+  pinMode(enable_pin, OUTPUT);                 // DEFINE PINO ENABLE COMO SAÍDA
+  pinMode(pino_rele, OUTPUT);                  // DEFINE PINO DO RELÉ COMO SAÍDA
 
-  pinMode(botao_fim_de_curso, INPUT_PULLUP); // DEFINE O BOTÃO FIM DE CURSO COMO ENTRADA E COM RESISTOR INTERNO
-  pinMode(botao_parada_total, INPUT_PULLUP); // DEFINE O BOTÃO PARADA TOTAL COMO ENTRADA E COM RESISTOR INTERNO
+  pinMode(botao_fim_de_curso, INPUT_PULLUP);   // DEFINE O BOTÃO FIM DE CURSO COMO ENTRADA E COM RESISTOR INTERNO
+  pinMode(botao_parada_total, INPUT_PULLUP);   // DEFINE O BOTÃO PARADA TOTAL COMO ENTRADA E COM RESISTOR INTERNO
 
-  Serial.begin(9600);                        // INICIALIZA A COMUNICAÇÃO SERIAL COM UMA TAXA DE 9600 BAUD
+  Serial.begin(9600);                          // INICIALIZA A COMUNICAÇÃO SERIAL COM UMA TAXA DE 9600 BAUD
 
 } // FIM DA FUNÇÃO SETUP
 
@@ -176,7 +176,7 @@ void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){ // Fun�
 
       if (i > (0.95 * (qtd_passos * 4548.038658328596))) {
         // Ajustar a velocidade gradualmente até a velocidade final
-        velocidade_atual = 750;
+        velocidade_atual = 2400;
       }
 
       digitalWrite(pino_pulso, HIGH);
@@ -230,7 +230,7 @@ void loop() {
 
   } // FIM DO IF
 
-  posicao_atual = 4.743; // POSIÇÃO DA MESA DE CORTE ONDE O MOTOR FICA APÓS SAIR DO BOTÃO!
+  posicao_atual = 4.742; // POSIÇÃO DA MESA DE CORTE ONDE O MOTOR FICA APÓS SAIR DO BOTÃO!
 
   // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
