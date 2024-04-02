@@ -155,6 +155,8 @@ void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){ // Fun�
 
   qtd_passos = abs((posicao_atual - medida_lida)); // Usamos a função abs() para a subtração sempre retornar um valor positivo, isto é, para não correr o risco de termos um valor negativo (sempre módulo)!
 
+  // PARA PEÇAS MAIORES QUE 0.50m - VELOCIDADE VARIA - ACELERAÇÃO PARA SAIR E PARA PARAR
+
   if (qtd_passos > 0.50){
 
     int velocidade_atual = velocidade_inicial; // Velocidade inicial recebe a velocidade inicial (2400)
@@ -180,12 +182,16 @@ void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){ // Fun�
       }
 
       digitalWrite(pino_pulso, HIGH);
-      delayMicroseconds(velocidade_atual);           // Velocidade de giro do motor durante as leituras de largura e altura (400 = Valor mais adequado para o motor girar razoavelmente rápido e sem ruídos)
+      delayMicroseconds(velocidade_atual);           // Velocidade atual - vai de 2400 a 600 na aceleração e de 600 para 2400 na desaceleração
       digitalWrite(pino_pulso, LOW);
     
     }
 
   }
+
+  // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  // PARA PEÇAS DE ATÉ 0.50m - VELOCIDADE CONSTANTE DE 1200
 
   else{
 
