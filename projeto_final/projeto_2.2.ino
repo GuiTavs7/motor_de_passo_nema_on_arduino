@@ -1,6 +1,6 @@
 // PROJETO: PERSOL INC
 // AUTOR: GUILHERME TAVARES PINHEIRO
-// DATA: 28/03/2024
+// DATA: 04/04/2024
 // OBJETIVO: AUTOMAÇÃO DA MESA DE CORTE DE TECIDO - MOVIMENTAR MOTOR DE PASSO NEMA - LARGURA
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -18,12 +18,12 @@ const int botao_afasta_motor = 1;   // CONFIGURA O PINO DO BOTÃO QUE AFASTA MOT
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// CRIAÇÃO DAS VARIÁVEIS - VETORES E ITERÁVEIS
+// CRIAÇÃO DAS VARIÁVEIS GLOBAIS - VETORES E ITERÁVEIS
 
-long codigos[] = {15756719, 15756540, 15755617, 15755656, 15755512};     // Vetor de longs para os códigos de barras
+long codigos[] = {15756719, 15756540, 15755617, 15755656, 15755512};         // Vetor de longs para os códigos de barras
 float larguras[] = {4.5, 3.5, 3.68, 3.624, 2.15};                            // Vetor de larguras correspondentes às peças conforme os códigos de barras (em metros)
 
-int num_pedidos = 5;                                     // Número de pedidos (etiquetas) - altere conforme necessário                                                        
+int num_pedidos = 5;                                      // Número de pedidos (etiquetas) - altere conforme necessário                                                        
 int contador = 0;                                         // Inicializa contador com 0
 int estado_botao_parada_total = HIGH;                     // Estado do botão de parada total
 
