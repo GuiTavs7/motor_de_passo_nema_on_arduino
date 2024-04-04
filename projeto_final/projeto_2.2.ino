@@ -216,13 +216,13 @@ void afasta_motor(){
   int estado_botao_afasta_motor = digitalRead(botao_afasta_motor); 
   int estado_botao_fim_de_curso = digitalRead(botao_fim_de_curso); 
 
-  while ((estado_botao_afasta_motor == LOW) && (estado_botao_fim_de_curso == HIGH)) {
+  if (estado_botao_afasta_motor == LOW){
     
     digitalWrite(pino_direcao, LOW);
     delayMicroseconds(1000);
     Serial.println("\n MOTOR RETORNANDO NO SENTIDO ANTI-HORÁRIO \n");
 
-    for (int x = 0; x < 24000; x++) {
+    for (int x = 0; x < 1600; x++) {
       estado_botao_afasta_motor = digitalRead(botao_afasta_motor); 
       estado_botao_fim_de_curso = digitalRead(botao_fim_de_curso); 
 
@@ -233,10 +233,10 @@ void afasta_motor(){
       digitalWrite(pino_pulso, HIGH);
       delayMicroseconds(2000);
       digitalWrite(pino_pulso, LOW);
-
-      posicao_atual = (posicao_atual / 800) * 17.59; // Incrementa a posição atual a cada passo dado pelo motor
-    }
+    }  
+  
   }
+
 }
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -280,6 +280,8 @@ void loop() {
 
   for(contador = 0; contador < num_pedidos * 2; contador++){ // REPETE A LEITURA DE ETIQUETAS ATÉ A QUANTIDADE DE PEDIDOS (*2 PARA BATER O CÁLCULO)
 
+    afasta_motor(); // CHAMA A FUNÇÃO DE AFASTAR O MOTOR CASO O BOTÃO SEJA APERTADO
+
     // SEGUNDA VERIFICAÇÃO DE PARADA TOTAL 
 
     parada_total();
@@ -301,9 +303,13 @@ void loop() {
 
     long codigo = Serial.parseInt(); // Variável código recebe o que o usuário inseriu na porta serial
 
+    afasta_motor(); // CHAMA A FUNÇÃO DE AFASTAR O MOTOR CASO O BOTÃO SEJA APERTADO
+
     // LOOP FOR PARA ITERAR ATÉ O NÚMERO DE PEDIDOS
 
     for (int i = 0; i < num_pedidos; i++) {
+
+      afasta_motor(); // CHAMA A FUNÇÃO DE AFASTAR O MOTOR CASO O BOTÃO SEJA APERTADO
 
       // !!! VERIFICAÇÃO DE PARADA TOTAL !!!
 
