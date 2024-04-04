@@ -214,25 +214,29 @@ void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){ // Fun�
 void afasta_motor(){
 
   int estado_botao_afasta_motor = digitalRead(botao_afasta_motor); 
-
   int estado_botao_fim_de_curso = digitalRead(botao_fim_de_curso); 
 
-  while ((botao_afasta_motor == LOW) && (botao_fim_de_curso == HIGH)){ // Enquanto o botão de afastar o motor está apertado e o de fim de curso não:
+  while ((estado_botao_afasta_motor == LOW) && (estado_botao_fim_de_curso == HIGH)) {
+    
+    digitalWrite(pino_direcao, LOW);
+    delayMicroseconds(1000);
+    Serial.println("\n MOTOR RETORNANDO NO SENTIDO ANTI-HORÁRIO \n");
 
-    digitalWrite(pino_direcao, LOW); // Atribui LOW ao pino de direção -> LOW = ANTI-HORÁRIO
-    delayMicroseconds(1000); //Atraso de 1 segundo
-    Serial.println("\n MOTOR RETORNANDO NO SENTIDO ANTI-HORÁRIO \n"); // Printa no monitor serial em qual sentido o motor está girando
+    for (int x = 0; x < 24000; x++) {
+      estado_botao_afasta_motor = digitalRead(botao_afasta_motor); 
+      estado_botao_fim_de_curso = digitalRead(botao_fim_de_curso); 
 
-    for(int x = 0; x < 24000; x++){ //SE MOVIMENTA ATÉ SOLTAR O BOTÃO!
-     
-      digitalWrite(pino_pulso, HIGH); // PINO DE PULSO INICIA
-      delayMicroseconds(2000); // Velocidade 
-      digitalWrite(pino_pulso,LOW); // PINO DE PULSO ENCERRA
+      if (estado_botao_afasta_motor == HIGH || estado_botao_fim_de_curso == LOW) {
+        break; // Sai do loop se o botão de afastar for solto ou o de fim de curso for pressionado
+      }
 
-    } // FIM DO FOR
+      digitalWrite(pino_pulso, HIGH);
+      delayMicroseconds(2000);
+      digitalWrite(pino_pulso, LOW);
 
-  } // FIM DO WHILE
- 
+      posicao_atual++; // Incrementa a posição atual a cada passo dado pelo motor
+    }
+  }
 }
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
