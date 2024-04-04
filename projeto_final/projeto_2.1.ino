@@ -283,19 +283,15 @@ void loop() {
 
       if (codigos[i] == codigo) { // Verifica se o código de barras digitado ou bipado corresponde à alguns dos códigos no vetor códigos[]
 
-        // VERIFICAÇÃO DE PARADA TOTAL  
-
         digitalWrite(pino_rele, LOW); // PINO DO RELÉ LOW = PRENSA SOBE!
 
         delay(500); //PEQUENO ATRASO PARA NÃO MOVIMENTAR PRENSA E MOTOR SIMULTANEAMENTE
 
-        parada_total(); 
+        parada_total();   // VERIFICAÇÃO DE PARADA TOTAL  
 
         medida_lida = larguras[i]; // Aqui vamos armazenar o valor correspondente a largura do respectivo índice
 
         Serial.println(larguras[i]); // Printamos a medida que o motor irá movimentar para não nos perdermos
-
-        // GIRANDO O MOTOR NO PRIMEIRO SENTIDO
 
         sentido_rotacao(posicao_atual, medida_lida); // Define o sentido de rotação do motor de acordo com os parâmetros da medida da largura
         
