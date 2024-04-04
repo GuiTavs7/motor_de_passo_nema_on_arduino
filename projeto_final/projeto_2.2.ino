@@ -234,7 +234,7 @@ void afasta_motor(){
       delayMicroseconds(2000);
       digitalWrite(pino_pulso, LOW);
 
-      posicao_atual++; // Incrementa a posição atual a cada passo dado pelo motor
+      posicao_atual = (posicao_atual / 800) * 17.59; // Incrementa a posição atual a cada passo dado pelo motor
     }
   }
 }
