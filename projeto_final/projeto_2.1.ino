@@ -1,6 +1,6 @@
 // PROJETO: PERSOL INC
 // AUTOR: GUILHERME TAVARES PINHEIRO
-// DATA: 01/04/2024
+// DATA: 04/04/2024
 // OBJETIVO: AUTOMAÇÃO DA MESA DE CORTE DE TECIDO - MOTOR DE PASSO NEMA CONTROLANDO A MESA
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
