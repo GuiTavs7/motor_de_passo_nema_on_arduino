@@ -243,7 +243,7 @@ void afasta_motor(){
 
 void loop() { 
 
-  // calibra_motor();
+  calibra_motor();
 
   digitalWrite(enable_pin, LOW); // HABILITA O MOTOR APÓS UMA POSSÍVEL PARADA TOTAL
 
