@@ -41,9 +41,9 @@ void setup() {
   pinMode(enable_pin, OUTPUT);               // DEFINE PINO ENABLE COMO SAÍDA
   pinMode(pino_rele, OUTPUT);                // DEFINE PINO DO RELÉ COMO SAÍDA
 
-  pinMode(botao_fim_de_curso, INPUT_PULLUP); // DEFINE O BOTÃO FIM DE CURSO COMO ENTRADA E COM RESISTOR INTERNO
-  pinMode(botao_parada_total, INPUT_PULLUP); // DEFINE O BOTÃO PARADA TOTAL COMO ENTRADA E COM RESISTOR INTERNO
-  pinMode(botao_afasta_motor, INPUT_PULLUP); // DEFINE O BOTÃO AFASTA MOTOR COMO ENTRADA E COM RESISTOR INTERNO
+  pinMode(botao_fim_de_curso, INPUT_PULLUP);   // DEFINE O BOTÃO FIM DE CURSO COMO ENTRADA E COM RESISTOR INTERNO
+  pinMode(botao_parada_total, INPUT_PULLUP);   // DEFINE O BOTÃO PARADA TOTAL COMO ENTRADA E COM RESISTOR INTERNO
+  pinMode(botao_afasta_motor, INPUT_PULLUP);   // DEFINE O BOTÃO AFASTA MOTOR COMO ENTRADA E COM RESISTOR INTERNO
 
   Serial.begin(9600);                        // INICIALIZA A COMUNICAÇÃO SERIAL COM UMA TAXA DE 9600 BAUD
 
@@ -116,7 +116,7 @@ void parada_total() {
 
   }
   
-}
+} // FIM DA FUNÇÃO DE PARADA TOTAL
 
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -127,19 +127,19 @@ void sentido_rotacao(float posicao_atual, float medida_lida) { // Função receb
   if (posicao_atual > medida_lida){ // Se a medida for menor do que a posição atual do motor:
 
     digitalWrite(pino_direcao, HIGH); // Atribui HIGH ao pino de direção -> HIGH = HORÁRIO
-    delayMicroseconds(1000); //Atraso de 1 segundo
+    delayMicroseconds(1000); //Atraso de 1 micro-segundo(imperceptível)
     Serial.println("\n MOTOR GIRANDO NO SENTIDO HORÁRIO \n"); // Printa no monitor serial em qual sentido o motor está girando
 
   }
   else{ // Se a medida for maior que a posição atual do motor
 
     digitalWrite(pino_direcao, LOW); // Atribui LOW ao pino de direção -> LOW = ANTI-HORÁRIO
-    delayMicroseconds(1000); //Atraso de 1 segundo
+    delayMicroseconds(1000); //Atraso de 1 micro-segundo(imperceptível)
     Serial.println("\n MOTOR GIRANDO NO SENTIDO ANTI-HORÁRIO \n"); // Printa no monitor serial em qual sentido o motor está girando
 
   }
   
-}
+} // FIM DA FUNÇÃO DE ESCOLHER SENTIDO 
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -205,7 +205,7 @@ void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){ // Fun�
 
   }
 
-}
+} // FIM DA FUNÇÃO DE MOVIMENTO DO MOTOR
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -214,7 +214,7 @@ void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){ // Fun�
 
 void afasta_motor(float &posicao_atual){ //"&" torna a variável posição_atual intercambiável entre a função "afasta_motor()" e void loop() 
 
-  int x = 0;
+  int x = 0; // Declara e inicializa x com 0
 
   digitalWrite(pino_rele, LOW); // PINO DO RELÉ LOW = PRENSA SOBE!
 
@@ -237,7 +237,7 @@ void afasta_motor(float &posicao_atual){ //"&" torna a variável posição_atual
       }
 
       digitalWrite(pino_pulso, HIGH);
-      delayMicroseconds(2000);
+      delayMicroseconds(2000);         // VELOCIDADE DO BOTÃO VERDE
       digitalWrite(pino_pulso, LOW);
      
     }  
@@ -256,7 +256,7 @@ void afasta_motor(float &posicao_atual){ //"&" torna a variável posição_atual
 
 void loop() { 
 
-  calibra_motor();
+  calibra_motor(); // CHAMA A FUNÇÃO DE CALIBRAÇÃO DO MOTOR 
 
   digitalWrite(enable_pin, LOW); // HABILITA O MOTOR APÓS UMA POSSÍVEL PARADA TOTAL
 
