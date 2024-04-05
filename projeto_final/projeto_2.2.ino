@@ -309,7 +309,9 @@ void loop() {
    
     }
   
-    // Se algum dos eventos acontecer, o loop é interrompido e o código continua:
+    // Se algum dos eventos acontecer, o loop é interrompido e o código continua
+
+    // 6.3) 1º CASO - BOTÃO DE AFASTAR O MOTOR APERTADO
   
     if (digitalRead(botao_afasta_motor) == LOW) {
       
@@ -318,6 +320,8 @@ void loop() {
       posicao_atual = posicao_atual;
 
     }
+    
+    // 6.4) 2º CASO - PEÇA BIPADA
   
     if (Serial.available() > 0) { // Caso dados sejam recebidos na porta serial:
 
