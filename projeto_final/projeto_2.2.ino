@@ -43,7 +43,7 @@ void setup() {
 
   pinMode(botao_fim_de_curso, INPUT_PULLUP); // DEFINE O BOTﾃグ FIM DE CURSO COMO ENTRADA E COM RESISTOR INTERNO
   pinMode(botao_parada_total, INPUT_PULLUP); // DEFINE O BOTﾃグ PARADA TOTAL COMO ENTRADA E COM RESISTOR INTERNO
-  pinMode(botao_afasta_motor, INPUT_PULLUP); // DEFINE O BOTﾃグ PARADA TOTAL COMO ENTRADA E COM RESISTOR INTERNO
+  pinMode(botao_afasta_motor, INPUT_PULLUP); // DEFINE O BOTﾃグ AFASTA MOTOR COMO ENTRADA E COM RESISTOR INTERNO
 
   Serial.begin(9600);                        // INICIALIZA A COMUNICAﾃ�ﾃグ SERIAL COM UMA TAXA DE 9600 BAUD
 
@@ -182,7 +182,7 @@ void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){ // Funﾃ
       }
 
       digitalWrite(pino_pulso, HIGH);
-      delayMicroseconds(velocidade_atual);           // Velocidade de giro do motor durante as leituras de largura e altura (400 = Valor mais adequado para o motor girar razoavelmente rﾃ｡pido e sem ruﾃｭdos)
+      delayMicroseconds(velocidade_atual);  // Velocidade de giro do motor durante as leituras de largura e altura (400 = Valor mais adequado para o motor girar razoavelmente rﾃ｡pido e sem ruﾃｭdos)
       digitalWrite(pino_pulso, LOW);
     
     }
@@ -198,7 +198,7 @@ void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){ // Funﾃ
       }
 
       digitalWrite(pino_pulso, HIGH);
-      delayMicroseconds(1200); // Velocidade menor para peﾃｧas com menos de 0.5m
+      delayMicroseconds(1200);  // Velocidade menor para peﾃｧas com menos de 0.5m
       digitalWrite(pino_pulso, LOW);
     
     } 
