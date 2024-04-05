@@ -131,11 +131,11 @@ Lista de materiais utilizados na montagem:
 - Motor de Passo Nema + Driver/Dissipador + Fonte Externa;
 - Caixa de automação (onde as peças foram inseridas).
 
-<img width = 600 height = 400 align="center" src="/imagens/caixa-1.jpeg">
+<img width = 600 height = 400 align="center" src="/imagens/caixa-1.jpg">
 
 ## Visão Interna da Caixa de Automação
 
-<img width = 600 height = 600 align="center" src="/imagens/caixa-2.jpeg">
+<img width = 600 height = 600 align="center" src="/imagens/caixa-2.jpg">
 
 # Acabamento
 
