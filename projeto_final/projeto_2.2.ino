@@ -23,7 +23,7 @@ const int botao_afasta_motor = 6;   // CONFIGURA O PINO DO BOTÃO QUE AFASTA MOT
 long codigos[] = {15756719, 15756540, 15755617, 15755656, 15755512};      // Vetor de longs para os códigos de barras
 float larguras[] = {4.5, 4.6, 4.7, 4.2, 4.15};                            // Vetor de larguras correspondentes às peças conforme os códigos de barras (em metros)
 
-int num_pedidos = 90;                                      // Número de pedidos (etiquetas) - altere conforme necessário                                                        
+int num_pedidos = 90;                                     // Número de pedidos (etiquetas) - altere conforme necessário                                                        
 int contador = 0;                                         // Inicializa contador com 0
 int estado_botao_parada_total = HIGH;                     // Estado do botão de parada total
 
@@ -212,25 +212,28 @@ void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){ // Fun�
 
 // 5) FUNÇÃO AFASTA MOTOR !!! 
 
-void afasta_motor(float &posicao_atual){
+void afasta_motor(float &posicao_atual){ //"&" torna a variável posição_atual intercambiável entre a função "afasta_motor()" e void loop() 
 
   int x = 0;
 
   digitalWrite(pino_rele, LOW); // PINO DO RELÉ LOW = PRENSA SOBE!
 
-  int estado_botao_afasta_motor = digitalRead(botao_afasta_motor); 
+  delay(500); // ATRASO DE MEIO SEGUNDO PARA NÃO TRANCAR A MESA
 
-  if (estado_botao_afasta_motor == LOW){
+  int estado_botao_afasta_motor = digitalRead(botao_afasta_motor); // Lê o estado do botao_afasta_motor
+
+  if (estado_botao_afasta_motor == LOW){ // Se o botão for apertado:
     
     digitalWrite(pino_direcao, LOW);
     delayMicroseconds(1000);
-    Serial.println("\n MOTOR RETORNANDO NO SENTIDO ANTI-HORÁRIO \n");
+    Serial.println("\n MOTOR AFASTANDO NO SENTIDO ANTI-HORÁRIO \n");
 
-    for (x = 0; x < 24000; x++) {
-      estado_botao_afasta_motor = digitalRead(botao_afasta_motor); 
+    for (x = 0; x < 24000; x++) {   // 24000 = 30 Voltas em torno de si ~= 17,5cm * 30 = 5.25m - Capaz de afastar o motor em toda extensão da mesa
+      
+      estado_botao_afasta_motor = digitalRead(botao_afasta_motor); // Verifica continuamente o estado do botão dentro do loop
 
       if (estado_botao_afasta_motor == HIGH) {
-        break; // Sai do loop se o botão de afastar for solto ou o de fim de curso for pressionado
+        break; // Sai do loop se o botão de afastar for solto
       }
 
       digitalWrite(pino_pulso, HIGH);
