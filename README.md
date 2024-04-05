@@ -137,6 +137,12 @@ Lista de materiais utilizados na montagem:
 
 <img width = 600 height = 600 align="center" src="/imagens/caixa-2.jpeg">
 
+# Acabamento
+
+<img width = 600 height = 400 align="center" src="/imagens/acabamento_motor_1.jpeg">
+
+<img width = 600 height = 400 align="center" src="/imagens/acabamento_motor_2.jpeg">
+
 # Links Importantes
 
 ***Vídeo sobre o driver:  https://www.youtube.com/watch?v=_8yUdaW47DQ***
