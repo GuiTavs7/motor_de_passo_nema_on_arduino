@@ -214,6 +214,10 @@ void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){ // Fun�
 
 void afasta_motor(){
 
+  digitalWrite(pino_rele, LOW); // PINO DO RELÃ‰ LOW = PRENSA SOBE!
+
+  delay(500); //PEQUENO ATRASO PARA NÃƒO MOVIMENTAR PRENSA E MOTOR SIMULTANEAMENTE
+
   int estado_botao_afasta_motor = digitalRead(botao_afasta_motor); 
 
   if (estado_botao_afasta_motor == LOW){
@@ -222,7 +226,7 @@ void afasta_motor(){
     delayMicroseconds(1000);
     Serial.println("\n MOTOR RETORNANDO NO SENTIDO ANTI-HORÁRIO \n");
 
-    for (int x = 0; x < 400; x++) {
+    for (int x = 0; x < 800; x++) {
       estado_botao_afasta_motor = digitalRead(botao_afasta_motor); 
 
       if (estado_botao_afasta_motor == HIGH) {
