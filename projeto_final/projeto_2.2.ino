@@ -57,11 +57,11 @@ void calibra_motor(){
 
   if (estado_botao_parada_total == HIGH){ // Continua a calibração enquanto o botão de parada total não for pressionado
 
-    delay(2000); // Aguarda 2 segundos antes de subir a prensa
+    delay(100); //PEQUENO ATRASO PARA NÃO MOVIMENTAR PRENSA E MOTOR SIMULTANEAMENTE
 
     digitalWrite(pino_rele, LOW); // PINO DO RELÉ LOW = PRENSA SOBE!
 
-    delay(500); //PEQUENO ATRASO PARA NÃO MOVIMENTAR PRENSA E MOTOR SIMULTANEAMENTE
+    delay(100); //PEQUENO ATRASO PARA NÃO MOVIMENTAR PRENSA E MOTOR SIMULTANEAMENTE
 
     digitalWrite(pino_direcao, LOW); // Atribui LOW ao pino de direção -> LOW = ANTI-HORÁRIO - Sentido de calibração
     delayMicroseconds(1000); //Atraso de 1 segundo
@@ -112,7 +112,7 @@ void parada_total() {
 
     digitalWrite(enable_pin, HIGH); // Ativa o pino ENA - Desabilita o movimento do motor
 
-    delay(1000); // Atraso de 1 segundo por segurança
+    delay(400); // Atraso por segurança
 
   }
   
@@ -178,7 +178,7 @@ void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){ // Fun�
 
       if (i > (0.95 * (qtd_passos * 4548.038658328596))) {
         // Ajustar a velocidade gradualmente até a velocidade final
-        velocidade_atual -= 750;
+        velocidade_atual = 1200;
       }
 
       digitalWrite(pino_pulso, HIGH);
@@ -244,7 +244,7 @@ void afasta_motor(float &posicao_atual){ //"&" torna a variável posição_atual
 
    posicao_atual = posicao_atual + (x * 0.000219875); // 0.000219875 eh o 0.1759 / 800
 
-   Serial.println(posicao_atual);
+   Serial.println(posicao_atual); // Printa no serial monitor a posição em que foi solto o botão
   
   }
 
@@ -275,7 +275,7 @@ void loop() {
 
   } // FIM DO IF
 
-  posicao_atual = 4.743; // POSIÇÃO DA MESA DE CORTE ONDE O MOTOR FICA APÓS SAIR DO BOTÃO!
+  posicao_atual = 4.728; // POSIÇÃO DA MESA DE CORTE ONDE O MOTOR FICA APÓS SAIR DO BOTÃO!
 
   // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -309,7 +309,7 @@ void loop() {
    
     }
   
-    // Se algum dos eventos acontecer, o loop é interrompido e o código continua
+    // LOOP INTERROMPIDO - BOTÃO AFASTAR MOTOR APERTADO OU ETIQUETA BIPADA
 
     // 6.3) 1º CASO - BOTÃO DE AFASTAR O MOTOR APERTADO
   
@@ -321,7 +321,7 @@ void loop() {
 
     }
     
-    // 6.4) 2º CASO - PEÇA BIPADA
+    // 6.4) 2º CASO - ETIQUETA BIPADA
   
     if (Serial.available() > 0) { // Caso dados sejam recebidos na porta serial:
 
@@ -343,7 +343,7 @@ void loop() {
 
           digitalWrite(pino_rele, LOW); // PINO DO RELÉ LOW = PRENSA SOBE!
 
-          delay(500); //PEQUENO ATRASO PARA NÃO MOVIMENTAR PRENSA E MOTOR SIMULTANEAMENTE
+          delay(150); //PEQUENO ATRASO PARA NÃO MOVIMENTAR PRENSA E MOTOR SIMULTANEAMENTE
 
           parada_total(); 
 
@@ -359,7 +359,7 @@ void loop() {
 
           posicao_atual = medida_lida;  // POSICAO ATUAL RECEBE O VALOR DA MEDIDA LIDA PARA PRÓXIMAS COMPARAÇÕES
 
-          delay(1000); // ATRASO PARA NÃO DESCER A PRENSA ANTES DE TERMINAR O MOVIMENTO DO MOTOR
+          delay(350); // ATRASO PARA NÃO DESCER A PRENSA ANTES DE TERMINAR O MOVIMENTO DO MOTOR
 
           digitalWrite(pino_rele, HIGH); // PINO DO RELÉ HIGH = PRENSA DESCE!
       
