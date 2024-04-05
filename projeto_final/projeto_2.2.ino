@@ -14,7 +14,7 @@ const int pino_rele = 7;            // CONFIGURA O PINO DO RELE
 
 const int botao_fim_de_curso = 2;   // CONFIGURA O PINO DO BOTﾃグ DE FIM DE CURSO
 const int botao_parada_total = 4;   // CONFIGURA O PINO DO BOTﾃグ DE PARADA TOTAL
-const int botao_afasta_motor = 1;   // CONFIGURA O PINO DO BOTﾃグ QUE AFASTA MOTOR
+const int botao_afasta_motor = 6;   // CONFIGURA O PINO DO BOTﾃグ QUE AFASTA MOTOR
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -199,6 +199,7 @@ void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){ // Funﾃ
 
       digitalWrite(pino_pulso, HIGH);
       delayMicroseconds(1200);           // Velocidade menor para peﾃｧas com menos de 0.5m
+      digitalWrite(pino_pulso, LOW);
     
     } 
 
