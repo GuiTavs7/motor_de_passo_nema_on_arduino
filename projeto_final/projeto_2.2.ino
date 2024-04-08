@@ -145,7 +145,7 @@ void sentido_rotacao(float posicao_atual, float medida_lida) {   // Função rec
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// 4) FUNÇÃO DE GIRO DO MOTOR - MOVIMENTA O MOTOR 1 CICLO (1 CICLO = 800 PULSOS = 175,9mm = 17,59cm) -> (4548.038658328596 Pulsos = 1000mm = 1m) - USANDO TODAS CASAS DECIMAIS PARA AUMENTAR A PRECISÃO!
+// 4) FUNÇÃO DE GIRO DO MOTOR - MOVIMENTA O MOTOR 1 CICLO (1 CICLO = 800 PULSOS = 176mm = 17,60cm) -> (4545.4545454545 Pulsos = 1000mm = 1m) - USANDO TODAS CASAS DECIMAIS PARA AUMENTAR A PRECISÃO
 
 void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){   // Função recebe o pino de pulso, medida bipada e a posição atual como parâmetros
 
@@ -161,7 +161,7 @@ void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){   // Fu
 
     int velocidade_atual = velocidade_inicial; // Velocidade inicial recebe a velocidade inicial (2400)
 
-    for (int i = 0; i < (qtd_passos * 4548.038658328596); i++){ // O motor gira x vezes de acordo com a expressão anterior. Altere essa condição de acordo com seu referencial de medidas
+    for (int i = 0; i < (qtd_passos * 4545.4545454545); i++){ // O motor gira x vezes de acordo com a expressão anterior. Altere essa condição de acordo com seu referencial de medidas
 
       if(estado_botao_parada_total == HIGH){ // Verificação de parada total durante as voltas do motor
         parada_total(); 
@@ -176,7 +176,7 @@ void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){   // Fu
 
       // IF PARA DESACELERAR O MOTOR - QUANDO FALTA 5% PRA CHEGAR NA MEDIDA DE DESTINO (1m = desacelera no 0,95)!
 
-      if (i > (0.95 * (qtd_passos * 4548.038658328596))) {
+      if (i > (0.95 * (qtd_passos * 4545.4545454545))) {
         // Ajustar a velocidade gradualmente até a velocidade final
         velocidade_atual = 1200;
       }
@@ -191,7 +191,7 @@ void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){   // Fu
 
   else{
 
-    for (int i = 0; i < (qtd_passos * 4548.038658328596); i++){   // O motor gira x vezes de acordo com a expressão anterior. Altere essa condição de acordo com seu referencial de medidas
+    for (int i = 0; i < (qtd_passos * 4545.4545454545); i++){   // O motor gira x vezes de acordo com a expressão anterior. Altere essa condição de acordo com seu referencial de medidas
 
       if(estado_botao_parada_total == HIGH){ // Verificação de parada total durante as voltas do motor
         parada_total(); 
