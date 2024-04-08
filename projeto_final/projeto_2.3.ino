@@ -5,7 +5,7 @@
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// ATRIBUINDO O NÚMERO DOS PINOS A SUAS RESPECTIVAS FUNÇÕES
+// 1) ATRIBUINDO O NÚMERO DOS PINOS A SUAS RESPECTIVAS FUNÇÕES
 
 const int pino_pulso = 8;           // CONFIGURA O PINO DO PULSO / PASSO (PRECISÃO)
 const int pino_direcao = 9;         // CONFIGURA O PINO DA DIREÇÃO (HORÁRIO / ANTI-HORÁRIO)
@@ -18,7 +18,7 @@ const int botao_afasta_motor = 6;   // CONFIGURA O PINO DO BOTÃO QUE AFASTA MOT
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// CRIAÇÃO DAS VARIÁVEIS - VETORES E ITERÁVEIS
+// 2) CRIAÇÃO DAS VARIÁVEIS - VETORES E ITERÁVEIS
 
 long codigos[] = {15756719, 15756540, 15755617, 15755656, 15755512};      // Vetor de longs para os códigos de barras
 float larguras[] = {4.5, 4.6, 4.7, 4.2, 4.15};                            // Vetor de larguras correspondentes às peças conforme os códigos de barras (em metros)
@@ -32,7 +32,7 @@ float medida_lida;                                        // Variável para arma
                                
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// FUNÇÃO SETUP - CONFIGURAÇÕES INICIAIS - ENTRADA, SAÍDA E COMUNICAÇÃO SERIAL
+// 3) FUNÇÃO SETUP - CONFIGURAÇÕES INICIAIS - ENTRADA, SAÍDA E COMUNICAÇÃO SERIAL
 
 void setup() {
 
@@ -51,7 +51,7 @@ void setup() {
 
   // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  // 1) CALIBRAÇÃO DO MOTOR 
+// 4) FUNÇÃO DE CALIBRAÇÃO DO MOTOR 
 
 void calibra_motor(){
 
@@ -100,7 +100,7 @@ void calibra_motor(){
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// 2) FUNÇÃO PARADA TOTAL !!! 
+// 5) FUNÇÃO DE PARADA TOTAL !!! 
 
 void parada_total() {
 
@@ -120,7 +120,7 @@ void parada_total() {
 
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// 3) FUNÇÃO ESCOLHE SENTIDO HORÁRIO OU ANTI-HORÁRIO DE ACORDO COM A COMPARAÇÃO ENTRE A POSIÇÃO ATUAL (MEDIDA ANTERIOR) E A NOVA ETIQUETA !!! 
+// 6) FUNÇÃO DE ESCOLHER SENTIDO HORÁRIO OU ANTI-HORÁRIO (DE ACORDO COM A COMPARAÇÃO ENTRE A POSIÇÃO ATUAL (MEDIDA ANTERIOR) E A NOVA ETIQUETA) !!! 
 
 void sentido_rotacao(float posicao_atual, float medida_lida) {   // Função recebe a posição atual e a medida bipada como parâmetros
 
@@ -145,7 +145,7 @@ void sentido_rotacao(float posicao_atual, float medida_lida) {   // Função rec
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// 4) FUNÇÃO DE GIRO DO MOTOR - MOVIMENTA O MOTOR 1 CICLO (1 CICLO = 800 PULSOS = 175.98mm = 17,598cm) -> (4545.971133083305 Pulsos = 1000mm = 1m) - USANDO TODAS CASAS DECIMAIS PARA AUMENTAR A PRECISÃO
+// 7) FUNÇÃO DE GIRO DO MOTOR - MOVIMENTA O MOTOR 1 CICLO (1 CICLO = 800 PULSOS = 175.98mm = 17,598cm) -> (4545.971133083305 Pulsos = 1000mm = 1m) - (USANDO TODAS CASAS DECIMAIS PARA AUMENTAR A PRECISÃO)
 
 void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){   // Função recebe o pino de pulso, medida bipada e a posição atual como parâmetros
 
@@ -214,7 +214,7 @@ void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){   // Fu
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-// 5) FUNÇÃO AFASTA MOTOR !!! 
+// 8) FUNÇÃO DE AFASTAR O MOTOR !!! 
 
 void afasta_motor(float &posicao_atual){   //"&" torna a variável posição_atual intercambiável entre a função "afasta_motor()" e void loop() 
 
@@ -256,7 +256,7 @@ void afasta_motor(float &posicao_atual){   //"&" torna a variável posição_atu
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// 6) FUNCÃO LOOP - LOOP PRINCIPAL DO PROGRAMA
+// 9) FUNCÃO LOOP - LOOP PRINCIPAL DO PROGRAMA
 
 void loop() { 
 
@@ -264,7 +264,7 @@ void loop() {
 
   digitalWrite(enable_pin, LOW); // HABILITA O MOTOR APÓS UMA POSSÍVEL PARADA TOTAL
 
-  // 6.1) MOTOR GIRA UMA VOLTA LENTAMENTE PARA NÃO MANTER O BOTÃO DE PARADA TOTAL DA CALIBRAÇÃO PRESSIONADO!!!
+  // 9.1) MOTOR GIRA UMA VOLTA LENTAMENTE PARA NÃO MANTER O BOTÃO DE PARADA TOTAL DA CALIBRAÇÃO PRESSIONADO!!!
 
   digitalWrite(pino_direcao, HIGH); // Atribui HIGH ao pino de direção -> HIGH = HORÁRIO
   delayMicroseconds(500); //Atraso de meio segundo
@@ -289,7 +289,7 @@ void loop() {
 
   // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  // 6.2) PRIMEIRO CICLO DO VOID LOOP - LARGURAS
+  // 9.2)  LOOP PRINCIPAL
 
   // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -313,7 +313,7 @@ void loop() {
   
     // LOOP INTERROMPIDO - BOTÃO AFASTAR MOTOR APERTADO OU ETIQUETA BIPADA
 
-    // 6.3) 1º CASO - BOTÃO DE AFASTAR O MOTOR APERTADO
+    // 9.3) 1º CASO - BOTÃO DE AFASTAR O MOTOR APERTADO
   
     if (digitalRead(botao_afasta_motor) == LOW) {
       
@@ -323,7 +323,7 @@ void loop() {
 
     }
     
-    // 6.4) 2º CASO - ETIQUETA BIPADA
+    // 9.4) 2º CASO - ETIQUETA BIPADA (MAIS COMUM E MAIS USADO)
   
     if (Serial.available() > 0) { // Caso dados sejam recebidos na porta serial:
 
