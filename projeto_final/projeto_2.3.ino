@@ -74,7 +74,7 @@ void calibra_motor(){
         parada_total(); // Chama a função parada total
 
         digitalWrite(pino_pulso, HIGH); // PINO DE PULSO INICIA
-        delayMicroseconds(2000); // VELOCIDADE DE CALIBRAÇÃO
+        delayMicroseconds(1200); // VELOCIDADE DE CALIBRAÇÃO
         digitalWrite(pino_pulso,LOW); // PINO DE PULSO ENCERRA
 
         int estado_botao_fim_de_curso = digitalRead(botao_fim_de_curso); // Lê o estado do botão de fim de curso
@@ -84,7 +84,7 @@ void calibra_motor(){
           Serial.println("BOTÃO FIM DE CURSO PRESSIONADO - VELOCIDADE REDUZIDA!!!");
 
           digitalWrite(pino_pulso, HIGH);
-          delayMicroseconds(4000); // Velocidade de calibração reduzida (2000 -> 4000); 
+          delayMicroseconds(4000); // Velocidade de calibração reduzida (1200 -> 4000); 
           digitalWrite(pino_pulso, LOW);
         }
 
@@ -145,7 +145,7 @@ void sentido_rotacao(float posicao_atual, float medida_lida) {   // Função rec
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// 4) FUNÇÃO DE GIRO DO MOTOR - MOVIMENTA O MOTOR 1 CICLO (1 CICLO = 800 PULSOS = 176mm = 17,60cm) -> (4545.4545454545 Pulsos = 1000mm = 1m) - USANDO TODAS CASAS DECIMAIS PARA AUMENTAR A PRECISÃO
+// 4) FUNÇÃO DE GIRO DO MOTOR - MOVIMENTA O MOTOR 1 CICLO (1 CICLO = 800 PULSOS = 175.98mm = 17,598cm) -> (4545.971133083305 Pulsos = 1000mm = 1m) - USANDO TODAS CASAS DECIMAIS PARA AUMENTAR A PRECISÃO
 
 void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){   // Função recebe o pino de pulso, medida bipada e a posição atual como parâmetros
 
@@ -153,7 +153,7 @@ void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){   // Fu
   const int velocidade_final = 600;      // Velocidade final - Mais rápida e adequada para o motor
   const int passos_aceleracao = 600;     // Número de passos para alcançar a velocidade final - de 600 em 600 - (600 -> 2400 = 4 passos de aceleração = 4 marchas)
 
-  float distancia_por_ciclo = 176;   // Variável de distância por ciclo! Alterar para testar calibração
+  float distancia_por_ciclo = 175.98;   // Variável de distância por ciclo! Alterar para testar calibração
 
   float constante = (800000 / distancia_por_ciclo);  // Cálculo para definir a constante de precisão do motor
 
@@ -222,7 +222,7 @@ void afasta_motor(float &posicao_atual){   //"&" torna a variável posição_atu
 
   digitalWrite(pino_rele, LOW);   // PINO DO RELÉ LOW = PRENSA SOBE!
 
-  delay(500);   // ATRASO DE MEIO SEGUNDO PARA NÃO TRANCAR A MESA
+  delay(150);   // ATRASO PARA NÃO TRANCAR A MESA
 
   int estado_botao_afasta_motor = digitalRead(botao_afasta_motor); // Lê o estado do botao_afasta_motor
 
@@ -241,7 +241,7 @@ void afasta_motor(float &posicao_atual){   //"&" torna a variável posição_atu
       }
 
       digitalWrite(pino_pulso, HIGH);
-      delayMicroseconds(2000);         // VELOCIDADE DO MOTOR DURANTE O AFASTAMENTO
+      delayMicroseconds(1200);           // VELOCIDADE DO MOTOR DURANTE O AFASTAMENTO
       digitalWrite(pino_pulso, LOW);
      
     }  
