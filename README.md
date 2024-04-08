@@ -114,7 +114,7 @@ Solução era usar a mesma variável para receber o código de barras e fazer a 
 - [x]  Configurar quantidade de voltas de acordo com medidas corretamente (1 CICLO = 800 PULSOS = 175,7mm = 17,57cm);
 
 ```cpp
-(1 CICLO = 800 PULSOS = 175,7mm = 17,57cm) -> (4553,215 Pulsos = 1000mm = 1m)
+(1 CICLO = 800 PULSOS = 176mm = 17,60cm) -> (4545.4545454545 Pulsos = 1000mm = 1m) - USANDO TODAS CASAS DECIMAIS PARA AUMENTAR A PRECISÃO
 ```
 
 ```cpp
