@@ -242,7 +242,7 @@ void afasta_motor(float &posicao_atual){   //"&" torna a variável posição_atu
      
     }  
 
-   posicao_atual = posicao_atual + (x * 0.000219875); // 0.000219875 eh o 0.1759 / 800
+   posicao_atual = posicao_atual + (x * 0.000219875); // Deslocamento por passo / Passos de 1 volta = 0,1759m / 800 passos = 0,000219875
 
    Serial.println(posicao_atual); // Printa no monitor serial a posição em que foi solto o botão
   
