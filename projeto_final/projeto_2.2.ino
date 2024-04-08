@@ -1,6 +1,6 @@
 // PROJETO: PERSOL INC
 // AUTOR: GUILHERME TAVARES PINHEIRO
-// DATA: 05/04/2024
+// DATA: 08/04/2024
 // OBJETIVO: AUTOMAÇÃO DA MESA DE CORTE DE TECIDO - MOVIMENTAR MOTOR DE PASSO NEMA - LARGURA
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -122,20 +122,20 @@ void parada_total() {
 
 // 3) FUNÇÃO ESCOLHE SENTIDO HORÁRIO OU ANTI-HORÁRIO DE ACORDO COM A COMPARAÇÃO ENTRE A POSIÇÃO ATUAL (MEDIDA ANTERIOR) E A NOVA ETIQUETA !!! 
 
-void sentido_rotacao(float posicao_atual, float medida_lida) { // Função recebe a posição atual e a medida bipada como parâmetros
+void sentido_rotacao(float posicao_atual, float medida_lida) {   // Função recebe a posição atual e a medida bipada como parâmetros
 
   if (posicao_atual > medida_lida){ // Se a medida for menor do que a posição atual do motor:
 
-    digitalWrite(pino_direcao, HIGH); // Atribui HIGH ao pino de direção -> HIGH = HORÁRIO
-    delayMicroseconds(1000); //Atraso de 1 micro-segundo(imperceptível)
-    Serial.println("\n MOTOR GIRANDO NO SENTIDO HORÁRIO \n"); // Printa no monitor serial em qual sentido o motor está girando
+    digitalWrite(pino_direcao, HIGH);   // Atribui HIGH ao pino de direção -> HIGH = HORÁRIO
+    delayMicroseconds(1000);   //Atraso de 1 micro-segundo(imperceptível)
+    Serial.println("\n MOTOR GIRANDO NO SENTIDO HORÁRIO \n");   // Printa no monitor serial em qual sentido o motor está girando
 
   }
-  else{ // Se a medida for maior que a posição atual do motor
+  else{   // Se a medida for maior que a posição atual do motor:
 
-    digitalWrite(pino_direcao, LOW); // Atribui LOW ao pino de direção -> LOW = ANTI-HORÁRIO
-    delayMicroseconds(1000); //Atraso de 1 micro-segundo(imperceptível)
-    Serial.println("\n MOTOR GIRANDO NO SENTIDO ANTI-HORÁRIO \n"); // Printa no monitor serial em qual sentido o motor está girando
+    digitalWrite(pino_direcao, LOW);   // Atribui LOW ao pino de direção -> LOW = ANTI-HORÁRIO
+    delayMicroseconds(1000);   //Atraso de 1 micro-segundo(imperceptível)
+    Serial.println("\n MOTOR GIRANDO NO SENTIDO ANTI-HORÁRIO \n");   // Printa no monitor serial em qual sentido o motor está girando
 
   }
   
@@ -147,7 +147,7 @@ void sentido_rotacao(float posicao_atual, float medida_lida) { // Função receb
 
 // 4) FUNÇÃO DE GIRO DO MOTOR - MOVIMENTA O MOTOR 1 CICLO (1 CICLO = 800 PULSOS = 175,9mm = 17,59cm) -> (4548.038658328596 Pulsos = 1000mm = 1m) - USANDO TODAS CASAS DECIMAIS PARA AUMENTAR A PRECISÃO!
 
-void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){ // Função recebe o pino de pulso, medida bipada e a posição atual como parâmetros
+void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){   // Função recebe o pino de pulso, medida bipada e a posição atual como parâmetros
 
   const int velocidade_inicial = 2400;   // Velocidade inicial - Um pouco maior que a velocidade de calibração
   const int velocidade_final = 600;      // Velocidade final - Mais rápida e adequada para o motor
@@ -157,7 +157,7 @@ void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){ // Fun�
 
   qtd_passos = abs((posicao_atual - medida_lida)); // Usamos a função abs() para a subtração sempre retornar um valor positivo, isto é, para não correr o risco de termos um valor negativo (sempre módulo)!
 
-  if (qtd_passos > 0.50){
+  if (qtd_passos > 0.50){    // Se a diferença entre a largura da peça e a posição atual do motor for maior que meio-metro:
 
     int velocidade_atual = velocidade_inicial; // Velocidade inicial recebe a velocidade inicial (2400)
 
@@ -174,7 +174,7 @@ void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){ // Fun�
         velocidade_atual -= (velocidade_inicial - velocidade_final) / passos_aceleracao;
       }
 
-      // IF PARA DESACELERAR O MOTOR - QUANDO FALTA 10% PRA CHEGAR NA MEDIDA DE DESTINO (1m = desacelera no 0,90)!
+      // IF PARA DESACELERAR O MOTOR - QUANDO FALTA 5% PRA CHEGAR NA MEDIDA DE DESTINO (1m = desacelera no 0,95)!
 
       if (i > (0.95 * (qtd_passos * 4548.038658328596))) {
         // Ajustar a velocidade gradualmente até a velocidade final
@@ -191,14 +191,14 @@ void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){ // Fun�
 
   else{
 
-    for (int i = 0; i < (qtd_passos * 4548.038658328596); i++){ // O motor gira x vezes de acordo com a expressão anterior. Altere essa condição de acordo com seu referencial de medidas
+    for (int i = 0; i < (qtd_passos * 4548.038658328596); i++){   // O motor gira x vezes de acordo com a expressão anterior. Altere essa condição de acordo com seu referencial de medidas
 
       if(estado_botao_parada_total == HIGH){ // Verificação de parada total durante as voltas do motor
         parada_total(); 
       }
 
       digitalWrite(pino_pulso, HIGH);
-      delayMicroseconds(1200);  // Velocidade menor para peças com menos de 0.5m
+      delayMicroseconds(1200);          // Velocidade menor para peças com menos de 0.5m
       digitalWrite(pino_pulso, LOW);
     
     } 
@@ -212,13 +212,13 @@ void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){ // Fun�
 
 // 5) FUNÇÃO AFASTA MOTOR !!! 
 
-void afasta_motor(float &posicao_atual){ //"&" torna a variável posição_atual intercambiável entre a função "afasta_motor()" e void loop() 
+void afasta_motor(float &posicao_atual){   //"&" torna a variável posição_atual intercambiável entre a função "afasta_motor()" e void loop() 
 
-  int x = 0; // Declara e inicializa x com 0
+  int x = 0;   // Declara e inicializa x com 0
 
-  digitalWrite(pino_rele, LOW); // PINO DO RELÉ LOW = PRENSA SOBE!
+  digitalWrite(pino_rele, LOW);   // PINO DO RELÉ LOW = PRENSA SOBE!
 
-  delay(500); // ATRASO DE MEIO SEGUNDO PARA NÃO TRANCAR A MESA
+  delay(500);   // ATRASO DE MEIO SEGUNDO PARA NÃO TRANCAR A MESA
 
   int estado_botao_afasta_motor = digitalRead(botao_afasta_motor); // Lê o estado do botao_afasta_motor
 
@@ -237,14 +237,14 @@ void afasta_motor(float &posicao_atual){ //"&" torna a variável posição_atual
       }
 
       digitalWrite(pino_pulso, HIGH);
-      delayMicroseconds(2000);         // VELOCIDADE DO BOTÃO VERDE
+      delayMicroseconds(2000);         // VELOCIDADE DO MOTOR DURANTE O AFASTAMENTO
       digitalWrite(pino_pulso, LOW);
      
     }  
 
    posicao_atual = posicao_atual + (x * 0.000219875); // 0.000219875 eh o 0.1759 / 800
 
-   Serial.println(posicao_atual); // Printa no serial monitor a posição em que foi solto o botão
+   Serial.println(posicao_atual); // Printa no monitor serial a posição em que foi solto o botão
   
   }
 
@@ -301,11 +301,9 @@ void loop() {
 
     Serial.println(contador); // EXIBE O VALOR DE CONTADOR NO SERIAL PRINT 
 
-    // Espera até que o usuário insira o número do código de barras
     Serial.println("\n Insira o número do código de barras ou aperte o botão de afastar o motor! ");
 
-    
-    while ((Serial.available() == 0) && digitalRead(botao_afasta_motor) == HIGH) {    // Verifica continuamente se dados foram recebidos na porta serial ou se o botão de afastar foi pressionado
+    while ((Serial.available() == 0) && digitalRead(botao_afasta_motor) == HIGH) {    // Espera até dados serem recebidos na porta serial ou se o botão de afastar foi pressionado
    
     }
   
@@ -315,9 +313,9 @@ void loop() {
   
     if (digitalRead(botao_afasta_motor) == LOW) {
       
-      afasta_motor(posicao_atual);
+      afasta_motor(posicao_atual);   // Chama a função de afastar o motor
 
-      posicao_atual = posicao_atual;
+      posicao_atual = posicao_atual;   // Posição atual recebe a posição em que o botão foi solto
 
     }
     
@@ -339,19 +337,15 @@ void loop() {
 
         if (codigos[i] == codigo) { // Verifica se o código de barras digitado ou bipado corresponde à alguns dos códigos no vetor códigos[]
 
-          // VERIFICAÇÃO DE PARADA TOTAL  
-
           digitalWrite(pino_rele, LOW); // PINO DO RELÉ LOW = PRENSA SOBE!
 
           delay(150); //PEQUENO ATRASO PARA NÃO MOVIMENTAR PRENSA E MOTOR SIMULTANEAMENTE
 
-          parada_total(); 
+          parada_total(); // Verifica estado do botão de parada total
 
           medida_lida = larguras[i]; // Aqui vamos armazenar o valor correspondente a largura do respectivo índice
 
           Serial.println(larguras[i]); // Printamos a medida que o motor irá movimentar para não nos perdermos
-
-          // GIRANDO O MOTOR NO PRIMEIRO SENTIDO
 
           sentido_rotacao(posicao_atual, medida_lida); // Define o sentido de rotação do motor de acordo com os parâmetros da medida da largura
         
