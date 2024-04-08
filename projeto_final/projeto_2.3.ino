@@ -202,7 +202,7 @@ void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){   // Fu
       }
 
       digitalWrite(pino_pulso, HIGH);
-      delayMicroseconds(1200);          // Velocidade menor para peças com menos de 0.5m
+      delayMicroseconds(1200);          // Velocidade menor e fixa para peças com menos de 0.5m
       digitalWrite(pino_pulso, LOW);
     
     } 
