@@ -117,6 +117,11 @@ Solução era usar a mesma variável para receber o código de barras e fazer a 
 (1 CICLO = 800 PULSOS = 175,7mm = 17,57cm) -> (4553,215 Pulsos = 1000mm = 1m)
 ```
 
+```cpp
+posicao_atual = posicao_atual + (x * 0.000219875); // Deslocamento por passo / Passos de 1 volta = 0,1759m / 800 passos = 0,000219875
+```
+
+
 # Montagem na Caixa de Automação
 
 Lista de materiais utilizados na montagem:
