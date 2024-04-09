@@ -251,7 +251,7 @@ void afasta_motor(float &posicao_atual){   //"&" torna a variável posição_atu
     delayMicroseconds(1000);
     Serial.println("\n MOTOR AFASTANDO NO SENTIDO ANTI-HORÁRIO \n");
 
-    for (x = 0; x < 6800; x++) {   // 24000 = 30 Voltas em torno de si ~= 17,5cm * 30 = 5.25m - Capaz de afastar o motor em toda extensão da mesa
+    for (x = 0; x < 6800; x++) {   // 6800 = 1 metro e meio
       
       estado_botao_afasta_motor = digitalRead(botao_afasta_motor); // Verifica continuamente o estado do botão dentro do loop
 
