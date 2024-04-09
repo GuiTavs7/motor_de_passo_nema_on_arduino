@@ -20,7 +20,7 @@ const int botao_afasta_motor = 6;   // CONFIGURA O PINO DO BOTÃO QUE AFASTA MOT
 
 // 2) CRIAÇÃO DAS VARIÁVEIS - VETORES E ITERÁVEIS
 
-long codigos[] = {15832775,15832738,15832701,15832667,15832630,15832593,15832559};
+long codigos[] = {15832775,15832738,15832701,15832667,15832630,15832593,15832559};    // Vetor de códigos de barras
 float larguras[] = {1.25, 1.50, 2.0, 2.50, 3.0, 3.50, 4.0};                           // Vetor de larguras correspondentes às peças conforme os códigos de barras (em metros)
 
 int num_pedidos = 90;                                     // Número de pedidos (etiquetas) - altere conforme necessário                                                        
