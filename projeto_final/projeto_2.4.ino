@@ -172,7 +172,7 @@ void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){   // Fu
   const int velocidade_final = 600;      // Velocidade final - Mais rápida e adequada para o motor
   const int passos_aceleracao = 600;     // Número de passos para alcançar a velocidade final - de 600 em 600 - (600 -> 2400 = 4 passos de aceleração = 4 marchas)
 
-  float distancia_por_ciclo = 175.980000000000;   // Variável de distância por ciclo! Alterar para testar calibração
+  float distancia_por_ciclo = 175.98;   // Variável de distância por ciclo! Alterar para testar calibração
 
   float constante = (800000 / distancia_por_ciclo);  // Cálculo para definir a constante de precisão do motor
 
