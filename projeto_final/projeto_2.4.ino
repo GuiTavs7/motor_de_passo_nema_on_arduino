@@ -1,6 +1,6 @@
 // PROJETO: PERSOL INC
 // AUTOR: GUILHERME TAVARES PINHEIRO
-// DATA: 09/04/2024
+// DATA: 10/04/2024
 // OBJETIVO: AUTOMAÇÃO DA MESA DE CORTE DE TECIDO - MOVIMENTAR MOTOR DE PASSO NEMA - LARGURA
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -255,7 +255,7 @@ void afasta_motor(float &posicao_atual){   //"&" torna a variável posição_atu
       
       estado_botao_afasta_motor = digitalRead(botao_afasta_motor); // Verifica continuamente o estado do botão dentro do loop
 
-      posicao_atual = posicao_atual + 0.000219875; //posicao_atual = posicao_atual + (x * 0.000219875); // Deslocamento por passo / Passos de 1 volta = 0,1759m / 800 passos = 0,000219875
+      posicao_atual = posicao_atual + 0.000219875; //posicao_atual = posicao_atual + (x * 0.000219875); / Deslocamento por passo / Passos de 1 volta = 0,1759m / 800 passos = 0,000219875
 
       if (estado_botao_afasta_motor == HIGH) { // || posicao_atual > 4.80
         break; // Sai do loop se o botão de afastar for solto
