@@ -320,7 +320,9 @@ void loop() {
 
   // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  while (digitalRead(botao_inicio == HIGH)){    // Espera até o botão de início ser pressionado
+  Serial.println("\n AGUARDANDO BOTÃO DE INÍCIO SER PRESSIONADO \n");
+  
+  while (digitalRead(botao_inicio) == HIGH){    // Espera até o botão de início ser pressionado
 
   }
 
