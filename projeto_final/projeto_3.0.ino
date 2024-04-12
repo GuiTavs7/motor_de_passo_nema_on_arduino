@@ -318,11 +318,15 @@ void loop() {
 
   // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  while (digitalRead(botao_inicio == HIGH)){    // Espera até o botãod e início ser pressionado
+  while (digitalRead(botao_inicio == HIGH)){    // Espera até o botão de início ser pressionado
 
   }
 
-  inicio(posicao_atual); // CHAMA A FUNÇÃO DE INÍCIO - MOTOR VAI PARA 1.45 (PREPARADO PARA PEGAR TECIDO)
+  if (digitalRead(botao_inicio) == LOW) {
+      
+      inicio(posicao_atual); // CHAMA A FUNÇÃO DE INÍCIO - MOTOR VAI PARA 1.45 (PREPARADO PARA PEGAR TECIDO)
+
+  }
 
   // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
