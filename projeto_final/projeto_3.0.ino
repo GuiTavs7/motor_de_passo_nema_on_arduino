@@ -42,6 +42,8 @@ void setup() {
   pinMode(enable_pin, OUTPUT);               // DEFINE PINO ENABLE COMO SAÍDA
   pinMode(pino_rele, OUTPUT);                // DEFINE PINO DO RELÉ COMO SAÍDA
 
+
+  pinMode(botao_inicio, INPUT_PULLUP);         // DEFINE O BOTÃO DE INÍCIO COMO ENTRADA E COM RESISTOR INTERNO
   pinMode(botao_fim_de_curso, INPUT_PULLUP);   // DEFINE O BOTÃO FIM DE CURSO COMO ENTRADA E COM RESISTOR INTERNO
   pinMode(botao_parada_total, INPUT_PULLUP);   // DEFINE O BOTÃO PARADA TOTAL COMO ENTRADA E COM RESISTOR INTERNO
   pinMode(botao_afasta_motor, INPUT_PULLUP);   // DEFINE O BOTÃO AFASTA MOTOR COMO ENTRADA E COM RESISTOR INTERNO
