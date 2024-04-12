@@ -1,6 +1,6 @@
 // PROJETO: PERSOL INC
 // AUTOR: GUILHERME TAVARES PINHEIRO
-// DATA: 11/04/2024
+// DATA: 12/04/2024
 // OBJETIVO: AUTOMAÇÃO DA MESA DE CORTE DE TECIDO - MOVIMENTAR MOTOR DE PASSO NEMA - LARGURA
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -52,7 +52,7 @@ void setup() {
 
   // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  // 4) CALIBRAÇÃO DO MOTOR 
+  // 4) FUNÇÃO DE CALIBRAÇÃO DO MOTOR 
 
 void calibra_motor(){
 
@@ -120,7 +120,7 @@ void calibra_motor(){
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// 5) FUNÇÃO PARADA TOTAL !!! 
+// 5) FUNÇÃO DE PARADA TOTAL !!! 
 
 void parada_total() {
 
@@ -140,7 +140,7 @@ void parada_total() {
 
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// 6) FUNÇÃO ESCOLHE SENTIDO HORÁRIO OU ANTI-HORÁRIO DE ACORDO COM A COMPARAÇÃO ENTRE A POSIÇÃO ATUAL (MEDIDA ANTERIOR) E A NOVA ETIQUETA !!! 
+// 6) FUNÇÃO SENTIDO DE GIRO
 
 void sentido_rotacao(float posicao_atual, float medida_lida) {   // Função recebe a posição atual e a medida bipada como parâmetros
 
@@ -165,7 +165,7 @@ void sentido_rotacao(float posicao_atual, float medida_lida) {   // Função rec
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// 7) FUNÇÃO DE GIRO DO MOTOR - MOVIMENTA O MOTOR 1 CICLO (1 CICLO = 800 PULSOS = 175,98mm = 17,598cm) -> (4545.971133083305 Pulsos = 1000mm = 1m) - USANDO TODAS CASAS DECIMAIS PARA AUMENTAR A PRECISÃO
+// 7) FUNÇÃO DE MOVIMENTO - MOVIMENTA O MOTOR 1 CICLO (1 CICLO = 800 PULSOS = 175,98mm = 17,598cm) -> (4545.971133083305 Pulsos = 1000mm = 1m) - USANDO TODAS CASAS DECIMAIS PARA AUMENTAR A PRECISÃO
 
 void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){   // Função recebe o pino de pulso, medida bipada e a posição atual como parâmetros
 
@@ -191,14 +191,14 @@ void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){   // Fu
         parada_total(); 
       }
 
-      // IF PARA ACELERAR O MOTOR
+      // 7.1) IF PARA ACELERAR O MOTOR
 
       if (i < passos_aceleracao) {
         // Ajustar a velocidade gradualmente até a velocidade final
         velocidade_atual -= (velocidade_inicial - velocidade_final) / passos_aceleracao;
       }
 
-      // IF PARA DESACELERAR O MOTOR - QUANDO FALTA 5% PRA CHEGAR NA MEDIDA DE DESTINO (1m = desacelera no 0,95)!
+      // 7.2) IF PARA DESACELERAR O MOTOR - QUANDO FALTA 5% PRA CHEGAR NA MEDIDA DE DESTINO (1m = desacelera no 0,95)!
 
       if (i > (0.95 * (qtd_passos * constante))) {
         // Ajustar a velocidade gradualmente até a velocidade final
@@ -212,6 +212,8 @@ void gira_motor(int pino_pulso, float medida_lida, float posicao_atual){   // Fu
     }
 
   }
+
+  // 7.3) Peças menores de até 0,5m
 
   else{
 
