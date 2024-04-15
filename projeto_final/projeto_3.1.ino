@@ -11,7 +11,7 @@ const int pino_pulso = 8;           // CONFIGURA O PINO DO PULSO / PASSO (PRECIS
 const int pino_direcao = 9;         // CONFIGURA O PINO DA DIREÇÃO (HORÁRIO / ANTI-HORÁRIO)
 const int enable_pin = 13;          // CONFIGURA O PINO ENA
 const int pino_rele = 7;            // CONFIGURA O PINO DO RELE
-const int pino_rele_garra = 0;      // CONFIGURA O PINO DO RELE DA GARRA
+const int pino_rele_garra = 5;      // CONFIGURA O PINO DO RELE DA GARRA
 
 const int botao_inicio = 3;         // CONFIGURA O PINO DO BOTÃO DE INÍCIO
 const int botao_fim_de_curso = 2;   // CONFIGURA O PINO DO BOTÃO DE FIM DE CURSO
