@@ -426,6 +426,8 @@ void loop() {
 
           digitalWrite(pino_rele_garra, HIGH); // PINO DO RELÉ HIGH = GARRA DESCE!
 
+          delay(500);
+
           digitalWrite(pino_direcao, LOW);
           delayMicroseconds(1000);
           Serial.println("\n MOTOR AFASTANDO 10cm (SENTIDO HORÁRIO) \n");
