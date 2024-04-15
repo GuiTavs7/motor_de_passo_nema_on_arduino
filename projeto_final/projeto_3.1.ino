@@ -250,6 +250,8 @@ void afasta_motor(float &posicao_atual){   //"&" torna a variável posição_atu
 
   digitalWrite(pino_rele, LOW);   // PINO DO RELÉ LOW = PRENSA SOBE!
 
+  digitalWrite(pino_rele_garra, LOW); // PINO DO RELÉ GARRA LOW = GARRA SOBE!
+
   delay(150);   // ATRASO DE MEIO SEGUNDO PARA NÃO TRANCAR A MESA
 
   int estado_botao_afasta_motor = digitalRead(botao_afasta_motor); // Lê o estado do botao_afasta_motor
@@ -308,7 +310,7 @@ void inicio(float &posicao_atual){   //"&" torna a variável posição_atual int
      
     }
 
-    digitalWrite(pino_rele_garra, HIGH); // PINO DO RELÉ GARRA HIGH = GARRA SOBE!
+    digitalWrite(pino_rele_garra, HIGH); // PINO DO RELÉ GARRA HIGH = GARRA DESCE!
 
     float posicao_inicial = 4.40;
 
