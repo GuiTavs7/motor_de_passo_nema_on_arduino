@@ -11,13 +11,13 @@ const int pino_pulso = 8;           // CONFIGURA O PINO DO PULSO / PASSO (PRECIS
 const int pino_direcao = 9;         // CONFIGURA O PINO DA DIREÇÃO (HORÁRIO / ANTI-HORÁRIO)
 const int enable_pin = 13;          // CONFIGURA O PINO ENA
 const int pino_rele = 7;            // CONFIGURA O PINO DO RELE
-const int pino_rele_garra = 5;      // CONFIGURA O PINO DO RELE DA GARRA
+const int pino_rele_garra = 11;      // CONFIGURA O PINO DO RELE DA GARRA
 
 const int botao_inicio = 3;         // CONFIGURA O PINO DO BOTÃO DE INÍCIO
 const int botao_fim_de_curso = 2;   // CONFIGURA O PINO DO BOTÃO DE FIM DE CURSO
 const int botao_parada_total = 4;   // CONFIGURA O PINO DO BOTÃO DE PARADA TOTAL
 const int botao_afasta_motor = 6;   // CONFIGURA O PINO DO BOTÃO QUE AFASTA MOTOR
-// const int botao_altura = 10;     // CONFIGURA O PINO DO BOTÃO DE ALTURA
+const int botao_altura = 0;         // CONFIGURA O PINO DO BOTÃO DE ALTURA
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -50,7 +50,7 @@ void setup() {
   pinMode(botao_fim_de_curso, INPUT_PULLUP);   // DEFINE O BOTÃO FIM DE CURSO COMO ENTRADA E COM RESISTOR INTERNO
   pinMode(botao_parada_total, INPUT_PULLUP);   // DEFINE O BOTÃO PARADA TOTAL COMO ENTRADA E COM RESISTOR INTERNO
   pinMode(botao_afasta_motor, INPUT_PULLUP);   // DEFINE O BOTÃO AFASTA MOTOR COMO ENTRADA E COM RESISTOR INTERNO
-  // pinMode(botao_altura, INPUT_PULLUP);      // DEFINE O BOTÃO DE ALTURA COMO ENTRADA E COM RESISTOR INTERNO
+  pinMode(botao_altura, INPUT_PULLUP);         // DEFINE O BOTÃO DE ALTURA COMO ENTRADA E COM RESISTOR INTERNO
 
   Serial.begin(9600);                        // INICIALIZA A COMUNICAÇÃO SERIAL COM UMA TAXA DE 9600 BAUD
 
