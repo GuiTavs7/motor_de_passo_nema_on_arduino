@@ -300,7 +300,7 @@ void inicio(float &posicao_atual){   //"&" torna a variável posição_atual int
 
   if(estado_botao_inicio == LOW){ // Se o botão de início for pressionado:
 
-    qtd_passos = abs((posicao_atual - 4.40)); // Substitua o 4.40 para sua posição inicial
+  float qtd_passos = abs((posicao_atual - 4.40)); // Substitua o 4.40 para sua posição inicial
 
     Serial.println("\n BOTÃO DE INÍCIO PRESSIONADO!!! \n");
 
