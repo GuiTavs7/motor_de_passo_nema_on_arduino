@@ -439,6 +439,8 @@ void loop() {
           }
 
           posicao_atual = medida_lida + 0.10; // Posição atual recebe mais 10cm (trabalhamos em metros)
+
+          digitalWrite(pino_rele_garra, LOW); // PINO DO RELÉ LOW = GARRA SOBE! (NÃO SE MOVIMENTA NO CICLO DE LARGURAS!)
       
         }    // FIM DO IF
     
@@ -462,8 +464,6 @@ void loop() {
         if (digitalRead(botao_altura) == LOW) { 
 
           digitalWrite(pino_rele, LOW); // PINO DO RELÉ LOW = PRENSA SOBE!
-
-          digitalWrite(pino_rele_garra, LOW); // PINO DO RELÉ GARRA LOW = GARRA SOBE!
 
           delay(500); //PEQUENO ATRASO PARA NÃO MOVIMENTAR PRENSA E MOTOR SIMULTANEAMENTE
 
@@ -502,8 +502,6 @@ void loop() {
               delay(1000); // ATRASO PARA NÃO DESCER A PRENSA ANTES DE TERMINAR O MOVIMENTO DO MOTOR
 
               digitalWrite(pino_rele, HIGH); // PINO DO RELÉ HIGH = PRENSA DESCE!
-
-              digitalWrite(pino_rele_garra, HIGH); // PINO DO RELÉ GARRA HIGH = GARRA DESCE!
           
             } // FIM DO IF
         
