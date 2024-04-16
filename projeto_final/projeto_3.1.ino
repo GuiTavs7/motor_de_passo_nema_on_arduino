@@ -318,6 +318,8 @@ void inicio(float &posicao_atual){   //"&" torna a variável posição_atual int
      
     }
 
+    delay(500); // ATRASO PARA NÃO DESCER A GARRA RAPIDAMENTE
+
     digitalWrite(pino_rele_garra, HIGH); // PINO DO RELÉ GARRA HIGH = GARRA DESCE!
 
     float posicao_inicial = 4.40;
