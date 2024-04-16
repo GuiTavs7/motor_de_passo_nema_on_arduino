@@ -17,7 +17,7 @@ const int botao_inicio = 3;         // CONFIGURA O PINO DO BOTÃO DE INÍCIO
 const int botao_fim_de_curso = 2;   // CONFIGURA O PINO DO BOTÃO DE FIM DE CURSO
 const int botao_parada_total = 4;   // CONFIGURA O PINO DO BOTÃO DE PARADA TOTAL
 const int botao_afasta_motor = 6;   // CONFIGURA O PINO DO BOTÃO QUE AFASTA MOTOR
-const int botao_altura = 5;         // CONFIGURA O PINO DO BOTÃO DE ALTURA
+const int botao_largura = 5;         // CONFIGURA O PINO DO BOTÃO DE ALTURA
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -52,7 +52,7 @@ void setup() {
   pinMode(botao_fim_de_curso, INPUT_PULLUP);   // DEFINE O BOTÃO FIM DE CURSO COMO ENTRADA E COM RESISTOR INTERNO
   pinMode(botao_parada_total, INPUT_PULLUP);   // DEFINE O BOTÃO PARADA TOTAL COMO ENTRADA E COM RESISTOR INTERNO
   pinMode(botao_afasta_motor, INPUT_PULLUP);   // DEFINE O BOTÃO AFASTA MOTOR COMO ENTRADA E COM RESISTOR INTERNO
-  pinMode(botao_altura, INPUT_PULLUP);         // DEFINE O BOTÃO DE ALTURA COMO ENTRADA E COM RESISTOR INTERNO
+  pinMode(botao_largura, INPUT_PULLUP);         // DEFINE O BOTÃO DE ALTURA COMO ENTRADA E COM RESISTOR INTERNO
 
   Serial.begin(9600);                        // INICIALIZA A COMUNICAÇÃO SERIAL COM UMA TAXA DE 9600 BAUD
 
@@ -346,29 +346,29 @@ void loop() {
 
   // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  // !!! PRIMEIRA VERIFICAÇÃO DE PARADA TOTAL - ANTES DA MEDIDA DE LARGURA
+  // !!! PRIMEIRA VERIFICAÇÃO DE PARADA TOTAL 
 
   parada_total(); 
 
   // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  // 10.2) ESPERA ATÉ APERTAR O BOTÃO DE AFASTAR MOTOR, OU BIPAR PEÇA
+  // 10.2) ESPERA ATÉ APERTAR O BOTÃO DE INÍCIO, BOTÃO DE AFASTAMENTO, OU BIPAR CÓDIGO DE BARRAS
 
-  Serial.println("\n BIPE O CÓDIGO DE BARRAS OU APERTE O BOTÃO DE AFASTAR O MOTOR! ");
+  Serial.println("\n APERTE O BOTÃO DE POSICÃO INICIAL, AFASTAMENTO OU BIPE UM CÓDIGO DE BARRAS! ");
 
   while ((Serial.available() == 0) && digitalRead(botao_afasta_motor) == HIGH && digitalRead(botao_inicio) == HIGH){
 
   }
 
+  // 10.3) 1º CASO - BOTÃO DE INÍCIO PRESSIONADO - VAI PARA POSIÇÃO INICIAL - 1.45 (PREPARADO PARA PEGAR TECIDO)
+
   if (digitalRead(botao_inicio) == LOW) {
       
-      inicio(posicao_atual); // CHAMA A FUNÇÃO DE INÍCIO - MOTOR VAI PARA 1.45 (PREPARADO PARA PEGAR TECIDO)
+      inicio(posicao_atual); // CHAMA A FUNÇÃO DE INÍCIO 
 
   }
-  
-  // LOOP INTERROMPIDO - BOTÃO AFASTAR MOTOR APERTADO OU ETIQUETA BIPADA
 
-  // 10.3) 1º CASO - BOTÃO DE AFASTAR O MOTOR APERTADO
+  // 10.4) 2º CASO - BOTÃO DE AFASTAR O MOTOR APERTADO
   
   if (digitalRead(botao_afasta_motor) == LOW) {
       
@@ -378,7 +378,7 @@ void loop() {
 
   }
     
-  // 10.4) 2º CASO - ETIQUETA BIPADA
+  // 10.5) 3º CASO - ETIQUETA BIPADA
   
   if (Serial.available() > 0) { // Caso dados sejam recebidos na porta serial:
 
@@ -393,6 +393,8 @@ void loop() {
       parada_total();
 
       if (codigos[i] == codigo) { // Verifica se o código de barras digitado ou bipado corresponde à alguns dos códigos no vetor códigos[]
+
+        // 10.6) CICLO DAS ALTURAS - GARRA PEGA TECIDO 
 
         digitalWrite(pino_rele_medida, LOW); // PINO DO RELÉ LOW = PRENSA SOBE!
 
@@ -448,13 +450,11 @@ void loop() {
 
     // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    // 10.5) SEGUNDO CICLO - ALTURAS - SÓ PROSSEGUE SE O BOTÃO PARA LER A MEDIDA DA ALTURA FOR PRESSIONADO
+    // 10.7) SEGUNDO CICLO - LARGURA - SÓ PROSSEGUE SE O BOTÃO PARA LER A MEDIDA DA LARGURA FOR PRESSIONADO
 
     while(segundo_ciclo == 0){
 
-      // O programa só continua se o botão for pressionado
-
-      if (digitalRead(botao_altura) == LOW) { 
+      if (digitalRead(botao_largura) == LOW) { 
 
         digitalWrite(pino_rele_medida, LOW); // PINO DO RELÉ LOW = PRENSA SOBE!
 
