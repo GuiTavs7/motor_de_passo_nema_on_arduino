@@ -17,7 +17,7 @@ const int botao_inicio = 3;         // CONFIGURA O PINO DO BOTÃO DE INÍCIO
 const int botao_fim_de_curso = 2;   // CONFIGURA O PINO DO BOTÃO DE FIM DE CURSO
 const int botao_parada_total = 4;   // CONFIGURA O PINO DO BOTÃO DE PARADA TOTAL
 const int botao_afasta_motor = 6;   // CONFIGURA O PINO DO BOTÃO QUE AFASTA MOTOR
-const int botao_largura = 5;         // CONFIGURA O PINO DO BOTÃO DE ALTURA
+const int botao_largura = 5;        // CONFIGURA O PINO DO BOTÃO DE ALTURA
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
