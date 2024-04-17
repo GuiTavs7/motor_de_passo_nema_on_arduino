@@ -171,9 +171,7 @@ void sentido_rotacao(float posicao_atual, float medida_lida) {   // Função rec
   
 } // FIM DA FUNÇÃO DE ESCOLHER SENTIDO 
 
-// -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-// -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 // 7) FUNÇÃO DE MOVIMENTO - MOVIMENTA O MOTOR 1 CICLO (1 CICLO = 800 PULSOS = 175,98mm = 17,598cm) -> (4545.971133083305 Pulsos = 1000mm = 1m) - USANDO TODAS CASAS DECIMAIS PARA AUMENTAR A PRECISÃO
 
@@ -340,7 +338,7 @@ void loop() {
 
   // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  parada_total(); // chama a parada total - verificacao importante por conta de variaveis de memoria sem zerar!              -
+  parada_total(); // VERIFICAÇÃO IMPORTANTE PARA GARANTIR A CALIBRAÇÃO DE SEGURANÇA NO AFASTAMENTO COM "POSICAO_ATUAL > 4.80    
 
   // 10.2) ESPERA ATÉ APERTAR O BOTÃO DE INÍCIO, BOTÃO DE AFASTAMENTO, OU BIPAR CÓDIGO DE BARRAS
 
