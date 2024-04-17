@@ -22,7 +22,7 @@ def open_arduino_ide_with_serial_monitor():
         arduino_process = subprocess.Popen(['arduino'])
         
         # Aguarda um momento para o Arduino IDE abrir completamente
-        time.sleep(40)
+        time.sleep(45)
         
         # Envia os atalhos de teclado para abrir o Serial Monitor
         keyboard = Controller()
