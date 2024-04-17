@@ -1,7 +1,7 @@
 // PROJETO: PERSOL INC
 // AUTOR: GUILHERME TAVARES PINHEIRO
-// DATA: 16/04/2024
-// OBJETIVO: AUTOMAÇÃO DA MESA DE CORTE DE TECIDO - MOVIMENTAR MOTOR DE PASSO NEMA - LARGURA
+// DATA: 17/04/2024
+// OBJETIVO: AUTOMAÇÃO DA MESA DE CORTE DE TECIDO - MOVIMENTAR MOTOR DE PASSO NEMA - ALTURAS E LARGURAS
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -23,17 +23,17 @@ const int botao_largura = 5;        // CONFIGURA O PINO DO BOTÃO DE ALTURA
 
 // 2) CRIAÇÃO DAS VARIÁVEIS - VETORES E ITERÁVEIS
 
-long codigos[] = {15832775,15832738,15832701,15832667,15832630,15832593,15832559};    // Vetor de códigos de barras
-float larguras[] = {4.5, 4.2, 4.3, 4.2, 4.1, 4.7, 4.75};                              // Vetor de larguras correspondentes às peças conforme os códigos de barras (em metros)
-float alturas[] = {4.0, 4.3, 4.3, 4.3, 4.4, 4.5, 4.65};                               // Vetor de alturas correspondentes às peças conforme os códigos de barras (em metros)
+long codigos[] = {15832775,15832738,15832701,15832667,15832630,15832593,15832559};    // VETOR DE CÓDIGO DE BARRAS
+float larguras[] = {4.5, 4.2, 4.3, 4.2, 4.1, 4.7, 4.75};                              // VETOR DE LARGURAS DAS PEÇAS (EM METROS)
+float alturas[] = {4.0, 4.3, 4.3, 4.3, 4.4, 4.5, 4.65};                               // VETOR DAS ALTURAS DAS PEÇAS (EM METROS)
 
-int num_pedidos = 7;                                      // Número de pedidos (etiquetas) - altere conforme necessário                                                        
-int segundo_ciclo = 0;                                    // Inicializa segundo ciclo com 0
-int contador = 0;                                         // Inicializa contador com 0
-int estado_botao_parada_total = HIGH;                     // Estado do botão de parada total
+int num_pedidos = 7;                                      // NÚMERO DE PEDIDOS / ETIQUETAS (ALTERE CONFORME NECESSÁRIO)                                                 
+int segundo_ciclo = 0;                                    // CONTADOR DO SEGUNDO CICLO (INICIALIZA COM 0)
+int contador = 0;                                         // CONTADOR PARA CALIBRAÇÃO DO MOTOR (INICIALIZA COM 0)
+int estado_botao_parada_total = HIGH;                     // ESTADO DO BOTÃO DE PARADA TOTAL - INICIALIZA COM HIGH (NÃO PRESSIONADO)
 
-float posicao_atual;                                      // Variável para armazenar a posição atual do motor                       
-float medida_lida;                                        // Variável para armazenar a posição de destino 
+float posicao_atual;                                      // VARIÁVEL PARA ARMAZENAR POSIÇÃO ATUAL DO MOTOR                     
+float medida_lida;                                        // VARIÁVEL PARA ARMAZENAR POSIÇÃO DE DESTINO DO MOTOR
                                
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -54,7 +54,7 @@ void setup() {
   pinMode(botao_afasta_motor, INPUT_PULLUP);   // DEFINE O BOTÃO AFASTA MOTOR COMO ENTRADA E COM RESISTOR INTERNO
   pinMode(botao_largura, INPUT_PULLUP);        // DEFINE O BOTÃO DE ALTURA COMO ENTRADA E COM RESISTOR INTERNO
   
-  Serial.begin(9600);  
+  Serial.begin(9600);                          // INICIALIZA COMUNICAÇÃO SERIAL COM UMA TAXA DE 9600 BAUD RATE
 
 } // FIM DA FUNÇÃO SETUP
 
@@ -76,13 +76,13 @@ void calibra_motor(){
 
     digitalWrite(pino_direcao, LOW); // Atribui LOW ao pino de direção -> LOW = ANTI-HORÁRIO - Sentido de calibração
     delayMicroseconds(1000); //Atraso de 1 segundo
-    Serial.println("\n CALIBRANDO O MOTOR ATÉ POSIÇÃO INICIAL \n"); // Mensagem inicial de calibração do motor
+    Serial.println("\n CALIBRANDO O MOTOR! \n"); // Mensagem inicial de calibração do motor
 
     for(int x = 0; x < 24000; x++){ // Loop For para girar o motor no sentido de calibração - 24000 = 30 Voltas em torno de si ~= 17,5cm * 30 = 5.25m - Calibra em qualquer posição da mesa
 
       while (estado_botao_parada_total == HIGH){ // Permanece calibrando até que o botão de parada total seja acionado
 
-        parada_total(); // Chama a função parada total
+        parada_total(); // Chama a função parada total 
 
         digitalWrite(pino_pulso, HIGH); // PINO DE PULSO INICIA
         delayMicroseconds(1100); // VELOCIDADE DE CALIBRAÇÃO
@@ -90,7 +90,7 @@ void calibra_motor(){
 
         int estado_botao_fim_de_curso = digitalRead(botao_fim_de_curso); // Lê o estado do botão de fim de curso
 
-        if (estado_botao_fim_de_curso == LOW){ // Reduz a velocidade de calibração se o botão de fim de curso for pressionado!
+        if (estado_botao_fim_de_curso == LOW){ // Reduz a velocidade de calibração quando o botão de fim de curso for pressionado!
  
           Serial.println("BOTÃO FIM DE CURSO PRESSIONADO - VELOCIDADE REDUZIDA!!!");
 
@@ -290,7 +290,7 @@ void inicio(float &posicao_atual){   //"&" torna a variável posição_atual int
 
   if(estado_botao_inicio == LOW){ // Se o botão de início for pressionado:
 
-    float medida_lida = 4.40; // Troque para a medida que deseja ser a posição inicial 
+    float medida_lida = 4.40; // Troque para a medida que deseja ser a posição inicial - futuramente 1.45
 
     Serial.println("\n BOTÃO DE INÍCIO PRESSIONADO!!! \n");
 
