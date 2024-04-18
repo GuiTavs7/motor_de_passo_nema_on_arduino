@@ -46,7 +46,8 @@ void setup() {
   pinMode(pino_direcao, OUTPUT);             // DEFINE PINO DIRECAO COMO SAÍDA
   pinMode(enable_pin, OUTPUT);               // DEFINE PINO ENABLE COMO SAÍDA
   pinMode(pino_rele_medida, OUTPUT);         // DEFINE PINO DO RELÉ COMO SAÍDA
-  pinMode(pino_rele_garra, OUTPUT);          // DEFINE PINO DO RELÉ GARRA COMO SAÍDA
+  pinMode(pino_rele_garra_1, OUTPUT);        // DEFINE PINO DO RELÉ GARRA COMO SAÍDA
+   pinMode(pino_rele_garra_2, OUTPUT);       // DEFINE PINO DO RELÉ GARRA COMO SAÍDA
 
 
   pinMode(botao_inicio, INPUT_PULLUP);         // DEFINE O BOTÃO DE INÍCIO COMO ENTRADA E COM RESISTOR INTERNO
@@ -69,9 +70,9 @@ void calibra_motor(){
 
     delay(100); //PEQUENO ATRASO PARA NÃO MOVIMENTAR PRENSA E MOTOR SIMULTANEAMENTE
 
-    digitalWrite(pino_rele_medida, LOW); // LOW = PRENSA SOBE!
+    digitalWrite(pino_rele_medida, LOW);  // LOW = PRENSA SOBE!
 
-    digitalWrite(pino_rele_garra, LOW); // LOW = GARRA SOBE!
+    digitalWrite(pino_rele_garra_1, LOW); // LOW = GARRA SOBE!
 
     delay(100); //PEQUENO ATRASO PARA NÃO MOVIMENTAR PRENSA E MOTOR SIMULTANEAMENTE
 
@@ -247,7 +248,7 @@ void afasta_motor(float &posicao_atual){   //"&" torna a variável posição_atu
 
   digitalWrite(pino_rele_medida, LOW);   // LOW = PRENSA SOBE!
 
-  digitalWrite(pino_rele_garra, LOW);    // LOW = GARRA SOBE!
+  digitalWrite(pino_rele_garra_1, LOW);  // LOW = GARRA SOBE!
 
   delay(150);   // ATRASO PARA NÃO TRANCAR A MESA
 
@@ -305,7 +306,7 @@ void inicio(float &posicao_atual){   //"&" torna a variável posição_atual int
 
     delay(500); // ATRASO PARA NÃO DESCER A GARRA RAPIDAMENTE
 
-    digitalWrite(pino_rele_garra, HIGH); // HIGH = GARRA DESCE!
+    digitalWrite(pino_rele_garra_1, HIGH); // HIGH = GARRA DESCE!
 
     float posicao_inicial = 4.40;
 
@@ -381,7 +382,7 @@ void loop() {
 
         digitalWrite(pino_rele_medida, LOW); // LOW = PRENSA SOBE!
 
-        digitalWrite(pino_rele_garra, LOW);  // LOW = GARRA SOBE!
+        digitalWrite(pino_rele_garra_1, LOW);  // LOW = GARRA SOBE!
 
         delay(150); //PEQUENO ATRASO PARA NÃO MOVIMENTAR PRENSA E MOTOR SIMULTANEAMENTE
 
@@ -399,7 +400,7 @@ void loop() {
 
         delay(350); // ATRASO PARA NÃO DESCER A PRENSA ANTES DE TERMINAR O MOVIMENTO DO MOTOR
 
-        digitalWrite(pino_rele_garra, HIGH); // HIGH = GARRA DESCE!
+        digitalWrite(pino_rele_garra_1, HIGH); // HIGH = GARRA DESCE!
 
         delay(500);
 
@@ -419,7 +420,7 @@ void loop() {
 
         delay(100);
 
-        digitalWrite(pino_rele_garra, LOW); // PINO DO RELÉ LOW = GARRA SOBE! (NÃO SE MOVIMENTA NO CICLO DE LARGURAS!)
+        digitalWrite(pino_rele_garra_1, LOW); // PINO DO RELÉ LOW = GARRA SOBE! (NÃO SE MOVIMENTA NO CICLO DE LARGURAS!)
       
       }    // FIM DO IF
     
