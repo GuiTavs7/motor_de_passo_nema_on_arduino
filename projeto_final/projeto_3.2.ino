@@ -11,8 +11,8 @@ const int pino_pulso = 8;           // CONFIGURA O PINO DO PULSO / PASSO (PRECIS
 const int pino_direcao = 9;         // CONFIGURA O PINO DA DIREÇÃO (HORÁRIO / ANTI-HORÁRIO)
 const int enable_pin = 13;          // CONFIGURA O PINO ENA
 const int pino_rele_medida = 7;     // CONFIGURA O PINO DO RELE DA MEDIDA (CICLO DAS LARGURAS)
-const int pino_rele_garra_1 = 11;   // CONFIGURA O PINO DO RELE DA GARRA (CICLO DAS ALTURAS)
-const int pino_rele_garra_2 = 12;   // CONFIGURA O PINO DO RELE DA GARRA (CICLO DAS ALTURAS)
+const int pino_rele_garra_1 = 11;   // CONFIGURA O PINO DO RELE DA GARRA (CICLO DAS ALTURAS) - SOBE GARRA
+const int pino_rele_garra_2 = 12;   // CONFIGURA O PINO DO RELE DA GARRA (CICLO DAS ALTURAS) - DESCE GARRA
 
 const int botao_inicio = 3;         // CONFIGURA O PINO DO BOTÃO DE INÍCIO
 const int botao_fim_de_curso = 2;   // CONFIGURA O PINO DO BOTÃO DE FIM DE CURSO
@@ -46,8 +46,8 @@ void setup() {
   pinMode(pino_direcao, OUTPUT);             // DEFINE PINO DIRECAO COMO SAÍDA
   pinMode(enable_pin, OUTPUT);               // DEFINE PINO ENABLE COMO SAÍDA
   pinMode(pino_rele_medida, OUTPUT);         // DEFINE PINO DO RELÉ COMO SAÍDA
-  pinMode(pino_rele_garra_1, OUTPUT);        // DEFINE PINO DO RELÉ GARRA COMO SAÍDA
-   pinMode(pino_rele_garra_2, OUTPUT);       // DEFINE PINO DO RELÉ GARRA COMO SAÍDA
+  pinMode(pino_rele_garra_1, OUTPUT);        // DEFINE PINO DO RELÉ SOBE GARRA COMO SAÍDA
+  pinMode(pino_rele_garra_2, OUTPUT);        // DEFINE PINO DO RELÉ DESCE GARRA COMO SAÍDA
 
 
   pinMode(botao_inicio, INPUT_PULLUP);         // DEFINE O BOTÃO DE INÍCIO COMO ENTRADA E COM RESISTOR INTERNO
@@ -72,7 +72,9 @@ void calibra_motor(){
 
     digitalWrite(pino_rele_medida, LOW);  // LOW = PRENSA SOBE!
 
-    digitalWrite(pino_rele_garra_1, LOW); // LOW = GARRA SOBE!
+    digitalWrite(pino_rele_garra_1, LOW);   // 1 LOW && 2 HIGH = GARRA SOBE!
+
+    digitalWrite(pino_rele_garra_2, HIGH);  // 1 LOW && 2 HIGH = GARRA SOBE!
 
     delay(100); //PEQUENO ATRASO PARA NÃO MOVIMENTAR PRENSA E MOTOR SIMULTANEAMENTE
 
@@ -248,9 +250,11 @@ void afasta_motor(float &posicao_atual){   //"&" torna a variável posição_atu
 
   digitalWrite(pino_rele_medida, LOW);   // LOW = PRENSA SOBE!
 
-  digitalWrite(pino_rele_garra_1, LOW);  // LOW = GARRA SOBE!
+  digitalWrite(pino_rele_garra_1, LOW);   // 1 LOW && 2 HIGH = GARRA SOBE!
 
-  delay(150);   // ATRASO PARA NÃO TRANCAR A MESA
+  digitalWrite(pino_rele_garra_2, HIGH);  // 1 LOW && 2 HIGH = GARRA SOBE!
+
+  delay(200);   // ATRASO PARA NÃO TRANCAR A MESA
 
   int estado_botao_afasta_motor = digitalRead(botao_afasta_motor); // Lê o estado do botao_afasta_motor
 
@@ -306,7 +310,9 @@ void inicio(float &posicao_atual){   //"&" torna a variável posição_atual int
 
     delay(500); // ATRASO PARA NÃO DESCER A GARRA RAPIDAMENTE
 
-    digitalWrite(pino_rele_garra_1, HIGH); // HIGH = GARRA DESCE!
+    digitalWrite(pino_rele_garra_1, HIGH); // 1 HIGH && 2 LOW = GARRA DESCE! (TOTALMENTE PARA AGUARDAR TECIDO SER DESENROLADO) 
+
+    digitalWrite(pino_rele_garra_2, LOW);  // 1 HIGH && 2 LOW = GARRA DESCE! (TOTALMENTE PARA AGUARDAR TECIDO SER DESENROLADO)
 
     float posicao_inicial = 4.40;
 
@@ -380,11 +386,13 @@ void loop() {
 
         // 10.6) CICLO DAS ALTURAS - GARRA PEGA TECIDO 
 
-        digitalWrite(pino_rele_medida, LOW); // LOW = PRENSA SOBE!
+        digitalWrite(pino_rele_medida, LOW);    // LOW = PRENSA SOBE!
 
-        digitalWrite(pino_rele_garra_1, LOW);  // LOW = GARRA SOBE!
+        digitalWrite(pino_rele_garra_1, LOW);   // 1 LOW && 2 HIGH = GARRA SOBE!
 
-        delay(150); //PEQUENO ATRASO PARA NÃO MOVIMENTAR PRENSA E MOTOR SIMULTANEAMENTE
+        digitalWrite(pino_rele_garra_2, HIGH);  // 1 LOW && 2 HIGH = GARRA SOBE!
+
+        delay(200); //PEQUENO ATRASO PARA NÃO MOVIMENTAR PRENSA E MOTOR SIMULTANEAMENTE
 
         medida_lida = alturas[i]; // Aqui vamos armazenar o valor correspondente a altura do respectivo índice
 
@@ -400,9 +408,17 @@ void loop() {
 
         delay(350); // ATRASO PARA NÃO DESCER A PRENSA ANTES DE TERMINAR O MOVIMENTO DO MOTOR
 
-        digitalWrite(pino_rele_garra_1, HIGH); // HIGH = GARRA DESCE!
+        digitalWrite(pino_rele_garra_1, HIGH); // 1 HIGH && 2 LOW = GARRA DESCE! 
 
-        delay(500);
+        digitalWrite(pino_rele_garra_2, LOW);  // 1 HIGH && 2 LOW = GARRA DESCE! 
+
+        delay(500); // AGUARDA MEIO SEGUNDO PARA O CURSO DO PISTÃO DESCER APENAS ATÉ A METADE
+
+        digitalWrite(pino_rele_garra_1, LOW);  // 1 LOW && 2 LOW = SEM AR - PARA O PISTÃO
+
+        digitalWrite(pino_rele_garra_2, LOW);  // 1 LOW && 2 LOW = SEM AR - PARA O PISTÃO
+
+        delay(200);
 
         digitalWrite(pino_direcao, LOW);
         delayMicroseconds(1000);
@@ -420,7 +436,9 @@ void loop() {
 
         delay(100);
 
-        digitalWrite(pino_rele_garra_1, LOW); // PINO DO RELÉ LOW = GARRA SOBE! (NÃO SE MOVIMENTA NO CICLO DE LARGURAS!)
+        digitalWrite(pino_rele_garra_1, LOW);   // 1 LOW && 2 HIGH = GARRA SOBE! (NÃO SE MOVIMENTA NO CICLO DE LARGURAS!)
+
+        digitalWrite(pino_rele_garra_2, HIGH);  // 1 LOW && 2 HIGH = GARRA SOBE! (NÃO SE MOVIMENTA NO CICLO DE LARGURAS!)
       
       }    // FIM DO IF
     
