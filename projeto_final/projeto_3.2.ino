@@ -74,7 +74,7 @@ void calibra_motor(){
 
     digitalWrite(pino_rele_garra_1, LOW);   // 1 LOW & LOW  = GARRA SOBE!
 
-    digitalWrite(pino_rele_garra_2, LOW);  // 1 LOW && 2 LOW = GARRA SOBE!
+    digitalWrite(pino_rele_garra_2, LOW);   // 1 LOW && 2 LOW = GARRA SOBE!
 
     delay(100); //PEQUENO ATRASO PARA NÃO MOVIMENTAR PRENSA E MOTOR SIMULTANEAMENTE
 
@@ -250,9 +250,9 @@ void afasta_motor(float &posicao_atual){   //"&" torna a variável posição_atu
 
   digitalWrite(pino_rele_medida, LOW);   // LOW = PRENSA SOBE!
   
-  digitalWrite(pino_rele_garra_1, LOW);   // 1 LOW & LOW  = GARRA SOBE!
+  digitalWrite(pino_rele_garra_1, LOW);   // 1 LOW && 2 LOW  = GARRA SOBE!
 
-  digitalWrite(pino_rele_garra_2, LOW);   // 1 LOW && 2 LOW = GARRA SOBE!
+  digitalWrite(pino_rele_garra_2, LOW);    // 1 LOW && 2 LOW = GARRA SOBE!
 
   delay(200);   // ATRASO PARA NÃO TRANCAR A MESA
 
@@ -390,7 +390,7 @@ void loop() {
 
         digitalWrite(pino_rele_garra_1, LOW);   // 1 LOW && 2 LOW = GARRA SOBE!
 
-        digitalWrite(pino_rele_garra_2, LOW);  // 1 LOW && 2 LOW = GARRA SOBE!
+        digitalWrite(pino_rele_garra_2, LOW);   // 1 LOW && 2 LOW = GARRA SOBE!
 
         delay(200); //PEQUENO ATRASO PARA NÃO MOVIMENTAR PRENSA E MOTOR SIMULTANEAMENTE
 
@@ -412,7 +412,7 @@ void loop() {
 
         digitalWrite(pino_rele_garra_2, HIGH);  // 1 HIGH && 2 HIGH = GARRA DESCE! 
 
-        delay(70); // AGUARDA MEIO SEGUNDO PARA O CURSO DO PISTÃO DESCER APENAS ATÉ A METADE
+        delay(70); // ATRASO MUITO CURTO PARA O CURSO DO PISTÃO DESCER APENAS ATÉ A METADE!
 
         digitalWrite(pino_rele_garra_1, LOW);   // 1 LOW && 2 HIGH = SEM AR - PARA O PISTÃO
 
