@@ -72,7 +72,7 @@ void calibra_motor(){
 
     digitalWrite(pino_rele_medida, LOW);  // LOW = PRENSA SOBE!
 
-    digitalWrite(pino_rele_garra_1, LOW);   // 1 LOW & LOW  = GARRA SOBE!
+    digitalWrite(pino_rele_garra_1, LOW);   // 1 LOW && LOW  = GARRA SOBE!
 
     digitalWrite(pino_rele_garra_2, LOW);   // 1 LOW && 2 LOW = GARRA SOBE!
 
@@ -250,7 +250,7 @@ void afasta_motor(float &posicao_atual){   //"&" torna a variável posição_atu
 
   digitalWrite(pino_rele_medida, LOW);   // LOW = PRENSA SOBE!
   
-  digitalWrite(pino_rele_garra_1, LOW);   // 1 LOW && 2 LOW  = GARRA SOBE!
+  digitalWrite(pino_rele_garra_1, LOW);    // 1 LOW && 2 LOW  = GARRA SOBE!
 
   digitalWrite(pino_rele_garra_2, LOW);    // 1 LOW && 2 LOW = GARRA SOBE!
 
