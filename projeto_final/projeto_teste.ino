@@ -79,7 +79,7 @@ void calibra_motor(){
 
     digitalWrite(pino_rele_garra_2, LOW);  // 1 LOW && 2 LOW = GARRA SOBE!
 
-    delay(600); //PEQUENO ATRASO PARA NÃO MOVIMENTAR PRENSA E MOTOR SIMULTANEAMENTE
+    delay(600); 
 
     digitalWrite(pino_rele_garra_1, LOW);   // 1 LOW && 2 HIGH = SEM AR - PARA O PISTÃO
 
