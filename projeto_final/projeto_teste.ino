@@ -1,6 +1,6 @@
 // PROJETO: PERSOL INC
 // AUTOR: GUILHERME TAVARES PINHEIRO
-// DATA: 23/04/2024
+// DATA: 26/04/2024
 // OBJETIVO: AUTOMAÇÃO DA MESA DE CORTE DE TECIDO - MOVIMENTAR MOTOR DE PASSO NEMA - ALTURAS E LARGURAS
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -22,11 +22,11 @@ const int botao_largura = 5;        // CONFIGURA O PINO DO BOTÃO DE ALTURA
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// 2) CRIAÇÃO DAS VARIÁVEIS - VETORES E ITERÁVEIS
+// 2) CRIAÇÃO DAS VARIÁVEIS - VETORES E ITERÁVEIS - VETORES ALIMENTADOS COM OS 3 ÚLTIMOS PCP DAS PEÇAS ATUAIS
 
-long codigos[] = {15832775,15832738,15832701,15832667,15832630,15832593,15832559,15898277,15898316,15898358,15898359,15898395,15898431,15870164,15870199,15870233,15870277,15870320,15870354,15870388,15870432,15870475,15870509,15870544,15870579,15870614,15867382,15867426,15891631,15891854,15891900,15891946,15892038,15892085,15892131,15892177,15892269,15861880,15861881,15890026,15898470,15894447,15886812,15886843,15886875,15892315,15883157,15883205,15883252,15883295,15883338,15883386,15883433,15883476,15899022,15898984,15891109,15891146,15891183,15891220,15891257,15891294,15891341,15891387,15892390,15890101,15890138,15890350,15890385,15890420,15890454,15890488,15890524,15891433,15891466,15891499,15891532,15891565,15891598,15890799,15890832,15890965,15891002,15892500,15892535,15892801,15892839,15892877,15892915,15892953,15892987,15893021,15893593,15893641,15893719,15898836};    // VETOR DE CÓDIGO DE BARRAS
-float larguras[] = {1.19, 4.2, 4.3, 4.2, 4.1, 4.7, 4.75, 2.816, 3.098, 1.813, 1.813, 1.813, 1.749, 3.328, 3.218, 2.358, 2.158, 3.378, 3.258, 2.358, 2.158, 3.208, 3.653, 3.653, 3.348, 3.358, 1.908, 1.908, 1.823, 2.548, 2.548, 2.548, 1.668, 2.668, 2.668, 2.328, 1.668, 3.168, 3.168, 1.618, 1.536, 1.773, 3.138, 2.798, 2.458, 2.375, 2.673, 2.663, 3.188, 3.128, 2.748, 2.748, 3.258, 2.758, 2.235, 1.377, 1.868, 1.868, 1.868, 1.868, 1.868, 1.708, 1.408, 1.708, 2.679, 2.175, 2.175, 2.068, 2.068, 2.948, 2.898, 1.717, 1.717, 1.371, 1.371, 1.801, 1.871, 2.458, 2.458, 1.373, 1.373, 2.123, 2.168, 1.685, 1.685, 2.288, 2.288, 2.208, 2.208, 1.393, 1.393, 1.393, 2.173, 2.107, 2.368, 2.890};                              // VETOR DE LARGURAS DAS PEÇAS (EM METROS)
-float alturas[] = {4.81, 4.3, 4.3, 4.3, 4.4, 4.5, 4.65, 3.230, 4.940, 1.420, 1.420, 1.420, 1.320, 2.260, 2.260, 2.510, 2.510, 2.510, 2.510, 2.510, 2.510, 2.510, 2.580, 2.580, 2.260, 2.510, 4.660, 4.660, 2.810, 2.990, 2.990, 2.990, 2.990, 2.990, 2.990, 2.990, 2.990, 1.560, 1.560, 3.510, 1.650, 1.530, 1.610, 1.610, 1.610, 1.510, 2.020, 2.020, 1.860, 2.260, 2.490, 2.510, 2.260, 2.490, 2.080, 1.350, 3.170, 3.170, 3.170, 3.170, 3.170, 3.170, 3.170, 3.170, 2.510, 1.610, 1.610, 1.410, 1.410, 3.220, 3.220, 1.755, 1.755, 2.180, 2.180, 3.070, 3.070, 2.490, 2.490, 1.550, 1.605, 1.330, 1.855, 1.560, 1.498, 2.560, 2.560, 2.560, 2.560, 1.950, 1.950, 1.950, 1.580, 1.530, 1.360, 1.530 };                               // VETOR DAS ALTURAS DAS PEÇAS (EM METROS)
+long codigos[] = {15832775,15832738,15832701,15832667,15832630,15832593,15832559,15898277,15898316,15898358,15898359,15898395,15898431,15870164,15870199,15870233,15870277,15870320,15870354,15870388,15870432,15870475,15870509,15870544,15870579,15870614,15867382,15867426,15891631,15891854,15891900,15891946,15892038,15892085,15892131,15892177,15892269,15861880,15861881,15890026,15898470,15894447,15886812,15886843,15886875,15892315,15883157,15883205,15883252,15883295,15883338,15883386,15883433,15883476,15899022,15898984,15891109,15891146,15891183,15891220,15891257,15891294,15891341,15891387,15892390,15890101,15890138,15890350,15890385,15890420,15890454,15890488,15890524,15891433,15891466,15891499,15891532,15891565,15891598,15890799,15890832,15890965,15891002,15892500,15892535,15892801,15892839,15892877,15892915,15892953,15892987,15893021,15893593,15893641,15893719,15898836};  // VETOR DE CÓDIGO DE BARRAS
+float larguras[] = {1.19, 4.2, 4.3, 4.2, 4.1, 4.7, 4.75, 2.816, 3.098, 1.813, 1.813, 1.813, 1.749, 3.328, 3.218, 2.358, 2.158, 3.378, 3.258, 2.358, 2.158, 3.208, 3.653, 3.653, 3.348, 3.358, 1.908, 1.908, 1.823, 2.548, 2.548, 2.548, 1.668, 2.668, 2.668, 2.328, 1.668, 3.168, 3.168, 1.618, 1.536, 1.773, 3.138, 2.798, 2.458, 2.375, 2.673, 2.663, 3.188, 3.128, 2.748, 2.748, 3.258, 2.758, 2.235, 1.377, 1.868, 1.868, 1.868, 1.868, 1.868, 1.708, 1.408, 1.708, 2.679, 2.175, 2.175, 2.068, 2.068, 2.948, 2.898, 1.717, 1.717, 1.371, 1.371, 1.801, 1.871, 2.458, 2.458, 1.373, 1.373, 2.123, 2.168, 1.685, 1.685, 2.288, 2.288, 2.208, 2.208, 1.393, 1.393, 1.393, 2.173, 2.107, 2.368, 2.890};   // VETOR DE LARGURAS DAS PEÇAS (EM METROS)
+float alturas[] = {4.81, 4.3, 4.3, 4.3, 4.4, 4.5, 4.65, 3.230, 4.940, 1.420, 1.420, 1.420, 1.320, 2.260, 2.260, 2.510, 2.510, 2.510, 2.510, 2.510, 2.510, 2.510, 2.580, 2.580, 2.260, 2.510, 4.660, 4.660, 2.810, 2.990, 2.990, 2.990, 2.990, 2.990, 2.990, 2.990, 2.990, 1.560, 1.560, 3.510, 1.650, 1.530, 1.610, 1.610, 1.610, 1.510, 2.020, 2.020, 1.860, 2.260, 2.490, 2.510, 2.260, 2.490, 2.080, 1.350, 3.170, 3.170, 3.170, 3.170, 3.170, 3.170, 3.170, 3.170, 2.510, 1.610, 1.610, 1.410, 1.410, 3.220, 3.220, 1.755, 1.755, 2.180, 2.180, 3.070, 3.070, 2.490, 2.490, 1.550, 1.605, 1.330, 1.855, 1.560, 1.498, 2.560, 2.560, 2.560, 2.560, 1.950, 1.950, 1.950, 1.580, 1.530, 1.360, 1.530 };   // VETOR DAS ALTURAS DAS PEÇAS (EM METROS)
 
 int num_pedidos = 7;                                      // NÚMERO DE PEDIDOS / ETIQUETAS (ALTERE CONFORME NECESSÁRIO)                                                 
 int segundo_ciclo = 0;                                    // CONTADOR DO SEGUNDO CICLO (INICIALIZA COM 0)
@@ -75,15 +75,15 @@ void calibra_motor(){
 
     digitalWrite(pino_rele_medida, LOW);  // LOW = PRENSA SOBE!
 
-    digitalWrite(pino_rele_garra_1, LOW);   // 1 LOW & LOW  = GARRA SOBE!
+    digitalWrite(pino_rele_garra_1, LOW);  // 1 LOW && 2 LOW  = GARRA SOBE!
 
     digitalWrite(pino_rele_garra_2, LOW);  // 1 LOW && 2 LOW = GARRA SOBE!
 
-    delay(600); 
+    delay(600); // ATRASO PARA PERMITIR SUBIDA TOTAL DA GARRA
 
-    digitalWrite(pino_rele_garra_1, LOW);   // 1 LOW && 2 HIGH = SEM AR - PARA O PISTÃO
+    digitalWrite(pino_rele_garra_1, LOW);   // 1 LOW && 2 HIGH = SEM AR - PARA O PISTÃO - SOLENOIDE DESLIGADO PARA NÃO ESQUENTAR
 
-    digitalWrite(pino_rele_garra_2, HIGH);  // 1 LOW && 2 HIGH = SEM AR - PARA O PISTÃO
+    digitalWrite(pino_rele_garra_2, HIGH);  // 1 LOW && 2 HIGH = SEM AR - PARA O PISTÃO - SOLENOIDE DESLIGADO PARA NÃO ESQUENTAR
 
     digitalWrite(pino_direcao, LOW); // LOW = ANTI-HORÁRIO - SENTIDO DE CALIBRAÇÃO
     delayMicroseconds(1000);
@@ -261,11 +261,11 @@ void afasta_motor(float &posicao_atual){   //"&" torna a variável posição_atu
 
   digitalWrite(pino_rele_garra_2, LOW);   // 1 LOW && 2 LOW = GARRA SOBE!
 
-  delay(600);   // ATRASO PARA NÃO TRANCAR A MESA
+  delay(600);   // ATRASO PARA PERMITIR SUBIDA TOTAL DA GARRA
 
-  digitalWrite(pino_rele_garra_1, LOW);   // 1 LOW && 2 HIGH = SEM AR - PARA O PISTÃO
+  digitalWrite(pino_rele_garra_1, LOW);   // 1 LOW && 2 HIGH = SEM AR - PARA O PISTÃO - SOLENOIDE DESLIGADO PARA NÃO ESQUENTAR
 
-  digitalWrite(pino_rele_garra_2, HIGH);  // 1 LOW && 2 HIGH = SEM AR - PARA O PISTÃO
+  digitalWrite(pino_rele_garra_2, HIGH);  // 1 LOW && 2 HIGH = SEM AR - PARA O PISTÃO - SOLENOIDE DESLIGADO PARA NÃO ESQUENTAR
 
   int estado_botao_afasta_motor = digitalRead(botao_afasta_motor); // Lê o estado do botao_afasta_motor
 
@@ -325,11 +325,11 @@ void inicio(float &posicao_atual){   //"&" torna a variável posição_atual int
 
     digitalWrite(pino_rele_garra_2, HIGH);  // 1 HIGH && 2 HIGH  = GARRA DESCE! (TOTALMENTE PARA AGUARDAR TECIDO SER DESENROLADO)
 
-    delay(600);
+    delay(600); // ATRASO PARA PERMITIR SUBIDA TOTAL DA GARRA
 
-    digitalWrite(pino_rele_garra_1, LOW);   // 1 LOW && 2 HIGH = SEM AR - PARA O PISTÃO
+    digitalWrite(pino_rele_garra_1, LOW);   // 1 LOW && 2 HIGH = SEM AR - PARA O PISTÃO - SOLENOIDE DESLIGADO PARA NÃO ESQUENTAR
 
-    digitalWrite(pino_rele_garra_2, HIGH);  // 1 LOW && 2 HIGH = SEM AR - PARA O PISTÃO
+    digitalWrite(pino_rele_garra_2, HIGH);  // 1 LOW && 2 HIGH = SEM AR - PARA O PISTÃO - SOLENOIDE DESLIGADO PARA NÃO ESQUENTAR
 
     float posicao_inicial = 4.40;
 
@@ -409,11 +409,11 @@ void loop() {
 
         digitalWrite(pino_rele_garra_2, LOW);  // 1 LOW && 2 LOW = GARRA SOBE!
 
-        delay(600); //PEQUENO ATRASO PARA NÃO MOVIMENTAR PRENSA E MOTOR SIMULTANEAMENTE
+        delay(600); // ATRASO PARA PERMITIR SUBIDA TOTAL DA GARRA
 
-        digitalWrite(pino_rele_garra_1, LOW);   // 1 LOW && 2 HIGH = SEM AR - PARA O PISTÃO
+        digitalWrite(pino_rele_garra_1, LOW);   // 1 LOW && 2 HIGH = SEM AR - PARA O PISTÃO - SOLENOIDE DESLIGADO PARA NÃO ESQUENTAR
 
-        digitalWrite(pino_rele_garra_2, HIGH);  // 1 LOW && 2 HIGH = SEM AR - PARA O PISTÃO
+        digitalWrite(pino_rele_garra_2, HIGH);  // 1 LOW && 2 HIGH = SEM AR - PARA O PISTÃO - SOLENOIDE DESLIGADO PARA NÃO ESQUENTAR
 
         segundo_ciclo = 0; // REINICIA O ESTADO DO BOTÃO PARA 0 - IMPORTANTE PARA COMEÇAR O SEGUNDO LOOP (LARGURA)
 
@@ -435,11 +435,11 @@ void loop() {
 
           digitalWrite(pino_rele_garra_2, HIGH);  // 1 HIGH && 2 HIGH = GARRA DESCE! 
 
-          delay(140); // AGUARDA MEIO SEGUNDO PARA O CURSO DO PISTÃO DESCER APENAS ATÉ A METADE
+          delay(140); // ATRASO PARA PISTÃO DESCER APENAS O SUFICIENTE PARA LIBERAR O TECIDO DA GARRA
 
-          digitalWrite(pino_rele_garra_1, LOW);   // 1 LOW && 2 HIGH = SEM AR - PARA O PISTÃO
+          digitalWrite(pino_rele_garra_1, LOW);   // 1 LOW && 2 HIGH = SEM AR - PARA O PISTÃO - SOLENOIDE DESLIGADO PARA NÃO ESQUENTAR
 
-          digitalWrite(pino_rele_garra_2, HIGH);  // 1 LOW && 2 HIGH = SEM AR - PARA O PISTÃO
+          digitalWrite(pino_rele_garra_2, HIGH);  // 1 LOW && 2 HIGH = SEM AR - PARA O PISTÃO - SOLENOIDE DESLIGADO PARA NÃO ESQUENTAR
 
           delay(400);
 
@@ -462,12 +462,18 @@ void loop() {
           digitalWrite(pino_rele_garra_1, LOW);   // 1 LOW && 2 LOW = GARRA SOBE! (NÃO SE MOVIMENTA NO CICLO DE LARGURAS!)
 
           digitalWrite(pino_rele_garra_2, LOW);   // 1 LOW && 2 LOW = GARRA SOBE! (NÃO SE MOVIMENTA NO CICLO DE LARGURAS!)
-      
+
+          delay(600); // ATRASO PARA PERMITIR SUBIDA TOTAL DA GARRA
+
+          digitalWrite(pino_rele_garra_1, LOW);   // 1 LOW && 2 HIGH = SEM AR - PARA O PISTÃO - SOLENOIDE DESLIGADO PARA NÃO ESQUENTAR
+
+          digitalWrite(pino_rele_garra_2, HIGH);  // 1 LOW && 2 HIGH = SEM AR - PARA O PISTÃO - SOLENOIDE DESLIGADO PARA NÃO ESQUENTAR
+          
         } // FIM DO IF
         
-      }
+      } // FIM DO IF CODIGOS
     
-    } // FIM DO LOOP FOR QUE ITERA ATÉ O NÚMERO DE  PEDIDOS (CÓDIGOS DE BARRAS)
+    } // FIM DO LOOP FOR QUE ITERA ATÉ O NÚMERO DE PEDIDOS (CÓDIGOS DE BARRAS)
 
     // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
