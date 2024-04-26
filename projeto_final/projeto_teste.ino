@@ -129,7 +129,7 @@ void calibra_motor(){
       delayMicroseconds(2000); 
       digitalWrite(pino_pulso,LOW); // PINO DE PULSO ENCERRA
 
-    } // FIM DO For
+    } // FIM DO FOR
 
     posicao_atual = 4.727; // POSIÇÃO ATUAL RECEBE A POSIÇÃO APÓS CALIBRAÇÃO! (MUITO IMPORTANTE!!!) 
 
