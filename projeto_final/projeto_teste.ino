@@ -315,6 +315,8 @@ void inicio(float &posicao_atual){   //"&" torna a variável posição_atual int
 
     digitalWrite(pino_rele_medida, LOW);   // LOW = PRENSA SOBE!
 
+    delay(400);
+
     sentido_rotacao(posicao_atual, medida_lida); // Define o sentido de giro de acordo com os parâmetros atuais
 
     gira_motor(pino_pulso, posicao_atual, medida_lida); // Define a velocidade e quantidade de voltas do motor de acordo com os parâmetros atuais
