@@ -473,6 +473,10 @@ void loop() {
           
         } // FIM DO IF
         
+        else{
+          Serial.println("MEDIDA FORA DOS PADROES ESPECIFICADOS!");
+        }
+          
       } // FIM DO IF CODIGOS
     
     } // FIM DO LOOP FOR QUE ITERA ATÉ O NÚMERO DE PEDIDOS (CÓDIGOS DE BARRAS)
@@ -513,6 +517,10 @@ void loop() {
 
               digitalWrite(pino_rele_medida, HIGH); // PINO DO RELÉ HIGH = PRENSA DESCE!
 
+            }
+            
+            else{
+              Serial.println("MEDIDA FORA DOS PADROES ESPECIFICADOS!");
             }
           
           } // FIM DO IF
