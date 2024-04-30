@@ -421,9 +421,9 @@ void loop() {
 
         medida_lida = alturas[i]; // Aqui vamos armazenar o valor correspondente a altura do respectivo índice
 
-        if((medida_lida > medida_minima) && (medida_lida < medida_maxima)){
+        Serial.println(alturas[i]); // Printa na tela a medida encontrada de altura no vetor
 
-          Serial.println(alturas[i]); // Printa na tela a medida encontrada de altura no vetor
+        if((medida_lida > medida_minima) && (medida_lida < medida_maxima)){
 
           sentido_rotacao(posicao_atual, medida_lida); // Define o sentido de rotação do motor de acordo com os parâmetros da medida 
         
