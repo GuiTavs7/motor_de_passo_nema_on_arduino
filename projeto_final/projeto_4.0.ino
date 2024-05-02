@@ -36,7 +36,7 @@ int estado_botao_parada_total = HIGH;                     // ESTADO DO BOTÃO DE
 float posicao_atual;                                      // VARIÁVEL PARA ARMAZENAR POSIÇÃO ATUAL DO MOTOR                     
 float medida_lida;                                        // VARIÁVEL PARA ARMAZENAR POSIÇÃO DE DESTINO DO MOTOR
 
-float medida_minima = 1.30;
+float medida_minima = 0.50;
 float medida_maxima = 4.80;
                                
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -309,7 +309,7 @@ void inicio(float &posicao_atual){   //"&" torna a variável posição_atual int
 
   if(estado_botao_inicio == LOW){ // Se o botão de início for pressionado:
 
-    float medida_lida = 4.40; // Troque para a medida que deseja ser a posição inicial - futuramente 1.45
+    float medida_lida = 1.50; // Troque para a medida que deseja ser a posição inicial - futuramente 1.45
 
     Serial.println("\n BOTÃO DE INÍCIO PRESSIONADO!!! \n");
 
@@ -333,9 +333,9 @@ void inicio(float &posicao_atual){   //"&" torna a variável posição_atual int
 
     digitalWrite(pino_rele_garra_2, HIGH);  // 1 LOW && 2 HIGH = SEM AR - PARA O PISTÃO - SOLENOIDE DESLIGADO PARA NÃO ESQUENTAR
 
-    float posicao_inicial = 4.40;
+    float posicao_inicial = 1.50;
 
-    posicao_atual = posicao_inicial;  // 4.40
+    posicao_atual = posicao_inicial;  // 1.50
 
   }
   
