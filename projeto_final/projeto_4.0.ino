@@ -309,7 +309,7 @@ void inicio(float &posicao_atual){   //"&" torna a variável posição_atual int
 
   if(estado_botao_inicio == LOW){ // Se o botão de início for pressionado:
 
-    float medida_lida = 1.50; // Troque para a medida que deseja ser a posição inicial - futuramente 1.45
+    float medida_lida = 1.45; // Troque para a medida que deseja ser a posição inicial - futuramente 1.45
 
     Serial.println("\n BOTÃO DE INÍCIO PRESSIONADO!!! \n");
 
@@ -333,9 +333,9 @@ void inicio(float &posicao_atual){   //"&" torna a variável posição_atual int
 
     digitalWrite(pino_rele_garra_2, HIGH);  // 1 LOW && 2 HIGH = SEM AR - PARA O PISTÃO - SOLENOIDE DESLIGADO PARA NÃO ESQUENTAR
 
-    float posicao_inicial = 1.50;
+    float posicao_inicial = 1.45;
 
-    posicao_atual = posicao_inicial;  // 1.50
+    posicao_atual = posicao_inicial;  // 1.45
 
   }
   
